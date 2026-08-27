@@ -16,6 +16,12 @@ if [ "$LANGUAGE" = "vi" ]; then
   LANG_DIRECTIVE="Default communication language: Vietnamese. Code identifiers/paths: always English."
 fi
 
+# Backup existing .cursorrules if it is a regular file
+if [ -f "$TARGET_DIR/.cursorrules" ] && [ ! -L "$TARGET_DIR/.cursorrules" ]; then
+  cp "$TARGET_DIR/.cursorrules" "$TARGET_DIR/.cursorrules.bak"
+  echo "  - Backed up existing .cursorrules to .cursorrules.bak"
+fi
+
 # 1. Generate consolidated .cursorrules
 cat << HEADER_EOF > "$TARGET_DIR/.cursorrules"
 # Cursor & Multi-Model Master Rules (Universal DevKit)
@@ -37,7 +43,7 @@ if [ -d "$DEVKIT_ROOT/domains/$DOMAIN/rulebook" ]; then
   done
 fi
 
-# 2. Generate Modern Cursor Rules (.cursor/rules/*.mdc)
+# 2. Generate Modern Cursor Rules (.cursor/rules/*.mdc) — Existing custom .mdc files remain untouched
 cat << MDC_EOF > "$TARGET_DIR/.cursor/rules/core-protocol.mdc"
 ---
 description: Universal Quality Protocol, Pre-Code Gate, Zero-Defect, and Verification Rules
@@ -71,4 +77,4 @@ DOMAIN_MDC_EOF
   done
 fi
 
-echo "✓ Cursor IDE (.cursorrules & .cursor/rules/*.mdc) ready."
+echo "✓ Cursor IDE (.cursorrules & .cursor/rules/*.mdc) ready (Custom .mdc rules preserved)."
