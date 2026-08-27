@@ -16,8 +16,9 @@ for md_file in "CLAUDE.md" "AGENTS.md"; do
     cp "$TARGET_DIR/$md_file" "$TARGET_DIR/${md_file}.bak"
     echo "  - Backed up existing $md_file to ${md_file}.bak"
   fi
+  rm -f "$TARGET_DIR/$md_file"
   if [ "$MODE" = "symlink" ]; then
-    ln -sf "$DEVKIT_ROOT/core/$md_file" "$TARGET_DIR/$md_file"
+    ln -sfn "$DEVKIT_ROOT/core/$md_file" "$TARGET_DIR/$md_file"
   else
     cp "$DEVKIT_ROOT/core/$md_file" "$TARGET_DIR/$md_file"
   fi
@@ -136,10 +137,12 @@ echo "  - Merged safety gates into .claude/settings.json (preserved custom setti
 for hook in "$DEVKIT_ROOT/hooks"/*; do
   [ -e "$hook" ] || continue
   hook_name="$(basename "$hook")"
+  target_hook="$TARGET_DIR/.claude/hooks/$hook_name"
+  rm -rf "$target_hook"
   if [ "$MODE" = "symlink" ]; then
-    ln -sf "$hook" "$TARGET_DIR/.claude/hooks/$hook_name"
+    ln -sfn "$hook" "$target_hook"
   else
-    cp -R "$hook" "$TARGET_DIR/.claude/hooks/$hook_name"
+    cp -R "$hook" "$target_hook"
   fi
 done
 
@@ -147,10 +150,12 @@ done
 for cmd in "$DEVKIT_ROOT/commands"/*; do
   [ -e "$cmd" ] || continue
   cmd_name="$(basename "$cmd")"
+  target_cmd="$TARGET_DIR/.claude/commands/$cmd_name"
+  rm -rf "$target_cmd"
   if [ "$MODE" = "symlink" ]; then
-    ln -sf "$cmd" "$TARGET_DIR/.claude/commands/$cmd_name"
+    ln -sfn "$cmd" "$target_cmd"
   else
-    cp -R "$cmd" "$TARGET_DIR/.claude/commands/$cmd_name"
+    cp -R "$cmd" "$target_cmd"
   fi
 done
 
@@ -158,10 +163,12 @@ done
 for agent in "$DEVKIT_ROOT/agents"/*; do
   [ -e "$agent" ] || continue
   agent_name="$(basename "$agent")"
+  target_agent="$TARGET_DIR/.claude/agents/$agent_name"
+  rm -rf "$target_agent"
   if [ "$MODE" = "symlink" ]; then
-    ln -sf "$agent" "$TARGET_DIR/.claude/agents/$agent_name"
+    ln -sfn "$agent" "$target_agent"
   else
-    cp -R "$agent" "$TARGET_DIR/.claude/agents/$agent_name"
+    cp -R "$agent" "$target_agent"
   fi
 done
 

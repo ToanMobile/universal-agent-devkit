@@ -16,8 +16,9 @@ for md_file in "AGENTS.md" "GEMINI.md"; do
     cp "$TARGET_DIR/$md_file" "$TARGET_DIR/${md_file}.bak"
     echo "  - Backed up existing $md_file to ${md_file}.bak"
   fi
+  rm -f "$TARGET_DIR/$md_file"
   if [ "$MODE" = "symlink" ]; then
-    ln -sf "$DEVKIT_ROOT/core/AGENTS.md" "$TARGET_DIR/$md_file"
+    ln -sfn "$DEVKIT_ROOT/core/AGENTS.md" "$TARGET_DIR/$md_file"
   else
     cp "$DEVKIT_ROOT/core/AGENTS.md" "$TARGET_DIR/$md_file"
   fi
@@ -31,10 +32,12 @@ echo "  - Merged MCP servers into mcp_config.json (preserved existing custom MCP
 for skill in "$DEVKIT_ROOT/skills"/*; do
   [ -e "$skill" ] || continue
   skill_name="$(basename "$skill")"
+  target_skill_path="$TARGET_DIR/.agents/skills/$skill_name"
+  rm -rf "$target_skill_path"
   if [ "$MODE" = "symlink" ]; then
-    ln -sf "$skill" "$TARGET_DIR/.agents/skills/$skill_name"
+    ln -sfn "$skill" "$target_skill_path"
   else
-    cp -R "$skill" "$TARGET_DIR/.agents/skills/$skill_name"
+    cp -R "$skill" "$target_skill_path"
   fi
 done
 
@@ -42,10 +45,12 @@ done
 for rule in "$DEVKIT_ROOT/core/rules"/*; do
   [ -e "$rule" ] || continue
   rule_name="$(basename "$rule")"
+  target_rule_path="$TARGET_DIR/.agents/rules/$rule_name"
+  rm -rf "$target_rule_path"
   if [ "$MODE" = "symlink" ]; then
-    ln -sf "$rule" "$TARGET_DIR/.agents/rules/$rule_name"
+    ln -sfn "$rule" "$target_rule_path"
   else
-    cp -R "$rule" "$TARGET_DIR/.agents/rules/$rule_name"
+    cp -R "$rule" "$target_rule_path"
   fi
 done
 

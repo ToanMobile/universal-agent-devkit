@@ -16,7 +16,8 @@ for skill_dir in "$SKILLS_DIR"/*; do
   [ -d "$skill_dir" ] || continue
   skill_name="$(basename "$skill_dir")"
   if [ -f "$skill_dir/SKILL.md" ]; then
-    ln -sf "../skills/${skill_name}/SKILL.md" "$COMMANDS_DIR/${skill_name}.md"
+    rm -rf "$COMMANDS_DIR/${skill_name}.md"
+    ln -sfn "../skills/${skill_name}/SKILL.md" "$COMMANDS_DIR/${skill_name}.md"
   fi
 done
 
@@ -51,7 +52,8 @@ for mapping in "${ALIASES[@]}"; do
   alias_name="${mapping%%:*}"
   target_skill="${mapping##*:}"
   if [ -f "$SKILLS_DIR/$target_skill/SKILL.md" ]; then
-    ln -sf "../skills/${target_skill}/SKILL.md" "$COMMANDS_DIR/${alias_name}.md"
+    rm -rf "$COMMANDS_DIR/${alias_name}.md"
+    ln -sfn "../skills/${target_skill}/SKILL.md" "$COMMANDS_DIR/${alias_name}.md"
   fi
 done
 
