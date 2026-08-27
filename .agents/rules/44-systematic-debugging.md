@@ -1,0 +1,1 @@
+/Users/alex/.universal-agent-devkit/core/rules/44-systematic-debugging.md

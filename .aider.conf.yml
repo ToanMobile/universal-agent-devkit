@@ -1,0 +1,5 @@
+read:
+  - CONVENTIONS.md
+auto-commits: false
+lint-cmd: "git diff --check"
+test-cmd: "./gradlew testDebugUnitTest --tests '*Test*' || npm test || pytest"

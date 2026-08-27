@@ -1,0 +1,121 @@
+# Windsurf / Cascade Master Rules (Universal DevKit)
+# Language Policy: Default communication language: English. Switch to Vietnamese when requested. Code identifiers/paths: always English.
+
+# AGENTS.md — Master Rules & Universal Multi-Agent Architecture
+
+Shared baseline and **Single Source of Truth (SSOT)** for AI coding agents across multiple platforms: **Antigravity (Google / Gemini)**, **Claude Code (Anthropic)**, **Cursor**, **Windsurf**, and **Codex**.
+
+---
+
+## 1. Project Architecture & Modularization
+
+**Project Type:** Modular Architecture & Clean Engineering Practices.
+Every repository adopting this framework follows Clean Architecture, Unidirectional Data Flow, strict separation of concerns, and testability.
+
+### 1.1 Architecture Baseline
+- **Core Layer:** Shared primitives, domain models, utility abstractions, dispatchers, analytics, test rules.
+- **Feature Layer:** Isolated feature modules/packages, UI components, ViewModels/StateHolders.
+- **Infrastructure / Data Layer:** Storage, database, network clients, external integrations.
+- **Engine / Libs Layer:** Performance-critical algorithms, parsers, low-level bindings.
+
+---
+
+## 2. Slash Commands & Skills Router
+
+All automated skills reside in `.agents/skills/` (SSOT) or are loaded directly via the DevKit Plugin:
+
+| Slash Command / Alias | Canonical Skill Path | Description / Trigger | Primary Scope |
+|---|---|---|---|
+| `/qc`, `/test`, `/qa` | [qc](file:///.agents/skills/qc/SKILL.md) | Automated testing, lint checks, unit tests, and QA release gates | Test / Build Gates |
+| `/deploy`, `/build` | [deploy](file:///.agents/skills/deploy/SKILL.md) | Build binaries/bundles, verify ProGuard/R8/bundling, release checks | Build / Deploy |
+| `/fixbugs`, `/bugs`, `/fix` | [fixbugs](file:///.agents/skills/fixbugs/SKILL.md) | Standard bug-fixing with Paired Executable Oracle (RED→GREEN) | Repro / Fix / Verification |
+| `/plan` | [spec-driven-development](file:///.agents/skills/spec-driven-development/SKILL.md) | Spec-driven plan for changes ≥3 files or ≥2 modules | Spec / Plan / Tasks |
+| `/scan` | [security-checklist](file:///.agents/skills/security-checklist/SKILL.md) | Security audit: Input validation, URI/Permissions, Secrets, Auth | Security Gate |
+| `/tdd` | [tdd-workflow](file:///.agents/skills/tdd-workflow/SKILL.md) | TDD Workflow: Write failing RED test before implementation logic | Test-First |
+| `/crashlytics` | [triage-crashlytics-bug](file:///.agents/skills/triage-crashlytics-bug/SKILL.md) | Triage production stack trace, crash reports, memory leaks | Incident Triage |
+| `/verify` | [verification-before-completion](file:///.agents/skills/verification-before-completion/SKILL.md) | Verification gate before declaring task completion | Verification Gate |
+| `/deep-design` | [deep-module-design](file:///.agents/skills/deep-module-design/SKILL.md) | Evaluate seam, interface, testability, abstraction of module | Architecture Review |
+| `/conflict` | [merge-conflict-resolver](file:///.agents/skills/merge-conflict-resolver/SKILL.md) | Resolve Git merge / rebase / cherry-pick / stash conflicts | Git 3-way merge |
+| `/observability` | [observability-instrumentation](file:///.agents/skills/observability-instrumentation/SKILL.md) | Audit & add telemetry, logs, metrics, tracing | Telemetry / Logging |
+| `/handoff` | [session-handoff](file:///.agents/skills/session-handoff/SKILL.md) | Transfer work-in-progress context across sessions | Session Handoff |
+| `/migration` | [deprecation-migration](file:///.agents/skills/deprecation-migration/SKILL.md) | Library migration, sunset deprecated APIs, refactor legacy | Migration |
+| `/adr` | [documentation-and-adrs](file:///.agents/skills/documentation-and-adrs/SKILL.md) | Record Architecture Decision Records (ADRs) | Documentation / ADR |
+| `/graph` | [graph-navigation](file:///.agents/skills/graph-navigation/SKILL.md) | Explore codebase, trace call flow, blast radius | Codebase Navigation |
+| `/grill` | [grill-plan](file:///.agents/skills/grill-plan/SKILL.md) | Challenge and stress-test implementation plans | Plan Review |
+| `/incremental` | [incremental-implementation](file:///.agents/skills/incremental-implementation/SKILL.md) | Step-by-step implementation for large tasks | Incremental Dev |
+| `/skills-author` | [writing-skills](file:///.agents/skills/writing-skills/SKILL.md) | Guide for authoring and auditing skills | Skill Authoring |
+
+---
+
+## 3. Role & Language
+
+- **Default Communication Language:** User-facing replies are in **English** by default, concise, and evidence-backed.
+- **Language Switch Option (Vietnamese / Multilingual):** When `--lang=vi` is configured, or whenever the user communicates or requests in **Vietnamese** (or another language), the agent seamlessly responds in that preferred language.
+- Code identifiers, commands, file paths, and commit subjects ALWAYS stay in **English**.
+- **TASK COMPLETION CARD:** After every progress update, checkpoint, reviewer finding, or failed investigation path, automatically continue the remaining work until the full assigned scope reaches a valid terminal state. Progress updates are not final responses; never prompt the user to type `continue`.
+
+---
+
+## 4. Priority
+
+1. User instruction in the current task.
+2. This `AGENTS.md` (Master Rules & Universal Multi-Agent Architecture).
+3. `CLAUDE.md` and `.claude/` for detailed project contracts, commands, knowledge, and memory.
+4. Domain-specific rulebooks and existing code patterns/tests.
+
+---
+
+## 5. Pre-Code Gate (Run before the first Edit/Write)
+
+Five boxes. If any cannot be filled, you are **NOT** allowed to write code yet — collect evidence or escalate as a labeled hypothesis:
+
+1. **Target + authority** — what you change and which authority covers it (a: verified error, b: necessity, c: user-instructed).
+2. **Real source read** for the exact area you touch — read the file directly, never trust stale cache.
+3. **Consumer list** if you touch a signature, base-class member, public API, or shared object — **including tests**.
+4. **Failure mechanism + how you will prove the fix changes observable behavior** — decided BEFORE editing.
+5. **Residual** — what will stay unverified, and why.
+
+Risky flow (crash fix, parsing, auth, navigation, lifecycle, security/privacy, module boundary, 2+ modules): boxes 1–5 must be reviewed BEFORE code is written.
+
+### 5.1 Plan Convergence & Human Gates
+**Review the PLAN to convergence before writing code. Code is the LAST step, not the first.**
+Required order: plan → reviewer approves the *plan* → gaps found → revise plan and review AGAIN → no gaps left → **GATE 1: User approves the plan** → **write the RED test FIRST** → only then code → green + review on diff → **GATE 2 (Narrow Scope)**.
+
+- **Gate 1:** Applies to work crossing planning threshold (≥2 modules, ≥3 files, >200 LOC net diff, or risky flow) or approval boundary.
+- **Gate 2 (Strict Narrow Scope):** Applies ONLY when touching:
+  (a) Approval boundary (auth policy, billing, destructive migrations, global architecture);
+  (b) Attack surface narrowly defined by security gates;
+  (c) Irreversible external action (commit/push/PR, release/publish, deleting shared device/server state);
+  (d) Meta-tooling or rule files (`AGENTS.md`, `CLAUDE.md`, `.claude/rulebook/`, `scripts/qa`).
+  Inside this scope, Gate 2 is a full STOP. Outside this scope, issue the verdict and carry on.
+
+---
+
+## 6. Non-Negotiable Rules
+
+- **No fabrication:** Do not invent file paths, APIs, line numbers, metrics, dates, versions, root causes, test results, or past actions.
+- **Verify BEFORE speaking:** Do not state conclusions or diagnoses before evidence is collected — say "checking X" instead of provisional claims.
+- **PAIRED EXECUTABLE ORACLE (bắt buộc cho mọi bug fix — không có waiver / mandatory with no waiver):** Trước khi sửa bất kỳ dòng code production nào, phải thực thi một oracle ở failure boundary thật và quan sát RED; sau khi sửa, thực thi lại cùng oracle và quan sát GREEN. Compile chỉ hợp lệ khi chính acceptance là lỗi compile/build failure.
+- **Discriminating Evidence:** Root cause requires discriminating evidence (pass/fail contrast), not mere source-reasoning.
+- **Statement Decision Table:**
+  - **C1:** Structural fact from source → Fresh source/graph output.
+  - **C2:** Version/metric/hash/docs → Tool measurement or official doc.
+  - **C3:** Consequence/runtime/fix works → Discriminating evidence cited inline.
+  - **C4:** Negative/scope claim ("X unaffected") → Broad search scaled to claim risk.
+  - **C5:** Past action / fix outcome → Exit-0 tool call + before/after repro.
+  - **C6:** Preference/trade-off → Labeled suggestion with verified reasons.
+  - **C7:** Hypothesis → Labeled hypothesis + discriminating test needed.
+  - **C8:** Future estimate → Labeled "unverified estimate".
+  - **C9:** Unknown / data missing → Explicit statement of missing data/tool.
+- **Anti-Loop:** After 2 failed fixes for the same root cause, STOP and abandon the failing hypothesis; change approach.
+- **Protection of Working Code:** Working code is protected. Touch only with: (a) real evidence of error, (b) unavoidable necessity for the task, or (c) explicit user instruction.
+- **Surgical Changes:** No drive-by refactoring, formatting sweeps, or gratuitous abstractions.
+
+---
+
+## 7. Multi-Agent Integration Guide
+
+- **Antigravity (Google / Gemini):** Reads `AGENTS.md` and discovers all skills in `.agents/skills/*/SKILL.md`.
+- **Claude Code (Anthropic):** Reads `CLAUDE.md` (which imports `@AGENTS.md`), loads `.claude-plugin/plugin.json`, executes slash commands, and enforces safety hooks.
+- **Cursor / Windsurf:** Loads `.cursorrules` or `.cursor/rules/*.mdc` generated from this devkit.
+- **Synchronization:** Run `./bin/agent-kit sync` anytime new skills, rules, or aliases are modified.

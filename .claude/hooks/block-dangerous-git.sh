@@ -1,0 +1,1 @@
+/Users/alex/.universal-agent-devkit/hooks/block-dangerous-git.sh

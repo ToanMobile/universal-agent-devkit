@@ -1,0 +1,1 @@
+/Users/alex/.universal-agent-devkit/hooks/read_ledger.sh

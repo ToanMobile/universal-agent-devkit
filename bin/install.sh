@@ -2,11 +2,6 @@
 # install.sh — Universal Multi-Agent & Multi-Model DevKit Installer
 set -euo pipefail
 
-# Reconnect stdin to controlling terminal if piped and /dev/tty is available
-if [ ! -t 0 ] && [ -e /dev/tty ] && [ -r /dev/tty ] && (exec 3</dev/tty) 2>/dev/null; then
-  exec < /dev/tty
-fi
-
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 DEVKIT_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
 
@@ -130,8 +125,11 @@ if [ "$AGENTS" = "ask" ]; then
   echo "  [A] 🌟 All Agents           (Configure all 8 ecosystems)"
   echo "-----------------------------------------------------------------"
   user_choice="A"
-  if [ -t 0 ] || [ -p /dev/stdin ]; then
+  if [ -t 0 ]; then
     read -r -p "Select agents (e.g. 1,3 or 1,2,3 or A for all) [Default: A]: " input_choice || input_choice=""
+    user_choice="${input_choice:-A}"
+  elif (exec 3</dev/tty) 2>/dev/null; then
+    read -r -p "Select agents (e.g. 1,3 or 1,2,3 or A for all) [Default: A]: " input_choice < /dev/tty || input_choice=""
     user_choice="${input_choice:-A}"
   fi
 

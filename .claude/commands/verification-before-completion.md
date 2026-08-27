@@ -1,0 +1,1 @@
+/Users/alex/.universal-agent-devkit/commands/verification-before-completion.md

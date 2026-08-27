@@ -1,0 +1,1 @@
+/Users/alex/.universal-agent-devkit/core/rules/08-code-organization-dry.md

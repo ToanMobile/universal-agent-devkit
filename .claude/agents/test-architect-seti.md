@@ -1,0 +1,1 @@
+/Users/alex/.universal-agent-devkit/agents/test-architect-seti.md

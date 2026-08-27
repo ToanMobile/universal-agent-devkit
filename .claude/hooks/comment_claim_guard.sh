@@ -1,0 +1,1 @@
+/Users/alex/.universal-agent-devkit/hooks/comment_claim_guard.sh

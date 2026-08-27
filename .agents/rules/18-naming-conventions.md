@@ -1,0 +1,1 @@
+/Users/alex/.universal-agent-devkit/core/rules/18-naming-conventions.md

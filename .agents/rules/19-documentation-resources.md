@@ -1,0 +1,1 @@
+/Users/alex/.universal-agent-devkit/core/rules/19-documentation-resources.md
