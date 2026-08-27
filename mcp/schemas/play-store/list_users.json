@@ -1,0 +1,1 @@
+{"name":"list_users","description":"List users with access to a developer account.","parameters":{"additionalProperties":false,"properties":{"developer_id":{"description":"Developer account ID","type":"string"}},"required":["developer_id"],"type":"object"}}

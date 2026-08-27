@@ -1,0 +1,55 @@
+# OS & System Files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Secrets & Credentials
+*.env
+*.env.*
+*.key
+*.pem
+*.p12
+*.pfx
+*.jks
+*.keystore
+*.secret
+credentials.json
+google-services.json
+service-account*.json
+*.token
+
+# Node & Package Managers
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+ENV/
+env/
+.pytest_cache/
+
+# Build & Temporary Files
+build/
+dist/
+out/
+tmp/
+*.tmp
+*.log
+
+# IDE & Editor specific
+.idea/
+.vscode/
+*.swp
+*.swo
+*~

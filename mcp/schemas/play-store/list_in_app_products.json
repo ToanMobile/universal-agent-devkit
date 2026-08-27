@@ -1,0 +1,1 @@
+{"name":"list_in_app_products","description":"List all in-app products for an app.","parameters":{"additionalProperties":false,"properties":{"package_name":{"description":"App package name","type":"string"}},"required":["package_name"],"type":"object"}}

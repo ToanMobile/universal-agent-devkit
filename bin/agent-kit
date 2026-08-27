@@ -1,0 +1,79 @@
+#!/usr/bin/env bash
+# agent-kit — Management & Initialization CLI for Universal Agent DevKit
+set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+DEVKIT_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
+
+CMD="${1:-help}"
+
+case "$CMD" in
+  init|setup)
+    TARGET="${2:-$PWD}"
+    shift $(($# > 0 ? 1 : 0)) || true
+    echo "Initializing Universal Agent DevKit in: $TARGET"
+    bash "$DEVKIT_ROOT/bin/install.sh" --target="$TARGET" --domain=auto --agents=all --mode=symlink "$@"
+    ;;
+  install-global)
+    INSTALL_DIR="${HOME}/.local/bin"
+    mkdir -p "$INSTALL_DIR"
+    ln -sf "$DEVKIT_ROOT/bin/agent-kit" "$INSTALL_DIR/agent-kit"
+    ln -sf "$DEVKIT_ROOT/bin/install.sh" "$INSTALL_DIR/agent-install"
+    echo "✓ Global CLI installed to $INSTALL_DIR/agent-kit"
+    echo "Ensure '$INSTALL_DIR' is in your PATH."
+    echo "You can now run 'agent-kit init' inside any project directory!"
+    ;;
+  test|check)
+    echo "================================================================="
+    echo "  🧪 Running Hook Contract Tests (160 cases)..."
+    echo "================================================================="
+    bash "$DEVKIT_ROOT/hooks/tests/hook_contract_test.sh"
+    echo
+    echo "================================================================="
+    echo "  ⚡ Running Workflow Engine Tests (134 cases)..."
+    echo "================================================================="
+    node --test "$DEVKIT_ROOT/workflows"/*.test.mjs
+    ;;
+  sync)
+    echo "Synchronizing commands and skills..."
+    bash "$DEVKIT_ROOT/scripts/sync_commands.sh"
+    ;;
+  list|skills)
+    echo "Available Skills in Universal Agent DevKit (120+):"
+    for skill_dir in "$DEVKIT_ROOT/skills"/*; do
+      [ -d "$skill_dir" ] || continue
+      skill_name="$(basename "$skill_dir")"
+      echo "  - $skill_name"
+    done
+    ;;
+  commands)
+    echo "Available Slash Commands:"
+    for cmd_file in "$DEVKIT_ROOT/commands"/*; do
+      [ -f "$cmd_file" ] || continue
+      cmd_name="$(basename "$cmd_file" .md)"
+      echo "  - /$cmd_name"
+    done
+    ;;
+  help|*)
+    cat << HELP_EOF
+Universal Agent DevKit CLI (agent-kit)
+
+Usage:
+  agent-kit <command> [arguments]
+
+Commands:
+  init [path]         Initialize ALL AI agents in current or target project
+  install-global      Install 'agent-kit' globally into ~/.local/bin
+  test                Run 294+ regression tests (160 hooks, 134 workflows)
+  sync                Resync skills, slash commands, and aliases
+  list                List all available skills
+  commands            List all available slash commands
+  help                Show this help message
+
+Examples:
+  agent-kit init                   # Setup current project
+  agent-kit init /path/to/project  # Setup specific project
+  agent-kit test                   # Health-check full test suite
+HELP_EOF
+    ;;
+esac

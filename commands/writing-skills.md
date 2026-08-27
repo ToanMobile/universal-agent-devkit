@@ -1,0 +1,1 @@
+../skills/writing-skills/SKILL.md

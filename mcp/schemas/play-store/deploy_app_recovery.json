@@ -1,0 +1,1 @@
+{"name":"deploy_app_recovery","description":"Deploy an app recovery action to users.\n\nDisabled in read-only mode.","parameters":{"additionalProperties":false,"properties":{"app_recovery_id":{"description":"App recovery action ID","type":"string"},"package_name":{"description":"App package name","type":"string"}},"required":["package_name","app_recovery_id"],"type":"object"}}

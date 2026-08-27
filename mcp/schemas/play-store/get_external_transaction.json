@@ -1,0 +1,1 @@
+{"name":"get_external_transaction","description":"Get an external (alternative billing) transaction.","parameters":{"additionalProperties":false,"properties":{"external_transaction_id":{"description":"External transaction ID","type":"string"},"package_name":{"description":"App package name","type":"string"}},"required":["package_name","external_transaction_id"],"type":"object"}}

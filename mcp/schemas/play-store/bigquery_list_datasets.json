@@ -1,0 +1,1 @@
+{"name":"bigquery_list_datasets","description":"List BigQuery datasets visible to the configured service account in a GCP project.","parameters":{"additionalProperties":false,"properties":{"project_id":{"description":"GCP project id (e.g. the Firebase project's project id)","type":"string"}},"required":["project_id"],"type":"object"}}

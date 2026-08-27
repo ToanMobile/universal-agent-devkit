@@ -1,0 +1,1 @@
+{"name":"validate_package_name","description":"Validate package name format before using it in other operations.","parameters":{"additionalProperties":false,"properties":{"package_name":{"description":"Package name to validate (e.g., com.example.myapp)","type":"string"}},"required":["package_name"],"type":"object"}}

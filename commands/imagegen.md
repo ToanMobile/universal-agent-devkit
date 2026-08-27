@@ -1,0 +1,1 @@
+../skills/imagegen/SKILL.md

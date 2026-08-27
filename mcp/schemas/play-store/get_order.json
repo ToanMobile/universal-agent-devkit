@@ -1,0 +1,1 @@
+{"name":"get_order","description":"Get detailed order/transaction information.","parameters":{"additionalProperties":false,"properties":{"order_id":{"description":"Order ID to retrieve","type":"string"},"package_name":{"description":"App package name","type":"string"}},"required":["package_name","order_id"],"type":"object"}}

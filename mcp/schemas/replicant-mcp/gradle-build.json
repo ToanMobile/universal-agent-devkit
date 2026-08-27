@@ -1,0 +1,1 @@
+{"name":"gradle-build","description":"Build. Returns summary with buildId.","parameters":{"properties":{"flavor":{"type":"string"},"module":{"description":"e.g., ':app'","type":"string"},"operation":{"enum":["assembleDebug","assembleRelease","bundle"],"type":"string"}},"required":["operation"],"type":"object"}}

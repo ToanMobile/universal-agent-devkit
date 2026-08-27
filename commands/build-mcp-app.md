@@ -1,0 +1,1 @@
+../skills/build-mcp-app/SKILL.md

@@ -1,0 +1,1 @@
+{"name":"list_voided_purchases","description":"List voided purchases (refunds, chargebacks).","parameters":{"additionalProperties":false,"properties":{"max_results":{"default":100,"description":"Maximum number of results (default: 100)","type":"integer"},"package_name":{"description":"App package name","type":"string"}},"required":["package_name"],"type":"object"}}

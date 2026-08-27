@@ -1,0 +1,48 @@
+{
+  "mcpServers": {
+    "codebase-memory-mcp": {
+      "command": "codebase-memory-mcp"
+    },
+    "context7": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@upstash/context7-mcp"
+      ]
+    },
+    "android-code-search": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "cs-android-mcp"
+      ]
+    },
+    "android-skills": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "android-skills-mcp"
+      ]
+    },
+    "replicant-mcp": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "replicant-mcp"
+      ],
+      "env": {
+        "ANDROID_HOME": "${ANDROID_HOME:-}"
+      }
+    },
+    "play-store": {
+      "command": "play-store-mcp",
+      "args": [
+        "--transport",
+        "stdio"
+      ],
+      "env": {
+        "GOOGLE_APPLICATION_CREDENTIALS": "${GOOGLE_APPLICATION_CREDENTIALS:-}"
+      }
+    }
+  }
+}

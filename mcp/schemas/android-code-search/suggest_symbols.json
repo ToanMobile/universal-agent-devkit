@@ -1,0 +1,1 @@
+{"name":"suggest_symbols","description":"Get symbol suggestions for a partial query (classes, methods, files)","parameters":{"properties":{"maxResults":{"default":7,"description":"Maximum number of suggestions (default: 7)","type":"number"},"query":{"description":"Partial query to get suggestions for","type":"string"}},"required":["query"],"type":"object"}}

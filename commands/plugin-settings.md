@@ -1,0 +1,1 @@
+../skills/plugin-settings/SKILL.md

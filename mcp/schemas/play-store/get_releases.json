@@ -1,0 +1,1 @@
+{"name":"get_releases","description":"Get release status for all tracks of an app.","parameters":{"additionalProperties":false,"properties":{"package_name":{"description":"App package name","type":"string"}},"required":["package_name"],"type":"object"}}

@@ -1,0 +1,26 @@
+{
+  "name": "universal-agent-devkit",
+  "version": "1.0.0",
+  "description": "Universal AI Agent DevKit & Quality Protocol for Claude Code, Antigravity/Gemini, and Cursor. Enforces Zero-Defect, Paired Executable Oracle, Pre-Code Gate, Multi-Lens Review, and 120+ Canonical Skills.",
+  "author": {
+    "name": "Toan Mobile",
+    "url": "https://github.com/ToanMobile"
+  },
+  "repository": "https://github.com/ToanMobile/universal-agent-devkit",
+  "homepage": "https://github.com/ToanMobile/universal-agent-devkit#readme",
+  "license": "MIT",
+  "keywords": [
+    "agent-devkit",
+    "quality-gates",
+    "zero-defect",
+    "tdd",
+    "claude-code",
+    "antigravity",
+    "cursor",
+    "mcp"
+  ],
+  "commands": "./commands",
+  "agents": "./agents",
+  "skills": "./skills",
+  "hooks": "./hooks/hooks.json"
+}

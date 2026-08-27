@@ -1,0 +1,1 @@
+../skills/hook-development/SKILL.md

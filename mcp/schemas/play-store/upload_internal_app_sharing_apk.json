@@ -1,0 +1,1 @@
+{"name":"upload_internal_app_sharing_apk","description":"Upload an APK to internal app sharing.\n\nDisabled in read-only mode.","parameters":{"additionalProperties":false,"properties":{"apk_path":{"description":"Local path to the APK file","type":"string"},"package_name":{"description":"App package name","type":"string"}},"required":["package_name","apk_path"],"type":"object"}}

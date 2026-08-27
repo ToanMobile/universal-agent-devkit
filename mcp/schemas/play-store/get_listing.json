@@ -1,0 +1,1 @@
+{"name":"get_listing","description":"Get store listing for a specific language.","parameters":{"additionalProperties":false,"properties":{"language":{"default":"en-US","description":"Language code (e.g., en-US, es-ES, fr-FR)","type":"string"},"package_name":{"description":"App package name","type":"string"}},"required":["package_name"],"type":"object"}}

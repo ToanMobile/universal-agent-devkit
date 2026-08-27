@@ -1,0 +1,1 @@
+{"name":"rtfm","description":"Get documentation. Pass category ('build'|'adb'|'emulator'|'ui'|'cache'|'index') or tool (tool name like 'ui-query').","parameters":{"properties":{"category":{"description":"Category: build, adb, emulator, ui, cache, index","type":"string"},"tool":{"description":"Tool name (e.g., 'ui-query') for tool-specific docs","type":"string"}},"type":"object"}}

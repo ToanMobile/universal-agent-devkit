@@ -1,0 +1,1 @@
+{"name":"delete_in_app_product","description":"Delete an in-app product from the catalog.\n\nDisabled in read-only mode.","parameters":{"additionalProperties":false,"properties":{"package_name":{"description":"App package name","type":"string"},"sku":{"description":"Product SKU identifier","type":"string"}},"required":["package_name","sku"],"type":"object"}}

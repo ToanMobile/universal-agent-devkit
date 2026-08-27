@@ -1,0 +1,1 @@
+../skills/merge-conflict-resolver/SKILL.md

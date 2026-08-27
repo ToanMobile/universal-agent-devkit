@@ -1,0 +1,1 @@
+{"name":"get_device_tier_config","description":"Get a device tier config.","parameters":{"additionalProperties":false,"properties":{"device_tier_config_id":{"description":"Device tier config ID","type":"string"},"package_name":{"description":"App package name","type":"string"}},"required":["package_name","device_tier_config_id"],"type":"object"}}

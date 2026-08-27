@@ -1,0 +1,1 @@
+{"name":"list_app_recoveries","description":"List all app recovery actions for an app version.","parameters":{"additionalProperties":false,"properties":{"package_name":{"description":"App package name","type":"string"},"version_code":{"description":"App version code the recovery actions target","type":"integer"}},"required":["package_name","version_code"],"type":"object"}}

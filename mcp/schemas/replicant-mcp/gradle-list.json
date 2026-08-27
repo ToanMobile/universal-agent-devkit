@@ -1,0 +1,1 @@
+{"name":"gradle-list","description":"Introspect project structure.","parameters":{"properties":{"module":{"description":"e.g., ':app'","type":"string"},"operation":{"enum":["variants","modules","tasks"],"type":"string"}},"required":["operation"],"type":"object"}}

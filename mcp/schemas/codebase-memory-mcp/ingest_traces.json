@@ -1,0 +1,1 @@
+{"name":"ingest_traces","description":"Ingest runtime traces to enhance the knowledge graph","parameters":{"properties":{"project":{"type":"string"},"traces":{"items":{"additionalProperties":false,"properties":{"callee":{"type":"string"},"caller":{"type":"string"},"count":{"type":"integer"}},"type":"object"},"type":"array"}},"required":["traces","project"],"type":"object"}}

@@ -1,0 +1,1 @@
+{"name":"validate_track","description":"Validate track name before using it in deployment operations.","parameters":{"additionalProperties":false,"properties":{"track":{"description":"Track name to validate (internal, alpha, beta, production)","type":"string"}},"required":["track"],"type":"object"}}

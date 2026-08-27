@@ -1,0 +1,1 @@
+{"name":"delete_one_time_product","description":"Delete a one-time product from the catalog.\n\nDisabled in read-only mode.","parameters":{"additionalProperties":false,"properties":{"package_name":{"description":"App package name","type":"string"},"product_id":{"description":"One-time product ID","type":"string"}},"required":["package_name","product_id"],"type":"object"}}

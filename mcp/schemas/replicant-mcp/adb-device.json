@@ -1,0 +1,1 @@
+{"name":"adb-device","description":"Manage device connections.","parameters":{"properties":{"deviceId":{"type":"string"},"operation":{"enum":["list","select","wait","properties","health-check"],"type":"string"}},"required":["operation"],"type":"object"}}

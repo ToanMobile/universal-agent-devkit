@@ -1,0 +1,1 @@
+../skills/skill-installer/SKILL.md

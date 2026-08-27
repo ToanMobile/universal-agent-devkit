@@ -1,0 +1,1 @@
+{"name":"list_one_time_products","description":"List all one-time products for an app.","parameters":{"additionalProperties":false,"properties":{"package_name":{"description":"App package name","type":"string"}},"required":["package_name"],"type":"object"}}
