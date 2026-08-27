@@ -3,8 +3,8 @@
 # Usage: curl -fsSL https://.../bin/quick-install.sh | bash
 set -euo pipefail
 
-# Reconnect stdin to controlling terminal if piped through curl | bash
-if [ -e /dev/tty ] && [ -r /dev/tty ]; then
+# Reconnect stdin to controlling terminal if piped and /dev/tty is available
+if [ ! -t 0 ] && [ -e /dev/tty ] && [ -r /dev/tty ] && (exec 3</dev/tty) 2>/dev/null; then
   exec < /dev/tty
 fi
 

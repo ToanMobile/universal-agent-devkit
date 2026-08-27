@@ -2,8 +2,8 @@
 # install.sh — Universal Multi-Agent & Multi-Model DevKit Installer
 set -euo pipefail
 
-# Reconnect stdin to controlling terminal if piped
-if [ -e /dev/tty ] && [ -r /dev/tty ] && [ ! -t 0 ]; then
+# Reconnect stdin to controlling terminal if piped and /dev/tty is available
+if [ ! -t 0 ] && [ -e /dev/tty ] && [ -r /dev/tty ] && (exec 3</dev/tty) 2>/dev/null; then
   exec < /dev/tty
 fi
 
@@ -129,8 +129,11 @@ if [ "$AGENTS" = "ask" ]; then
   echo "  [8] ⌨️ Aider                (CONVENTIONS.md, .aider.conf.yml)"
   echo "  [A] 🌟 All Agents           (Configure all 8 ecosystems)"
   echo "-----------------------------------------------------------------"
-  read -r -p "Select agents (e.g. 1,3 or 1,2,3 or A for all) [Default: A]: " user_choice || user_choice="A"
-  user_choice="${user_choice:-A}"
+  user_choice="A"
+  if [ -t 0 ] || [ -p /dev/stdin ]; then
+    read -r -p "Select agents (e.g. 1,3 or 1,2,3 or A for all) [Default: A]: " input_choice || input_choice=""
+    user_choice="${input_choice:-A}"
+  fi
 
   if [[ "$user_choice" =~ ^[aA]$ ]] || [ "$user_choice" = "all" ]; then
     AGENTS="all"
