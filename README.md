@@ -289,8 +289,12 @@ universal-agent-devkit/mcp/
 ## 🚀 Quick Start & Installation
 
 ### Option 1: Remote One-Liner (Zero-Clone)
-Run directly in your terminal:
+
 ```bash
+# Interactive Mode (Recommended — prompts for which agents to configure):
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/ToanMobile/universal-agent-devkit/main/bin/quick-install.sh)"
+
+# Quick non-interactive setup (Configures all agents automatically):
 curl -fsSL https://raw.githubusercontent.com/ToanMobile/universal-agent-devkit/main/bin/quick-install.sh | bash
 ```
 

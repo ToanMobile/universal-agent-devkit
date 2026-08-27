@@ -289,8 +289,12 @@ universal-agent-devkit/mcp/
 ## 🚀 Quick Start & Installation
 
 ### Option 1: Cài đặt từ xa 1 dòng lệnh (Remote 1-Liner — Không cần clone trước)
-Chạy trực tiếp trên terminal của bạn:
+
 ```bash
+# Chế độ tương tác (Khuyến nghị — Cho phép chọn Agent bạn muốn cài):
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/ToanMobile/universal-agent-devkit/main/bin/quick-install.sh)"
+
+# Chế độ tự động nhanh (Cài đặt trọn bộ tất cả Agents):
 curl -fsSL https://raw.githubusercontent.com/ToanMobile/universal-agent-devkit/main/bin/quick-install.sh | bash
 ```
 
