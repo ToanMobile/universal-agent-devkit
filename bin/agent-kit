@@ -11,8 +11,11 @@ case "$CMD" in
   init|setup)
     TARGET="${2:-$PWD}"
     shift $(($# > 0 ? 1 : 0)) || true
-    echo "Initializing Universal Agent DevKit in: $TARGET"
-    bash "$DEVKIT_ROOT/bin/install.sh" --target="$TARGET" --domain=auto --agents=all --mode=symlink "$@"
+    if [ -c /dev/tty ]; then
+      bash "$DEVKIT_ROOT/bin/install.sh" --target="$TARGET" --domain=auto --mode=symlink "$@" < /dev/tty
+    else
+      bash "$DEVKIT_ROOT/bin/install.sh" --target="$TARGET" --domain=auto --mode=symlink "$@"
+    fi
     ;;
   install-global)
     INSTALL_DIR="${HOME}/.local/bin"
@@ -39,7 +42,7 @@ case "$CMD" in
     bash "$DEVKIT_ROOT/scripts/sync_commands.sh"
     ;;
   list|skills)
-    echo "Available Skills in Universal Agent DevKit (120+):"
+    echo "Available Skills in Universal Agent DevKit (45):"
     for skill_dir in "$DEVKIT_ROOT/skills"/*; do
       [ -d "$skill_dir" ] || continue
       skill_name="$(basename "$skill_dir")"
@@ -62,18 +65,18 @@ Usage:
   agent-kit <command> [arguments]
 
 Commands:
-  init [path]         Initialize ALL AI agents in current or target project
+  init [path]         Initialize AI agents (interactive menu or --agents flag)
   install-global      Install 'agent-kit' globally into ~/.local/bin
   test                Run 294+ regression tests (160 hooks, 134 workflows)
   sync                Resync skills, slash commands, and aliases
-  list                List all available skills
+  list                List all 45 curated skills
   commands            List all available slash commands
   help                Show this help message
 
 Examples:
-  agent-kit init                   # Setup current project
-  agent-kit init /path/to/project  # Setup specific project
-  agent-kit test                   # Health-check full test suite
+  agent-kit init                   # Interactive setup for current project
+  agent-kit init -a claude,cursor  # Specific agents only
+  agent-kit init -y                # All agents without prompting
 HELP_EOF
     ;;
 esac

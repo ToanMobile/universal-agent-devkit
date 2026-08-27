@@ -111,7 +111,7 @@ TARGET_DIR="$(cd "$TARGET_DIR" && pwd)"
 
 # Interactive Agent Selection Menu if not specified via CLI
 if [ "$AGENTS" = "ask" ]; then
-  if [ -t 0 ] || [ -p /dev/stdin ]; then
+  if [ -c /dev/tty ]; then
     echo "================================================================="
     echo "  🤖 Universal AI Agent DevKit — Agent Selection Menu"
     echo "================================================================="
@@ -125,7 +125,7 @@ if [ "$AGENTS" = "ask" ]; then
     echo "  [8] ⌨️ Aider                (CONVENTIONS.md, .aider.conf.yml)"
     echo "  [A] 🌟 All Agents           (Configure all 8 ecosystems)"
     echo "-----------------------------------------------------------------"
-    read -r -p "Select agents (e.g. 1,3 or 1,2,3 or A for all) [Default: A]: " user_choice || user_choice="A"
+    read -r -p "Select agents (e.g. 1,3 or 1,2,3 or A for all) [Default: A]: " user_choice < /dev/tty || user_choice="A"
     user_choice="${user_choice:-A}"
 
     if [[ "$user_choice" =~ ^[aA]$ ]] || [ "$user_choice" = "all" ]; then
@@ -151,6 +151,14 @@ if [ "$AGENTS" = "ask" ]; then
       else
         AGENTS="$(IFS=','; echo "${selected_agents[*]}")"
       fi
+    fi
+  elif [ -t 0 ] || [ -p /dev/stdin ]; then
+    read -r -p "Select agents [Default: A]: " user_choice || user_choice="A"
+    user_choice="${user_choice:-A}"
+    if [[ "$user_choice" =~ ^[aA]$ ]] || [ "$user_choice" = "all" ]; then
+      AGENTS="all"
+    else
+      AGENTS="$user_choice"
     fi
   else
     AGENTS="all"

@@ -39,11 +39,14 @@ export PATH="$BIN_DIR:$PATH"
 echo "✓ 'agent-kit' successfully installed to $BIN_DIR/agent-kit"
 echo
 
-# 4. If current directory is a project, offer instant initialization
+# 4. If current directory is a project, launch interactive agent setup
 if [ -d ".git" ] || [ -f "package.json" ] || [ -f "build.gradle" ] || [ -f "build.gradle.kts" ] || [ -f "pyproject.toml" ]; then
   echo "Detected active project in current directory: $PWD"
-  echo "Initializing Universal Agent DevKit now..."
-  bash "$INSTALL_DIR/bin/install.sh" --domain=auto --agents=all --mode=symlink
+  if [ -c /dev/tty ]; then
+    bash "$INSTALL_DIR/bin/install.sh" --target="$PWD" < /dev/tty
+  else
+    bash "$INSTALL_DIR/bin/install.sh" --target="$PWD"
+  fi
 fi
 
 echo
