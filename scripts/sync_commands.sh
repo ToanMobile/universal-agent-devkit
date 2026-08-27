@@ -41,7 +41,7 @@ ALIASES=(
   "crashlytics:triage-crashlytics-bug"
   "deep-design:deep-module-design"
   "graph:graph-navigation"
-  "skills-author:writing-skills"
+  "skills-author:skill-development"
   "docx:documents"
   "xlsx:spreadsheets"
   "pptx:presentations"

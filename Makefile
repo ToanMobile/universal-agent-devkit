@@ -10,7 +10,7 @@ install:
 	@echo "✓ Done! You can now run 'agent-kit init' inside any project directory."
 
 init:
-	@bash $(CURDIR)/bin/install.sh --domain=auto --agents=all --mode=symlink
+	@bash $(CURDIR)/bin/install.sh --domain=auto --mode=symlink $(ARGS)
 
 test:
 	@bash $(CURDIR)/bin/agent-kit test
