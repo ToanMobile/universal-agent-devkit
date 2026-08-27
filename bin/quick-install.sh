@@ -3,6 +3,11 @@
 # Usage: curl -fsSL https://.../bin/quick-install.sh | bash
 set -euo pipefail
 
+# Reconnect stdin to controlling terminal if piped through curl | bash
+if [ -e /dev/tty ] && [ -r /dev/tty ]; then
+  exec < /dev/tty
+fi
+
 INSTALL_DIR="${HOME}/.universal-agent-devkit"
 BIN_DIR="${HOME}/.local/bin"
 REPO_URL="https://github.com/ToanMobile/universal-agent-devkit.git"
@@ -14,7 +19,8 @@ echo "================================================================="
 # 1. Clone or update devkit
 if [ -d "$INSTALL_DIR/.git" ]; then
   echo "Updating existing DevKit at $INSTALL_DIR..."
-  git -C "$INSTALL_DIR" pull --ff-only || true
+  git -C "$INSTALL_DIR" fetch --all --prune
+  git -C "$INSTALL_DIR" reset --hard origin/main
 else
   echo "Cloning Universal Agent DevKit into $INSTALL_DIR..."
   if git ls-remote "$REPO_URL" > /dev/null 2>&1; then
@@ -42,11 +48,7 @@ echo
 # 4. If current directory is a project, launch interactive agent setup
 if [ -d ".git" ] || [ -f "package.json" ] || [ -f "build.gradle" ] || [ -f "build.gradle.kts" ] || [ -f "pyproject.toml" ]; then
   echo "Detected active project in current directory: $PWD"
-  if [ -c /dev/tty ]; then
-    bash "$INSTALL_DIR/bin/install.sh" --target="$PWD" < /dev/tty
-  else
-    bash "$INSTALL_DIR/bin/install.sh" --target="$PWD"
-  fi
+  bash "$INSTALL_DIR/bin/install.sh" --target="$PWD"
 fi
 
 echo

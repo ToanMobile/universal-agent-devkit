@@ -2,6 +2,11 @@
 # install.sh — Universal Multi-Agent & Multi-Model DevKit Installer
 set -euo pipefail
 
+# Reconnect stdin to controlling terminal if piped
+if [ -e /dev/tty ] && [ -r /dev/tty ] && [ ! -t 0 ]; then
+  exec < /dev/tty
+fi
+
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 DEVKIT_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
 
@@ -111,57 +116,45 @@ TARGET_DIR="$(cd "$TARGET_DIR" && pwd)"
 
 # Interactive Agent Selection Menu if not specified via CLI
 if [ "$AGENTS" = "ask" ]; then
-  if [ -c /dev/tty ]; then
-    echo "================================================================="
-    echo "  🤖 Universal AI Agent DevKit — Agent Selection Menu"
-    echo "================================================================="
-    echo "  [1] 🤖 Claude Code          (CLAUDE.md, .claude/commands/, hooks, .mcp.json)"
-    echo "  [2] ✨ Google Gemini / AGY  (AGENTS.md, GEMINI.md, .agents/skills, mcp_config.json)"
-    echo "  [3] ⚡ Cursor IDE           (.cursorrules, .cursor/rules/*.mdc)"
-    echo "  [4] 🌊 Windsurf / Cascade   (.windsurfrules)"
-    echo "  [5] 🐙 GitHub Copilot       (.github/copilot-instructions.md)"
-    echo "  [6] 🛠️ Cline & Roo Code     (.clinerules, .roomodes)"
-    echo "  [7] 🧠 OpenAI Codex         (CODEX.md)"
-    echo "  [8] ⌨️ Aider                (CONVENTIONS.md, .aider.conf.yml)"
-    echo "  [A] 🌟 All Agents           (Configure all 8 ecosystems)"
-    echo "-----------------------------------------------------------------"
-    read -r -p "Select agents (e.g. 1,3 or 1,2,3 or A for all) [Default: A]: " user_choice < /dev/tty || user_choice="A"
-    user_choice="${user_choice:-A}"
+  echo "================================================================="
+  echo "  🤖 Universal AI Agent DevKit — Agent Selection Menu"
+  echo "================================================================="
+  echo "  [1] 🤖 Claude Code          (CLAUDE.md, .claude/commands/, hooks, .mcp.json)"
+  echo "  [2] ✨ Google Gemini / AGY  (AGENTS.md, GEMINI.md, .agents/skills, mcp_config.json)"
+  echo "  [3] ⚡ Cursor IDE           (.cursorrules, .cursor/rules/*.mdc)"
+  echo "  [4] 🌊 Windsurf / Cascade   (.windsurfrules)"
+  echo "  [5] 🐙 GitHub Copilot       (.github/copilot-instructions.md)"
+  echo "  [6] 🛠️ Cline & Roo Code     (.clinerules, .roomodes)"
+  echo "  [7] 🧠 OpenAI Codex         (CODEX.md)"
+  echo "  [8] ⌨️ Aider                (CONVENTIONS.md, .aider.conf.yml)"
+  echo "  [A] 🌟 All Agents           (Configure all 8 ecosystems)"
+  echo "-----------------------------------------------------------------"
+  read -r -p "Select agents (e.g. 1,3 or 1,2,3 or A for all) [Default: A]: " user_choice || user_choice="A"
+  user_choice="${user_choice:-A}"
 
-    if [[ "$user_choice" =~ ^[aA]$ ]] || [ "$user_choice" = "all" ]; then
-      AGENTS="all"
-    else
-      selected_agents=()
-      IFS=',' read -ra CHOICES <<< "$user_choice"
-      for c in "${CHOICES[@]}"; do
-        c_trim="$(echo "$c" | xargs)"
-        case "$c_trim" in
-          1|claude) selected_agents+=("claude") ;;
-          2|gemini|antigravity) selected_agents+=("gemini") ;;
-          3|cursor) selected_agents+=("cursor") ;;
-          4|windsurf|cascade) selected_agents+=("windsurf") ;;
-          5|copilot) selected_agents+=("copilot") ;;
-          6|cline|roo) selected_agents+=("cline") ;;
-          7|codex|chatgpt) selected_agents+=("codex") ;;
-          8|aider) selected_agents+=("aider") ;;
-        esac
-      done
-      if [ ${#selected_agents[@]} -eq 0 ]; then
-        AGENTS="all"
-      else
-        AGENTS="$(IFS=','; echo "${selected_agents[*]}")"
-      fi
-    fi
-  elif [ -t 0 ] || [ -p /dev/stdin ]; then
-    read -r -p "Select agents [Default: A]: " user_choice || user_choice="A"
-    user_choice="${user_choice:-A}"
-    if [[ "$user_choice" =~ ^[aA]$ ]] || [ "$user_choice" = "all" ]; then
-      AGENTS="all"
-    else
-      AGENTS="$user_choice"
-    fi
-  else
+  if [[ "$user_choice" =~ ^[aA]$ ]] || [ "$user_choice" = "all" ]; then
     AGENTS="all"
+  else
+    selected_agents=()
+    IFS=',' read -ra CHOICES <<< "$user_choice"
+    for c in "${CHOICES[@]}"; do
+      c_trim="$(echo "$c" | xargs)"
+      case "$c_trim" in
+        1|claude) selected_agents+=("claude") ;;
+        2|gemini|antigravity) selected_agents+=("gemini") ;;
+        3|cursor) selected_agents+=("cursor") ;;
+        4|windsurf|cascade) selected_agents+=("windsurf") ;;
+        5|copilot) selected_agents+=("copilot") ;;
+        6|cline|roo) selected_agents+=("cline") ;;
+        7|codex|chatgpt) selected_agents+=("codex") ;;
+        8|aider) selected_agents+=("aider") ;;
+      esac
+    done
+    if [ ${#selected_agents[@]} -eq 0 ]; then
+      AGENTS="all"
+    else
+      AGENTS="$(IFS=','; echo "${selected_agents[*]}")"
+    fi
   fi
 fi
 
