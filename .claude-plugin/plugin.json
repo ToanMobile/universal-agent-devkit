@@ -1,7 +1,7 @@
 {
   "name": "universal-agent-devkit",
   "version": "1.0.0",
-  "description": "Universal AI Agent DevKit & Quality Protocol for Claude Code, Antigravity/Gemini, and Cursor. Enforces Zero-Defect, Paired Executable Oracle, Pre-Code Gate, Multi-Lens Review, and 120+ Canonical Skills.",
+  "description": "A unified, production-grade framework providing Zero-Defect protocols, automated safety gates, 120+ canonical skills, and MCP tools across Claude Code, Google Gemini/Antigravity, Cursor, Windsurf, Copilot, and Codex.",
   "author": {
     "name": "Toan Mobile",
     "url": "https://github.com/ToanMobile"
