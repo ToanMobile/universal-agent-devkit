@@ -23,24 +23,24 @@ All automated skills reside in `.agents/skills/` (SSOT) or are loaded directly v
 
 | Slash Command / Alias | Canonical Skill Path | Description / Trigger | Primary Scope |
 |---|---|---|---|
-| `/qc`, `/test`, `/qa` | [qc](file:///.agents/skills/qc/SKILL.md) | Automated testing, lint checks, unit tests, and QA release gates | Test / Build Gates |
-| `/deploy`, `/build` | [deploy](file:///.agents/skills/deploy/SKILL.md) | Build binaries/bundles, verify ProGuard/R8/bundling, release checks | Build / Deploy |
-| `/fixbugs`, `/bugs`, `/fix` | [fixbugs](file:///.agents/skills/fixbugs/SKILL.md) | Standard bug-fixing with Paired Executable Oracle (RED→GREEN) | Repro / Fix / Verification |
-| `/plan` | [spec-driven-development](file:///.agents/skills/spec-driven-development/SKILL.md) | Spec-driven plan for changes ≥3 files or ≥2 modules | Spec / Plan / Tasks |
-| `/scan` | [security-checklist](file:///.agents/skills/security-checklist/SKILL.md) | Security audit: Input validation, URI/Permissions, Secrets, Auth | Security Gate |
-| `/tdd` | [tdd-workflow](file:///.agents/skills/tdd-workflow/SKILL.md) | TDD Workflow: Write failing RED test before implementation logic | Test-First |
-| `/crashlytics` | [triage-crashlytics-bug](file:///.agents/skills/triage-crashlytics-bug/SKILL.md) | Triage production stack trace, crash reports, memory leaks | Incident Triage |
-| `/verify` | [verification-before-completion](file:///.agents/skills/verification-before-completion/SKILL.md) | Verification gate before declaring task completion | Verification Gate |
-| `/deep-design` | [deep-module-design](file:///.agents/skills/deep-module-design/SKILL.md) | Evaluate seam, interface, testability, abstraction of module | Architecture Review |
-| `/conflict` | [merge-conflict-resolver](file:///.agents/skills/merge-conflict-resolver/SKILL.md) | Resolve Git merge / rebase / cherry-pick / stash conflicts | Git 3-way merge |
-| `/observability` | [observability-instrumentation](file:///.agents/skills/observability-instrumentation/SKILL.md) | Audit & add telemetry, logs, metrics, tracing | Telemetry / Logging |
-| `/handoff` | [session-handoff](file:///.agents/skills/session-handoff/SKILL.md) | Transfer work-in-progress context across sessions | Session Handoff |
-| `/migration` | [deprecation-migration](file:///.agents/skills/deprecation-migration/SKILL.md) | Library migration, sunset deprecated APIs, refactor legacy | Migration |
-| `/adr` | [documentation-and-adrs](file:///.agents/skills/documentation-and-adrs/SKILL.md) | Record Architecture Decision Records (ADRs) | Documentation / ADR |
-| `/graph` | [graph-navigation](file:///.agents/skills/graph-navigation/SKILL.md) | Explore codebase, trace call flow, blast radius | Codebase Navigation |
-| `/grill` | [grill-plan](file:///.agents/skills/grill-plan/SKILL.md) | Challenge and stress-test implementation plans | Plan Review |
-| `/incremental` | [incremental-implementation](file:///.agents/skills/incremental-implementation/SKILL.md) | Step-by-step implementation for large tasks | Incremental Dev |
-| `/skills-author` | [writing-skills](file:///.agents/skills/writing-skills/SKILL.md) | Guide for authoring and auditing skills | Skill Authoring |
+| `/qc`, `/test`, `/qa` | [qc](skills/qc/SKILL.md) | Automated testing, lint checks, unit tests, and QA release gates | Test / Build Gates |
+| `/deploy`, `/build` | [deploy](skills/deploy/SKILL.md) | Build binaries/bundles, verify ProGuard/R8/bundling, release checks | Build / Deploy |
+| `/fixbugs`, `/bugs`, `/fix` | [fixbugs](skills/fixbugs/SKILL.md) | Standard bug-fixing with Paired Executable Oracle (RED→GREEN) | Repro / Fix / Verification |
+| `/plan` | [spec-driven-development](skills/spec-driven-development/SKILL.md) | Spec-driven plan for changes ≥3 files or ≥2 modules | Spec / Plan / Tasks |
+| `/scan` | [security-checklist](skills/security-checklist/SKILL.md) | Security audit: Input validation, URI/Permissions, Secrets, Auth | Security Gate |
+| `/tdd` | [tdd-workflow](skills/tdd-workflow/SKILL.md) | TDD Workflow: Write failing RED test before implementation logic | Test-First |
+| `/crashlytics` | [triage-crashlytics-bug](skills/triage-crashlytics-bug/SKILL.md) | Triage production stack trace, crash reports, memory leaks | Incident Triage |
+| `/verify` | [verification-before-completion](skills/verification-before-completion/SKILL.md) | Verification gate before declaring task completion | Verification Gate |
+| `/deep-design` | [deep-module-design](skills/deep-module-design/SKILL.md) | Evaluate seam, interface, testability, abstraction of module | Architecture Review |
+| `/conflict` | [merge-conflict-resolver](skills/merge-conflict-resolver/SKILL.md) | Resolve Git merge / rebase / cherry-pick / stash conflicts | Git 3-way merge |
+| `/observability` | [observability-instrumentation](skills/observability-instrumentation/SKILL.md) | Audit & add telemetry, logs, metrics, tracing | Telemetry / Logging |
+| `/handoff` | [session-handoff](skills/session-handoff/SKILL.md) | Transfer work-in-progress context across sessions | Session Handoff |
+| `/migration` | [deprecation-migration](skills/deprecation-migration/SKILL.md) | Library migration, sunset deprecated APIs, refactor legacy | Migration |
+| `/adr` | [documentation-and-adrs](skills/documentation-and-adrs/SKILL.md) | Record Architecture Decision Records (ADRs) | Documentation / ADR |
+| `/graph` | [graph-navigation](skills/graph-navigation/SKILL.md) | Explore codebase, trace call flow, blast radius | Codebase Navigation |
+| `/grill` | [grill-plan](skills/grill-plan/SKILL.md) | Challenge and stress-test implementation plans | Plan Review |
+| `/incremental` | [incremental-implementation](skills/incremental-implementation/SKILL.md) | Step-by-step implementation for large tasks | Incremental Dev |
+| `/skills-author` | [skill-development](skills/skill-development/SKILL.md) | Guide for authoring and auditing skills | Skill Authoring |
 
 ---
 

@@ -1,13 +1,13 @@
 <div align="center">
 
 # 🚀 Universal AI Agent DevKit & Quality Protocol
-### *Framework chuẩn hóa toàn diện cung cấp Zero-Defect Protocol, 160+ Safety Gates, 67 Rule Chapters, 44 Curated Skills và Hệ sinh thái MCP cho mọi AI Coding Agent.*
+### *Framework chuẩn hóa toàn diện cung cấp Zero-Defect Protocol, 160+ Safety Gates, 63 Rule Chapters, 44 Curated Skills và Hệ sinh thái MCP cho mọi AI Coding Agent.*
 
 [![GitHub Repository](https://img.shields.io/badge/GitHub-ToanMobile%2Funiversal--agent--devkit-blue.svg?style=for-the-badge&logo=github)](https://github.com/ToanMobile/universal-agent-devkit)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 [![Tests Passing](https://img.shields.io/badge/Tests-294%20PASS%20(100%25)-success.svg?style=for-the-badge)](./hooks/tests)
 [![Supported Agents](https://img.shields.io/badge/Agents-8%20Ecosystems-orange.svg?style=for-the-badge)](#-universal-multi-agent-matrix)
-[![Rulebook](https://img.shields.io/badge/Rules-67%20Chapters-red.svg?style=for-the-badge)](#-complete-rulebook--engineering-standards-catalog)
+[![Rulebook](https://img.shields.io/badge/Rules-63%20Chapters-red.svg?style=for-the-badge)](#-complete-rulebook--engineering-standards-catalog)
 [![Skills Catalog](https://img.shields.io/badge/Skills-45%20Curated-purple.svg?style=for-the-badge)](#-45-curated-engineering-skills-catalog)
 [![MCP Servers](https://img.shields.io/badge/MCP-6%20Integrated-brightgreen.svg?style=for-the-badge)](#-mcp-model-context-protocol-hub)
 
@@ -31,7 +31,7 @@
 
 DevKit cung cấp một hệ sinh thái khép kín:
 1. **Quy chuẩn lập trình tối thượng:** Zero-Defect Protocol, Paired Executable Oracle, No-Fabrication Engine.
-2. **Bộ Rulebook Đồ Sộ (67 Chapters):** 17 quy chuẩn Universal cốt lõi + 50 quy chuẩn chuyên sâu cho từng nền tảng (Android/Compose, Web, Backend).
+2. **Bộ Rulebook Đồ Sộ (63 Chapters):** 15 quy chuẩn Universal cốt lõi + 48 quy chuẩn chuyên sâu cho từng nền tảng (Android/Compose, Web, Backend).
 3. **Tầng phòng thủ bằng máy (Machine Safety Gates):** 9+ lifecycle hooks và 160+ unit contract tests tự động bắt lỗi và chặn code ảo giác/phỏng đoán.
 4. **Kho 44 Kỹ Năng Tinh Gọn (Curated Engineering Skills):** Phân thành 5 nhóm chuyên biệt bao quát 100% vòng đời phát triển phần mềm.
 5. **Hệ sinh thái MCP Hub:** Tích hợp sẵn 6 MCP servers mạnh mẽ nhất cho AST Knowledge Graph discovery, Tra cứu Docs thực tế, Điều khiển thiết bị qua ADB, và Play Console.
@@ -123,32 +123,31 @@ graph TD
 
 ## 📜 Complete Rulebook & Engineering Standards Catalog
 
-DevKit sở hữu hệ thống quy chuẩn chia thành **Universal Core Rules (17 chapters)** dùng chung cho mọi dự án và **Domain Rulebooks (50 chapters)** chuyên sâu:
+DevKit sở hữu hệ thống quy chuẩn chia thành **Universal Core Rules (17 chapters)** dùng chung cho mọi dự án và **Domain Rulebooks (48 chapters)** chuyên sâu:
 
 ### 1. 🌐 Universal Core Rules (`core/rules/`)
 
 | File Quy Chuẩn | Chủ Đề / Lĩnh Vực | Mục Đích & Nguyên Tắc Cốt Lõi |
 |---|---|---|
-| [`01-testing.md`](file://core/rules/01-testing.md) | Unit & Integration Testing | Bắt buộc Paired Executable Oracle (RED→GREEN), cấm waiver, bắt buộc đo kiểm XML test report thật. |
-| [`02-general.md`](file://core/rules/02-general.md) | General Engineering Policy | Tiêu chuẩn kỹ sư Level-4, Graph-First protocol, chính sách ngôn ngữ mặc định English / tùy chọn Vietnamese. |
-| [`03-architecture.md`](file://core/rules/03-architecture.md) | Clean Architecture | Phân tầng nghiêm ngặt (Presentation → Domain → Data), Unidirectional Data Flow, Dependency Inversion. |
-| [`04-style-guide.md`](file://core/rules/04-style-guide.md) | Code Formatting & Style | Chuẩn đặt tên, cấu trúc file, nullability, immutability và clean code guidelines. |
-| [`05-anti-patterns.md`](file://core/rules/05-anti-patterns.md) | Anti-Patterns | Danh mục các lỗi cấm: God classes, leaky abstractions, side-effects trong getter, blocking I/O trên Main thread. |
-| [`07-dry.md`](file://core/rules/07-dry.md) | DRY & Code Reuse | Nguyên tắc tái sử dụng mã nguồn an toàn, tránh trùng lặp logic nghiệp vụ và utility functions. |
-| [`09-performance.md`](file://core/rules/09-performance.md) | Performance Optimization | Tối ưu bộ nhớ, ngăn ngừa OOM, kiểm soát frame budget (16ms/60fps, 8ms/120fps), tối ưu loop/allocations. |
-| [`11-analyzer.md`](file://core/rules/11-analyzer.md) | Static Analyzers | Ràng buộc kiểm tra tĩnh qua ktlint, Detekt, Dependency Guard, Metalava API check. |
-| [`12-refactoring.md`](file://core/rules/12-refactoring.md) | Surgical Refactoring | Quy tắc chỉnh sửa phẫu thuật (Surgical Edits), cấm drive-by refactoring hoặc format lan man ngoài task scope. |
-| [`13-systematic-debugging.md`](file://core/rules/13-systematic-debugging.md) | Systematic Debugging | Quy trình chuẩn đoán lỗi 4 bước: Tái hiện → Phân lập → Kiểm chứng bằng chứng phân biệt → Sửa tối thiểu. |
-| [`14-task-completion.md`](file://core/rules/14-task-completion.md) | Task Completion Gate | Định nghĩa Terminal State hoàn thành, cấm dừng nửa chừng hoặc yêu cầu user gõ 'continue' khi chưa xong task. |
-| [`15-ai-workflow.md`](file://core/rules/15-ai-workflow.md) | Multi-Agent Orchestration | Quy tắc điều phối Subagent, nén ngữ cảnh (compaction), quản lý hội thoại và chia tách task lớn. |
-| [`18-naming-conventions.md`](file://core/rules/18-naming-conventions.md) | Naming Conventions | Chuẩn đặt tên class, function, variable, package name, test class, resource ID đồng nhất. |
-| [`19-security.md`](file://core/rules/19-security.md) | Security & Attack Surface | Ràng buộc an ninh: Input validation, Intent injection, SAF traversal, cấm hardcode credentials. |
-| [`22-git-conventions.md`](file://core/rules/22-git-conventions.md) | Git Conventions | Chuẩn Conventional Commits (`feat`, `fix`, `refactor`...), branch naming, cấm force-push phá hủy lịch sử. |
-| [`30-r8-proguard.md`](file://core/rules/30-r8-proguard.md) | Code Shrinking & ProGuard | Giữ nguyên class model serialization, mapping rules, kiểm thử release APK với R8 minification. |
-| [`45-tdd-enforcement.md`](file://core/rules/45-tdd-enforcement.md) | TDD Gate Enforcement | Ràng buộc viết test thất bại (RED) trước khi viết code production, cấm bypass TDD. |
+| [`02-general.md`](file://core/rules/02-general.md) | Quy chuẩn Kỹ sư Cấp cao | Tiêu chuẩn kỹ sư Level-4, Graph-First protocol, chính sách ngôn ngữ mặc định English / tùy chọn Vietnamese. |
+| [`03-monorepo-governance.md`](file://core/rules/03-monorepo-governance.md) | Kiến trúc & Quản trị Module | Phân tầng Clean Architecture (Presentation → Domain → Data), phân lập ranh giới module và DI độc lập. |
+| [`04-core-performance.md`](file://core/rules/04-core-performance.md) | Hiệu Năng Cốt Lõi | Kiểm soát frame budget (16ms/60fps, 8ms/120fps), tối ưu bộ nhớ, cấm cấp phát object trong vòng lặp hẹp. |
+| [`08-code-organization-dry.md`](file://core/rules/08-code-organization-dry.md) | Tổ chức Code & DRY | Single Source of Truth cho business logic, cấu trúc thư mục sạch và tái sử dụng mã nguồn an toàn. |
+| [`11-analyzer-enforcement.md`](file://core/rules/11-analyzer-enforcement.md) | Kiểm Tra Tĩnh (Static Analyzer) | Ràng buộc kiểm tra tĩnh qua ktlint, Detekt, warnings-as-errors, Metalava API compatibility check. |
+| [`13-anti-patterns.md`](file://core/rules/13-anti-patterns.md) | Anti-Patterns | Danh mục các lỗi cấm: God classes, leaky abstractions, side-effects trong getter, blocking Main thread. |
+| [`14-null-safety.md`](file://core/rules/14-null-safety.md) | An Toàn Null & Kiểu Dữ Liệu | Xử lý nullability an toàn, triệt tiêu nguy cơ NullPointerException, bất biến hóa kiểu dữ liệu. |
+| [`16-security.md`](file://core/rules/16-security.md) | An Ninh & Bề Mặt Tấn Công | Kiểm tra tính hợp lệ dữ liệu đầu vào, bảo vệ credentials/tokens, an toàn IPC/Intent và SAF. |
+| [`17-testing.md`](file://core/rules/17-testing.md) | Kiểm Thử & Quality Gate | Paired Executable Oracle (RED→GREEN), test source set enforcement, đo kiểm file XML test thật trên ổ đĩa. |
+| [`18-naming-conventions.md`](file://core/rules/18-naming-conventions.md) | Quy Chuẩn Đặt Tên | Đồng nhất cách đặt tên class, function, variable, test method, package và file theo chuẩn kỹ thuật. |
+| [`19-documentation-resources.md`](file://core/rules/19-documentation-resources.md) | Tài Liệu & Tài Nguyên | Viết tài liệu chính xác, quản lý string/resource tập trung, loại bỏ comment sai lệch hoặc gây nhiễu. |
+| [`22-git-conventions.md`](file://core/rules/22-git-conventions.md) | Quy Ước Git | Chuẩn Conventional Commits (`feat`, `fix`, `refactor`...), branch naming, cấm lệnh phá hủy working tree. |
+| [`23-ai-workflow.md`](file://core/rules/23-ai-workflow.md) | Điều Phối AI & Subagent | Phân quyền Subagent, nén ngữ cảnh (compaction), quản lý hội thoại và hội tụ kế hoạch trước khi code. |
+| [`44-systematic-debugging.md`](file://core/rules/44-systematic-debugging.md) | Chẩn Đoán Lỗi Hệ Thống | 4 bước xử lý lỗi: Tái hiện → Phân lập → Kiểm chứng bằng chứng phân biệt → Sửa tối thiểu (Surgical Fix). |
+| [`45-tdd-enforcement.md`](file://core/rules/45-tdd-enforcement.md) | Ràng Buộc TDD Bắt Buộc | Bắt buộc viết test thất bại (RED) trước khi viết code production, cấm bypass quy trình TDD. |
+
 
 <details>
-<summary><b>📱 Xem 50 Chapters Chuyên Sâu cho Android (`domains/android/rulebook/`)</b></summary>
+<summary><b>📱 Xem 48 Chapters Chuyên Sâu cho Android (`domains/android/rulebook/`)</b></summary>
 
 Bao quát 100% hệ sinh thái Android hiện đại:
 - **UI & Compose:** `04-compose.md`, `06-compose-advanced.md`, `08-compose-performance.md`, `26-animations.md`, `27-accessibility.md`, `32-edge-to-edge.md`, `38-adaptive-layouts.md`, `41-custom-views.md`, `44-internationalization.md`.

@@ -7,7 +7,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 [![Tests Passing](https://img.shields.io/badge/Tests-294%20PASS%20(100%25)-success.svg?style=for-the-badge)](./hooks/tests)
 [![Supported Agents](https://img.shields.io/badge/Agents-8%20Ecosystems-orange.svg?style=for-the-badge)](#-universal-multi-agent-matrix)
-[![Rulebook](https://img.shields.io/badge/Rules-67%20Chapters-red.svg?style=for-the-badge)](#-complete-rulebook--engineering-standards-catalog)
+[![Rulebook](https://img.shields.io/badge/Rules-63%20Chapters-red.svg?style=for-the-badge)](#-complete-rulebook--engineering-standards-catalog)
 [![Skills Catalog](https://img.shields.io/badge/Skills-45%20Curated-purple.svg?style=for-the-badge)](#-45-curated-engineering-skills-catalog)
 [![MCP Servers](https://img.shields.io/badge/MCP-6%20Integrated-brightgreen.svg?style=for-the-badge)](#-mcp-model-context-protocol-hub)
 
@@ -31,7 +31,7 @@
 
 It delivers a complete, closed-loop software engineering ecosystem:
 1. **Supreme Engineering Protocols:** Zero-Defect Protocol, Paired Executable Oracle (RED→GREEN), and No-Fabrication Engine.
-2. **67 Rulebook Chapters:** 17 universal core rules + 50 domain-specialized chapters (Android/Compose, Web, Backend).
+2. **63 Rulebook Chapters:** 15 universal core rules + 48 domain-specialized chapters (Android/Compose, Web, Backend).
 3. **Machine Safety Gates:** 9 lifecycle safety hooks backed by 160+ unit contract tests that prevent hallucinated edits and catch bugs before commit.
 4. **44 Curated Engineering Skills:** Grouped into 5 specialized functional suites covering testing, architecture, office document parsing, meta-tooling, and UI.
 5. **Universal MCP Hub:** Pre-configured with 6 Model Context Protocol servers for AST Knowledge Graph discovery, real-time documentation lookup, Android ADB control, and Play Store automation.
@@ -48,7 +48,7 @@ It delivers a complete, closed-loop software engineering ecosystem:
 │ Paired Executable Oracle   │ C1–C9 Decision Table       │ Lifecycle Hooks              │
 │ (Mandatory RED → GREEN)    │ Zero hallucinated metrics  │ Pre-Code & Stop Gates        │
 ├────────────────────────────┼────────────────────────────┼──────────────────────────────┤
-│ ⚡ 7-Lens Multi-Audit      │ 📜 67 Rulebook Chapters    │ 🧰 44 Curated Skills         │
+│ ⚡ 7-Lens Multi-Audit      │ 📜 63 Rulebook Chapters    │ 🧰 44 Curated Skills         │
 │ Compile, Runtime, State,   │ Universal + 50 Android     │ 5 functional suites: QA,     │
 │ UX, Security, Architecture │ Domain Specialized Rules   │ TDD, Spec, Office, DevTools  │
 └────────────────────────────┴────────────────────────────┴──────────────────────────────┘
@@ -96,7 +96,7 @@ Automated 7-dimension review system (`multi-lens-audit.js`):
 graph TD
     subgraph DevKit_Core ["📦 Universal Agent DevKit Core"]
         CoreRules["Core Protocols (AGENTS.md, CLAUDE.md)"]
-        Rulebook["67 Rulebook Chapters (Universal + Android/Web)"]
+        Rulebook["63 Rulebook Chapters (Universal + Android/Web)"]
         Gates["160+ Safety Gates & Lifecycle Hooks"]
         SkillsCatalog["44 Curated Engineering Skills"]
         Workflows["Multi-Lens Audit & Evidence Engines"]
@@ -123,32 +123,31 @@ graph TD
 
 ## 📜 Complete Rulebook & Engineering Standards Catalog
 
-The DevKit organizes rules into **17 Universal Core Rules** applicable to all projects and **50 Domain-Specific Rules**:
+The DevKit organizes rules into **15 Universal Core Rules** applicable to all projects and **48 Domain-Specific Rules**:
 
 ### 1. 🌐 Universal Core Rules (`core/rules/`)
 
 | Rule Chapter | Domain / Topic | Core Principles & Purpose |
 |---|---|---|
-| [`01-testing.md`](file://core/rules/01-testing.md) | Testing & Quality Gate | Enforces Paired Executable Oracle (RED→GREEN), zero assertion waivers, physical XML test report verification. |
-| [`02-general.md`](file://core/rules/02-general.md) | Senior Engineering Policy | Level-4 engineer autonomous standards, Graph-First protocol, English default with multilingual support. |
-| [`03-architecture.md`](file://core/rules/03-architecture.md) | Clean Architecture | Strict layering (Presentation → Domain → Data), Unidirectional Data Flow, Dependency Inversion. |
-| [`04-style-guide.md`](file://core/rules/04-style-guide.md) | Formatting & Style | Naming conventions, file structure, nullability, immutability, clean code guidelines. |
-| [`05-anti-patterns.md`](file://core/rules/05-anti-patterns.md) | Anti-Patterns | Prohibited patterns (God classes, leaky abstractions, side-effects in getters, blocking Main thread). |
-| [`07-dry.md`](file://core/rules/07-dry.md) | DRY & Code Reuse | Safe code reuse, single source of truth for business logic and utilities. |
-| [`09-performance.md`](file://core/rules/09-performance.md) | Performance Optimization | Memory management, zero unnecessary heap allocations, frame budget control (16ms/60fps, 8ms/120fps). |
-| [`11-analyzer.md`](file://core/rules/11-analyzer.md) | Static Analyzers | Linter enforcement via ktlint, Detekt, Dependency Guard, Metalava API checks. |
-| [`12-refactoring.md`](file://core/rules/12-refactoring.md) | Surgical Refactoring | Surgical Edits protocol, prohibits drive-by refactoring or formatting sweeps outside task scope. |
-| [`13-systematic-debugging.md`](file://core/rules/13-systematic-debugging.md) | Systematic Debugging | 4-step root cause analysis: Reproduce → Isolate → Discriminating Test → Minimal Surgical Fix. |
-| [`14-task-completion.md`](file://core/rules/14-task-completion.md) | Task Completion Gate | Defines terminal completion states, prohibits early stopping or asking user to type 'continue'. |
-| [`15-ai-workflow.md`](file://core/rules/15-ai-workflow.md) | Subagent Orchestration | Subagent delegation, context compaction management, plan convergence workflows. |
-| [`18-naming-conventions.md`](file://core/rules/18-naming-conventions.md) | Naming Conventions | Uniform naming rules for symbols, files, packages, test classes, and resource IDs. |
-| [`19-security.md`](file://core/rules/19-security.md) | Security & Attack Surface | Security boundaries: Input validation, Intent injection, SAF path traversal, secret prevention. |
-| [`22-git-conventions.md`](file://core/rules/22-git-conventions.md) | Git Conventions | Conventional Commits (`feat`, `fix`, `refactor`...), branch naming, safe merge protocols. |
-| [`30-r8-proguard.md`](file://core/rules/30-r8-proguard.md) | Shrinking & ProGuard | Model serialization rules, mapping retention, release verification with R8 minification. |
-| [`45-tdd-enforcement.md`](file://core/rules/45-tdd-enforcement.md) | TDD Gate Enforcement | Strictly requires writing failing tests (RED) before touching production code. |
+| [`02-general.md`](file://core/rules/02-general.md) | General Engineering Policy | Level-4 engineer autonomous standards, Graph-First protocol, English default with multilingual support. |
+| [`03-monorepo-governance.md`](file://core/rules/03-monorepo-governance.md) | Architecture & Governance | Modular architecture boundaries, layer isolation (Presentation → Domain → Data), and clean DI. |
+| [`04-core-performance.md`](file://core/rules/04-core-performance.md) | Core Performance | Frame budget enforcement (16ms/60fps, 8ms/120fps), memory footprint optimization, zero allocations in tight loops. |
+| [`08-code-organization-dry.md`](file://core/rules/08-code-organization-dry.md) | DRY & Code Organization | Single source of truth for business logic, clean package structure, and safe code reuse. |
+| [`11-analyzer-enforcement.md`](file://core/rules/11-analyzer-enforcement.md) | Static Analyzers | Linter enforcement via ktlint, Detekt, compiler warnings-as-errors, and Metalava API checks. |
+| [`13-anti-patterns.md`](file://core/rules/13-anti-patterns.md) | Anti-Patterns | Prohibited code patterns (God classes, leaky abstractions, side-effects in getters, blocking Main thread). |
+| [`14-null-safety.md`](file://core/rules/14-null-safety.md) | Null Safety & Typing | Safe nullability handling, eliminating NPE risks, strict type invariants. |
+| [`16-security.md`](file://core/rules/16-security.md) | Security & Attack Surface | Input validation, credential protection, secure IPC/Intent filters, and safe storage access. |
+| [`17-testing.md`](file://core/rules/17-testing.md) | Testing & Quality Gate | Paired Executable Oracle (RED→GREEN), test source set enforcement, physical XML test report verification. |
+| [`18-naming-conventions.md`](file://core/rules/18-naming-conventions.md) | Naming Conventions | Uniform naming conventions for classes, functions, variables, test methods, and files. |
+| [`19-documentation-resources.md`](file://core/rules/19-documentation-resources.md) | Documentation & Resources | Accurate docstrings, resource isolation, avoiding stale or misleading comments. |
+| [`22-git-conventions.md`](file://core/rules/22-git-conventions.md) | Git Conventions | Conventional Commits (`feat`, `fix`, `refactor`...), branch naming, safe non-destructive Git workflows. |
+| [`23-ai-workflow.md`](file://core/rules/23-ai-workflow.md) | AI Workflow & Subagents | Subagent coordination, context compaction management, plan convergence workflows. |
+| [`44-systematic-debugging.md`](file://core/rules/44-systematic-debugging.md) | Systematic Debugging | 4-step root cause analysis: Reproduce → Isolate → Discriminating Test → Minimal Surgical Fix. |
+| [`45-tdd-enforcement.md`](file://core/rules/45-tdd-enforcement.md) | TDD Gate Enforcement | Strictly requires writing failing tests (RED) before implementing production code. |
+
 
 <details>
-<summary><b>📱 View 50 Specialized Android Rulebook Chapters (`domains/android/rulebook/`)</b></summary>
+<summary><b>📱 View 48 Specialized Android Rulebook Chapters (`domains/android/rulebook/`)</b></summary>
 
 Comprehensive coverage for modern Android development:
 - **UI & Compose:** `04-compose.md`, `06-compose-advanced.md`, `08-compose-performance.md`, `26-animations.md`, `27-accessibility.md`, `32-edge-to-edge.md`, `38-adaptive-layouts.md`, `41-custom-views.md`, `44-internationalization.md`.
