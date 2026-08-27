@@ -138,7 +138,7 @@ private fun FeatureContent(
 
 ### Step 5: Add Navigation Route
 ```kotlin
-// In OfficeReaderNavigation.kt or feature's NavGraph
+// In AppNavigation.kt or feature's NavGraph
 composable("feature_route") {
     FeatureScreen(
         onNavigateToDetail = { id -> navController.navigate("detail/$id") }

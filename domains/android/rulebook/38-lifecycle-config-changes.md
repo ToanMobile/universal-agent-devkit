@@ -87,14 +87,14 @@ fun ReaderScreen() {
 ### When to Use `android:configChanges` in Manifest?
 ```xml
 <!-- Use ONLY when you handle the change manually -->
-<!-- OfficeReader: DO NOT use — let Activity recreate -->
+<!-- App: DO NOT use — let Activity recreate -->
 ```
 
 ---
 
 ## Multi-Window & Multi-Instance
 
-### Pattern for OfficeReader
+### Pattern for App
 ```kotlin
 // Each document opens in its own Activity instance
 class ReaderOfficeActivity : BaseActivity() {

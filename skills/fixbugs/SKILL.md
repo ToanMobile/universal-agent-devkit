@@ -5,7 +5,7 @@ description: Quy trình chuẩn đoán và sửa lỗi (bug fixing) tuân thủ 
 
 # Quy trình Sửa Lỗi Chuẩn (Standard Bug Fixing Protocol)
 
-Skill hướng dẫn quy trình điều tra, tái hiện và sửa lỗi theo nguyên tắc **Paired Executable Oracle (RED → GREEN)** và **Surgical Edits** trong OfficeReader.
+Skill hướng dẫn quy trình điều tra, tái hiện và sửa lỗi theo nguyên tắc **Paired Executable Oracle (RED → GREEN)** và **Surgical Edits** trong Target Project / Codebase.
 
 ## 1. Nguyên Tắc Cốt Lõi (Non-Negotiable)
 

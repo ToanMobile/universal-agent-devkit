@@ -453,7 +453,7 @@ function binaryEvidenceText(path, status, beforeState, afterState) {
   const artifactSha256 = status === 'deleted' ? beforeState.sha256 : afterState.sha256
   const mode = (value) => value === null ? 'absent' : value.toString(8)
   return [
-    'OfficeReader binary evidence v1',
+    'App binary evidence v1',
     `path ${path}`,
     `status ${status}`,
     `preimage ${beforeState.sha256} mode ${mode(beforeState.mode)}`,
@@ -926,7 +926,7 @@ function verifyBundle(flags) {
     if (totalPatchBytes > MAX_TOTAL_PATCH_BYTES) fail(`Exact patches exceed ${MAX_TOTAL_PATCH_BYTES} byte aggregate workflow limit`, 4)
     artifacts.push({
       id: artifactId,
-      mediaType: binary ? 'application/vnd.officereader.binary-evidence' : 'text/x-diff',
+      mediaType: binary ? 'application/vnd.exampleapp.binary-evidence' : 'text/x-diff',
       encoding: 'base64', payload: Buffer.from(patch).toString('base64'), byteLength: Buffer.byteLength(patch), sha256: patchSha256,
     })
     const binaryArtifactId = binary ? `binary-${index}` : undefined
@@ -999,7 +999,7 @@ function verifyBundle(flags) {
   for (const capture of bundle.oracleCaptures || []) {
     artifacts.push(jsonArtifact(
       `oracle-source-${capture.oracleId}`,
-      'application/vnd.officereader.oracle-source+json',
+      'application/vnd.exampleapp.oracle-source+json',
       capture,
     ))
   }

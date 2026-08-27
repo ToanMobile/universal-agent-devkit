@@ -3,7 +3,7 @@ name: incremental-implementation
 description: Dùng khi implement feature/thay đổi nhiều file hoặc task khó verify trong một bước. Bỏ qua edit local đã rõ và config không có logic.
 ---
 
-# Incremental Implementation cho OfficeReader
+# Incremental Implementation cho Target Project / Codebase
 
 > **Nguồn gốc:** Adapted từ `addyosmani/agent-skills` — operationalize AGENTS.md B2 (Simplicity) + B3 (Surgical) thành vòng lặp.
 > **Liên kết:** AGENTS.md B2 · B3 · B7 (Checkpoint) · [[deep-module-design]] · [[tdd-workflow]] · Gate 4b (ktlint)
@@ -15,7 +15,7 @@ description: Dùng khi implement feature/thay đổi nhiều file hoặc task kh
 
 ## 3 chiến lược cắt lát
 
-| Chiến lược | Khi dùng | OfficeReader |
+| Chiến lược | Khi dùng | Target Project / Codebase |
 | :-- | :-- | :-- |
 | **Vertical** (mặc định) | Mỗi lát = 1 đường xuyên full-stack chạy end-to-end | 1 format mở được (parse→VM→render) trước, rồi format kế |
 | **Contract-First** | Nhiều bên làm song song | Chốt interface `FileHandler`/UseCase trước, VM & Repo bám vào |

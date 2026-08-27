@@ -19,7 +19,7 @@ Example: `DocumentCardPreview_Light`, `DocumentCardPreview_Dark`, `DocumentCardP
 @Preview(name = "Small Screen", widthDp = 320, heightDp = 640)
 @Composable
 fun DocumentCardPreview() {
-    OfficeReaderTheme {
+    AppTheme {
         DocumentCard(
             document = Document(
                 id = "1",

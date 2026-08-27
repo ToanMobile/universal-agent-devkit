@@ -1,11 +1,11 @@
 ---
 name: qc
-description: Chạy kiểm thử tự động, lint check (ktlint), unit tests, Metalava API check, Translation gate và QA release gates cho OfficeReader.
+description: Chạy kiểm thử tự động, lint check (ktlint), unit tests, Metalava API check, Translation gate và QA release gates cho Target Project / Codebase.
 ---
 
 # Quality Control (QC) & Automated Testing
 
-Skill tự động hóa quy trình kiểm thử chất lượng, kiểm tra cú pháp code (linting), unit tests, tính tương thích API (Metalava), độ phủ bản dịch đa ngôn ngữ và chạy production QA gates cho dự án OfficeReader.
+Skill tự động hóa quy trình kiểm thử chất lượng, kiểm tra cú pháp code (linting), unit tests, tính tương thích API (Metalava), độ phủ bản dịch đa ngôn ngữ và chạy production QA gates cho dự án Target Project / Codebase.
 
 ## 1. Quick Verification (Module-scoped)
 

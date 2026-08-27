@@ -1,9 +1,9 @@
 ---
 name: tdd-workflow
-description: Dùng khi thêm/sửa logic testable, viết regression test hoặc audit test quality cho OfficeReader bằng RED→GREEN an toàn. Bỏ qua config/rendering thuần cần verification khác; không xóa hay revert user work để tạo RED.
+description: Dùng khi thêm/sửa logic testable, viết regression test hoặc audit test quality cho Target Project / Codebase bằng RED→GREEN an toàn. Bỏ qua config/rendering thuần cần verification khác; không xóa hay revert user work để tạo RED.
 ---
 
-# TDD Workflow cho OfficeReader
+# TDD Workflow cho Target Project / Codebase
 
 ## Contract
 

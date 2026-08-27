@@ -1,6 +1,6 @@
 ---
 name: graph-navigation
-description: Dùng khi khám phá code, tìm symbol, đọc implementation, trace call/data flow, phân tích blast radius, test coverage hoặc architecture OfficeReader. Bỏ qua với literal, config, docs và generated files; dùng Read/Grep trực tiếp cho các trường hợp đó.
+description: Dùng khi khám phá code, tìm symbol, đọc implementation, trace call/data flow, phân tích blast radius, test coverage hoặc architecture Target Project / Codebase. Bỏ qua với literal, config, docs và generated files; dùng Read/Grep trực tiếp cho các trường hợp đó.
 ---
 
 # Graph Navigation

@@ -2,7 +2,7 @@
 
 ## Folder Structure (Layout)
 ```
-OfficeReader/
+App/
 ├── app/               # Main application module (UI, Navigation, DI wiring)
 ├── core/              # Shared core (data, domain, ui)
 ├── feature/           # Feature modules (each is one screen/flow)

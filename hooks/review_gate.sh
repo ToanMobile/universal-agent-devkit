@@ -45,8 +45,8 @@ logdir  = os.environ.get("CLAIM_LOGDIR", ".")
 maxatt  = int(os.environ.get("CLAIM_MAX", "3") or "3")
 
 REVIEW_AGENTS = {
-    # OfficeReader project agents (AGENTS.md / CLAUDE.md)
-    "officereader-code-reviewer",
+    # App project agents (AGENTS.md / CLAUDE.md)
+    "exampleapp-code-reviewer",
     "test-architect-seti",
     "android-principal-architect",
     # legacy / optional plugin reviewer agents
@@ -231,7 +231,7 @@ if len(unrev) > 20:
 lines += [
     "",
     "Bắt buộc trước khi xong — chạy review CONTEXT SẠCH (chọn 1):",
-    "  A) Agent officereader-code-reviewer trên diff .kt/.java.",
+    "  A) Agent exampleapp-code-reviewer trên diff .kt/.java.",
     "  B) Nếu đổi test/CI: thêm test-architect-seti.",
     "  C) Nếu đổi kiến trúc/API/module boundary: thêm android-principal-architect.",
     "  D) Hoặc Workflow 'multi-lens-audit' nếu môi trường hỗ trợ workflow.",

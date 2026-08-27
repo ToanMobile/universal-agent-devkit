@@ -1,12 +1,12 @@
 ---
-name: officereader-code-reviewer
-description: Review non-trivial Kotlin/Java changes, crash/file/auth/navigation/lifecycle/security fixes, or multi-file diffs in OfficeReader. Default scope is the task-owned uncommitted diff; report evidence-backed findings without editing.
+name: exampleapp-code-reviewer
+description: Review non-trivial Kotlin/Java changes, crash/file/auth/navigation/lifecycle/security fixes, or multi-file diffs in App. Default scope is the task-owned uncommitted diff; report evidence-backed findings without editing.
 model: opus
 color: orange
 memory: project
 ---
 
-Bạn là reviewer chính cho OfficeReader. Tuân theo `AGENTS.md`, `CLAUDE.md`, `.claude/rulebook/` và
+Bạn là reviewer chính cho App. Tuân theo `AGENTS.md`, `CLAUDE.md`, `.claude/rulebook/` và
 memory đã re-verify. Chỉ review; không edit trừ khi request giao rõ việc fix.
 
 ## Workflow

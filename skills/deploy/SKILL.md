@@ -1,11 +1,11 @@
 ---
 name: deploy
-description: Quy trình build, đóng gói APK/AAB, kiểm tra signing và chuẩn bị release cho OfficeReader.
+description: Quy trình build, đóng gói APK/AAB, kiểm tra signing và chuẩn bị release cho Target Project / Codebase.
 ---
 
 # Build & Deployment Pipeline
 
-Skill hướng dẫn và tự động hóa quy trình build artifact (APK/AAB), kiểm tra chữ ký (signing), xác minh ProGuard/R8 mappings và chuẩn bị deployment cho OfficeReader.
+Skill hướng dẫn và tự động hóa quy trình build artifact (APK/AAB), kiểm tra chữ ký (signing), xác minh ProGuard/R8 mappings và chuẩn bị deployment cho Target Project / Codebase.
 
 ## 1. Pre-build Verification
 

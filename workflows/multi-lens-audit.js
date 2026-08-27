@@ -501,7 +501,7 @@ function binaryEvidenceText(change) {
   const artifactSha256 = change.status === 'deleted' ? change.preimageSha256 : change.postimageSha256
   const mode = (value) => value === null ? 'absent' : Number(value).toString(8)
   return [
-    'OfficeReader binary evidence v1',
+    'App binary evidence v1',
     `path ${change.path}`,
     `status ${change.status}`,
     `preimage ${change.preimageSha256} mode ${mode(change.preimageMode)}`,
@@ -814,7 +814,7 @@ function validateInputs(input) {
     const oracleSourceArtifact = artifactsById.get(operationalMeasurement?.oracleSourceArtifactId)
     const oracleSource = artifactJson(oracleSourceArtifact)
     if (operationalReceipt && (!oracleSourceArtifact
-      || oracleSourceArtifact.mediaType !== 'application/vnd.officereader.oracle-source+json'
+      || oracleSourceArtifact.mediaType !== 'application/vnd.exampleapp.oracle-source+json'
       || !oracleSource)) {
       errors.push(`verification receipt ${receipt.id || '<missing-id>'} requires a driver-attested oracle source artifact`
         + ` (${String(operationalMeasurement?.oracleSourceArtifactId || '<missing-id>')})`)
@@ -1133,7 +1133,7 @@ function validateInputs(input) {
     if (!SHA256_PATTERN.test(change.patchHash || '')) errors.push(`scope change ${change.id || '<missing-id>'} requires SHA-256 patchHash`)
     if (!nonEmptyString(change.patchArtifactId)) errors.push(`scope change ${change.id || '<missing-id>'} requires patchArtifactId`)
     const patchArtifact = artifactsById.get(change.patchArtifactId)
-    const expectedPatchMediaType = change.kind === 'binary' ? 'application/vnd.officereader.binary-evidence' : 'text/x-diff'
+    const expectedPatchMediaType = change.kind === 'binary' ? 'application/vnd.exampleapp.binary-evidence' : 'text/x-diff'
     if (!patchArtifact || patchArtifact.mediaType !== expectedPatchMediaType || !artifactText(patchArtifact)) {
       errors.push(`scope change ${change.id || '<missing-id>'} requires inline ${expectedPatchMediaType} artifact`)
     } else {
@@ -1718,17 +1718,17 @@ Do not manufacture findings and do not silently omit an unreadable/unsupported c
 const LENSES = [
   {
     key: 'compile',
-    agentType: 'officereader-code-reviewer',
+    agentType: 'exampleapp-code-reviewer',
     focus: 'Compile/API/resources: imports, signatures, visibility, annotations, call-site compatibility, generated/resource references, deleted or renamed symbols.',
   },
   {
     key: 'business_logic',
-    agentType: 'officereader-code-reviewer',
+    agentType: 'exampleapp-code-reviewer',
     focus: 'End-to-end behavior: read complete changed function bodies and branches; check wrong conditions, off-by-one, mappings, parser semantics, data transformations, fallbacks, and acceptance-to-output flow.',
   },
   {
     key: 'runtime',
-    agentType: 'officereader-code-reviewer',
+    agentType: 'exampleapp-code-reviewer',
     focus: 'Runtime/error/resource safety: exception propagation, CancellationException, try/finally masking, lifecycle/native failure, cleanup ownership, nullability, device/OEM behavior.',
   },
   {
@@ -1768,7 +1768,7 @@ const LENSES = [
   },
   {
     key: 'integration',
-    agentType: 'officereader-code-reviewer',
+    agentType: 'exampleapp-code-reviewer',
     focus: 'Generalist whole-diff integration: trace acceptance through callers/consumers; inspect deletes/renames, cross-file glue, interactions between changes, and gaps between specialized lenses.',
   },
 ]
@@ -1776,7 +1776,7 @@ const LENSES = [
 phase('Audit')
 const lensResults = await parallel(LENSES.map((lens) => () =>
   agent(
-    `You are a senior OfficeReader reviewer working in ${REPO}.\nLENS [${lens.key}]: ${lens.focus}\n${COMMON_PROMPT}`,
+    `You are a senior App reviewer working in ${REPO}.\nLENS [${lens.key}]: ${lens.focus}\n${COMMON_PROMPT}`,
     {
       label: `lens:${lens.key}`,
       phase: 'Audit',

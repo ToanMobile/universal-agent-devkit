@@ -1,7 +1,7 @@
 <div align="center">
 
 # 🚀 Universal AI Agent DevKit & Quality Protocol
-### *A unified, production-grade framework providing Zero-Defect protocols, automated safety gates, 45 curated canonical skills, and MCP tools across Claude Code, Google Gemini/Antigravity, Cursor, Windsurf, Copilot, and Codex.*
+### *A unified, production-grade framework providing Zero-Defect protocols, automated safety gates, 44 curated canonical skills, and MCP tools across Claude Code, Google Gemini/Antigravity, Cursor, Windsurf, Copilot, and Codex.*
 
 [![GitHub Repository](https://img.shields.io/badge/GitHub-ToanMobile%2Funiversal--agent--devkit-blue.svg?style=for-the-badge&logo=github)](https://github.com/ToanMobile/universal-agent-devkit)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
@@ -33,7 +33,7 @@ It delivers a complete, closed-loop software engineering ecosystem:
 1. **Supreme Engineering Protocols:** Zero-Defect Protocol, Paired Executable Oracle (RED→GREEN), and No-Fabrication Engine.
 2. **67 Rulebook Chapters:** 17 universal core rules + 50 domain-specialized chapters (Android/Compose, Web, Backend).
 3. **Machine Safety Gates:** 9 lifecycle safety hooks backed by 160+ unit contract tests that prevent hallucinated edits and catch bugs before commit.
-4. **45 Curated Engineering Skills:** Grouped into 5 specialized functional suites covering testing, architecture, office document parsing, meta-tooling, and UI.
+4. **44 Curated Engineering Skills:** Grouped into 5 specialized functional suites covering testing, architecture, office document parsing, meta-tooling, and UI.
 5. **Universal MCP Hub:** Pre-configured with 6 Model Context Protocol servers for AST Knowledge Graph discovery, real-time documentation lookup, Android ADB control, and Play Store automation.
 
 ---
@@ -48,7 +48,7 @@ It delivers a complete, closed-loop software engineering ecosystem:
 │ Paired Executable Oracle   │ C1–C9 Decision Table       │ Lifecycle Hooks              │
 │ (Mandatory RED → GREEN)    │ Zero hallucinated metrics  │ Pre-Code & Stop Gates        │
 ├────────────────────────────┼────────────────────────────┼──────────────────────────────┤
-│ ⚡ 7-Lens Multi-Audit      │ 📜 67 Rulebook Chapters    │ 🧰 45 Curated Skills         │
+│ ⚡ 7-Lens Multi-Audit      │ 📜 67 Rulebook Chapters    │ 🧰 44 Curated Skills         │
 │ Compile, Runtime, State,   │ Universal + 50 Android     │ 5 functional suites: QA,     │
 │ UX, Security, Architecture │ Domain Specialized Rules   │ TDD, Spec, Office, DevTools  │
 └────────────────────────────┴────────────────────────────┴──────────────────────────────┘
@@ -98,7 +98,7 @@ graph TD
         CoreRules["Core Protocols (AGENTS.md, CLAUDE.md)"]
         Rulebook["67 Rulebook Chapters (Universal + Android/Web)"]
         Gates["160+ Safety Gates & Lifecycle Hooks"]
-        SkillsCatalog["45 Curated Engineering Skills"]
+        SkillsCatalog["44 Curated Engineering Skills"]
         Workflows["Multi-Lens Audit & Evidence Engines"]
         MCPHub["6-Server MCP Integration Hub"]
     end
@@ -161,7 +161,7 @@ Comprehensive coverage for modern Android development:
 
 ---
 
-## 🧰 45 Curated Engineering Skills Catalog
+## 🧰 44 Curated Engineering Skills Catalog
 
 Standardized under the `SKILL.md` format (YAML frontmatter + Progressive Disclosure) across **5 functional groups**:
 
@@ -204,7 +204,7 @@ Standardized under the `SKILL.md` format (YAML frontmatter + Progressive Disclos
 
 ---
 
-### 4. 🛠️ Agent, Plugin & MCP Development (18 Skills)
+### 4. 🛠️ Agent, Plugin & MCP Development (17 Skills)
 | Skill | Slash Command | Description & Purpose |
 |---|---|---|
 | **`plugin-creator`** | `/plugin-creator` | Scaffolds and creates new plugin directories for Claude Code and Antigravity. |
@@ -223,7 +223,7 @@ Standardized under the `SKILL.md` format (YAML frontmatter + Progressive Disclos
 | **`review-agent`** | `/review-agent` | Performs defect-first independent code reviews before commits or pull requests. |
 | **`codebase-memory`** | `/codebase-memory` | Manages and synchronizes AST Knowledge Graph databases for large codebases. |
 | **`writing-rules`** | `/writing-rules` | Authoring and standardizing rulebook chapters and hookify safety policies. |
-| **`writing-skills`** | `/writing-skills` | Standards for authoring, auditing, and maintaining skills in the DevKit. |
+| **`skills-author`** | `/skills-author` | Standards for authoring, auditing, and maintaining skills in the DevKit. |
 | **`schedule`** | `/schedule` | Manages background recurring cron jobs and one-shot timer reminders for agents. |
 
 ---
@@ -368,7 +368,7 @@ universal-agent-devkit/
 │   └── knowledge/               # Universal Runbooks & Gate Layers
 ├── domains/                     # Domain-Specific Rulebooks
 │   └── android/rulebook/        # 50 chapters Android/Compose/Room/Kotlin rulebook
-├── skills/                      # 45 Curated Engineering Skills (SKILL.md standard)
+├── skills/                      # 44 Curated Engineering Skills (SKILL.md standard)
 ├── commands/                    # Auto-discovered Slash Commands & Aliases (68 commands)
 ├── agents/                      # Specialized Subagents (.md)
 ├── hooks/                       # 9+ Lifecycle Safety Gates & 160+ Contract Tests

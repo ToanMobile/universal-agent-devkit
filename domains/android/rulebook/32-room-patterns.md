@@ -12,7 +12,7 @@ Database → DAO → Repository → ViewModel → UI
     version = 4,
     exportSchema = true
 )
-abstract class OfficeReaderDatabase : RoomDatabase() {
+abstract class AppDatabase : RoomDatabase() {
     abstract fun documentDao(): DocumentDao
     abstract fun bookmarkDao(): BookmarkDao
 }
@@ -26,16 +26,16 @@ object DatabaseModule {
     
     @Provides
     @Singleton
-    fun provideDatabase(@ApplicationContext context: Context): OfficeReaderDatabase {
+    fun provideDatabase(@ApplicationContext context: Context): AppDatabase {
         return Room.databaseBuilder(
             context,
-            OfficeReaderDatabase::class.java,
+            AppDatabase::class.java,
             "office-reader.db"
         ).build()
     }
     
-    @Provides fun provideDocumentDao(db: OfficeReaderDatabase) = db.documentDao()
-    @Provides fun provideBookmarkDao(db: OfficeReaderDatabase) = db.bookmarkDao()
+    @Provides fun provideDocumentDao(db: AppDatabase) = db.documentDao()
+    @Provides fun provideBookmarkDao(db: AppDatabase) = db.bookmarkDao()
 }
 ```
 
@@ -108,7 +108,7 @@ val MIGRATION_2_3 = object : Migration(2, 3) {
 }
 
 // In Database builder
-Room.databaseBuilder(context, OfficeReaderDatabase::class.java, "office-reader.db")
+Room.databaseBuilder(context, AppDatabase::class.java, "office-reader.db")
     .addMigrations(MIGRATION_1_2, MIGRATION_2_3)
     .build()
 ```
@@ -127,7 +127,7 @@ Room.databaseBuilder(context, OfficeReaderDatabase::class.java, "office-reader.d
 ```kotlin
 @Test
 fun migrate1to2() {
-    val db = Room.inMemoryDatabaseBuilder(context, OfficeReaderDatabase::class.java)
+    val db = Room.inMemoryDatabaseBuilder(context, AppDatabase::class.java)
         .addMigrations(MIGRATION_1_2)
         .build()
     // Insert data at version 1, close, reopen at version 2
@@ -177,7 +177,7 @@ class Converters {
 
 // Register in Database
 @TypeConverters(Converters::class)
-abstract class OfficeReaderDatabase : RoomDatabase()
+abstract class AppDatabase : RoomDatabase()
 ```
 
 ## Anti-Patterns

@@ -69,7 +69,7 @@ if not tp or not os.path.exists(tp):
 
 # Mirrors review_gate.sh REVIEW_AGENTS/REVIEW_SKILLS/REVIEW_WORKFLOWS — keep in sync.
 REVIEW_AGENTS = {
-    "officereader-code-reviewer", "test-architect-seti", "android-principal-architect",
+    "exampleapp-code-reviewer", "test-architect-seti", "android-principal-architect",
     "silent-failure-hunter", "code-reviewer", "pr-test-analyzer", "type-design-analyzer",
     "pr-review-toolkit:silent-failure-hunter", "pr-review-toolkit:code-reviewer",
     "pr-review-toolkit:pr-test-analyzer", "pr-review-toolkit:type-design-analyzer",
@@ -196,7 +196,7 @@ sys.stderr.write(
     f"   nhưng {closed_bursts} fix trước CHƯA qua reviewer context-sạch nào.\n"
     f"   W3: review NGAY SAU fix ĐẦU TIÊN của mỗi lớp defect — sửa hết rồi review một lần ở\n"
     f"   cuối nghĩa là kỹ thuật sai đã được nhân bản sang mọi fix trước khi có ai nhìn thấy.\n"
-    f"   → Chạy officereader-code-reviewer (hoặc test-architect-seti / android-principal-architect)\n"
+    f"   → Chạy exampleapp-code-reviewer (hoặc test-architect-seti / android-principal-architect)\n"
     f"     trên fix trước, áp bài học, RỒI mới làm tiếp.\n"
 )
 sys.exit(2)

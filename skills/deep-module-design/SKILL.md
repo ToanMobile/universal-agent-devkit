@@ -1,6 +1,6 @@
 ---
 name: deep-module-design
-description: Dùng khi thiết kế hoặc đánh giá interface/seam, testability hay abstraction của một module OfficeReader. Bỏ qua khi chỉ cần tìm caller/blast radius hoặc sửa local không đổi contract.
+description: Dùng khi thiết kế hoặc đánh giá interface/seam, testability hay abstraction của một module Target Project / Codebase. Bỏ qua khi chỉ cần tìm caller/blast radius hoặc sửa local không đổi contract.
 ---
 
 # Deep Module Design

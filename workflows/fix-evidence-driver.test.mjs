@@ -121,7 +121,7 @@ function testReceipt(id, output, outcome, measurement) {
     sourceHash,
     scopeStates,
     scopeContentId,
-  }, 'application/vnd.officereader.oracle-source+json'))
+  }, 'application/vnd.exampleapp.oracle-source+json'))
   Object.assign(measurement, {
     executable, commandArgs, command, runStartedAt: evidenceStartedAt, capturedAt: now,
     reportPath, reportMtime: now, reportHash, evidenceHash,
@@ -199,7 +199,7 @@ test('driver isolates session delta on a pre-dirty file and requires explicit ov
   }
   assert.equal(redMeasurement.oracleSourceArtifactId, 'oracle-source-red')
   const redSourceArtifact = args.artifacts.find((artifact) => artifact.id === redMeasurement.oracleSourceArtifactId)
-  assert.equal(redSourceArtifact.mediaType, 'application/vnd.officereader.oracle-source+json')
+  assert.equal(redSourceArtifact.mediaType, 'application/vnd.exampleapp.oracle-source+json')
   assert.equal(JSON.parse(Buffer.from(redSourceArtifact.payload, 'base64').toString('utf8')).sourceHash, redMeasurement.oracleSourceHash)
   assert.equal(greenMeasurement.oracleSourceArtifactId, 'oracle-source-green')
   assert.ok(args.artifacts.some((artifact) => artifact.id === greenMeasurement.oracleSourceArtifactId))
@@ -235,7 +235,7 @@ test('driver isolates session delta on a pre-dirty file and requires explicit ov
     ...threadedOutput,
     artifacts: [
       ...threadedOutput.artifacts,
-      ...args.artifacts.filter((artifact) => artifact.mediaType === 'application/vnd.officereader.oracle-source+json'),
+      ...args.artifacts.filter((artifact) => artifact.mediaType === 'application/vnd.exampleapp.oracle-source+json'),
       jsonArtifact('measurement-red', redMeasurement),
       jsonArtifact('measurement-green', greenMeasurement),
     ],
@@ -327,7 +327,7 @@ test('driver records oracle source state around the executed measurement', () =>
   assert.equal(verified.status, 0, verified.stderr)
   const output = JSON.parse(verified.stdout)
   const artifact = output.artifacts.find((item) => item.id === 'oracle-source-reader-oracle')
-  assert.equal(artifact.mediaType, 'application/vnd.officereader.oracle-source+json')
+  assert.equal(artifact.mediaType, 'application/vnd.exampleapp.oracle-source+json')
   const payload = JSON.parse(Buffer.from(artifact.payload, 'base64').toString('utf8'))
   assert.equal(payload.sourceStates[0].path, 'src/test/ReaderTest.kt')
   assert.equal(payload.sourceStates[0].sha256, sha('fun oracle() = true\n'))
@@ -717,7 +717,7 @@ test('binary evidence requires explicit manual review and remains binary', async
   assert.deepEqual(Buffer.from(baselineBinary.payload, 'base64'), Buffer.from([0, 1, 2]))
   assert.equal(baselineBinary.sha256, output.scopeManifest.changes[0].preimageSha256)
   const binaryPatch = Buffer.from(output.artifacts[0].payload, 'base64').toString('utf8')
-  assert.match(binaryPatch, /^OfficeReader binary evidence v1$/m)
+  assert.match(binaryPatch, /^App binary evidence v1$/m)
   assert.match(binaryPatch, new RegExp(`^artifact ${exactBinary.sha256}$`, 'm'))
   assert.doesNotMatch(binaryPatch, /^GIT binary patch$/m)
 

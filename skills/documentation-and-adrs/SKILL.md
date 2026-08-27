@@ -3,7 +3,7 @@ name: documentation-and-adrs
 description: Dùng khi quyết định kiến trúc, chọn dependency/pattern/data model, đổi public API hoặc cần lưu why/trade-off lâu dài. Bỏ qua thay đổi tầm thường và fact đã suy ra được từ code/git.
 ---
 
-# Documentation & ADRs cho OfficeReader
+# Documentation & ADRs cho Target Project / Codebase
 
 > **Nguồn gốc:** Adapted từ `addyosmani/agent-skills` (port-lite: chỉ ADR template + lifecycle). Formalize cái memory system đang làm informal.
 > **Nối infra:** codebase-memory-mcp `manage_adr` (ADR store) + `.Codex/memory/` + `.Codex/knowledge/`.

@@ -1,7 +1,7 @@
 <div align="center">
 
 # 🚀 Universal AI Agent DevKit & Quality Protocol
-### *Framework chuẩn hóa toàn diện cung cấp Zero-Defect Protocol, 160+ Safety Gates, 67 Rule Chapters, 45 Curated Skills và Hệ sinh thái MCP cho mọi AI Coding Agent.*
+### *Framework chuẩn hóa toàn diện cung cấp Zero-Defect Protocol, 160+ Safety Gates, 67 Rule Chapters, 44 Curated Skills và Hệ sinh thái MCP cho mọi AI Coding Agent.*
 
 [![GitHub Repository](https://img.shields.io/badge/GitHub-ToanMobile%2Funiversal--agent--devkit-blue.svg?style=for-the-badge&logo=github)](https://github.com/ToanMobile/universal-agent-devkit)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
@@ -33,7 +33,7 @@ DevKit cung cấp một hệ sinh thái khép kín:
 1. **Quy chuẩn lập trình tối thượng:** Zero-Defect Protocol, Paired Executable Oracle, No-Fabrication Engine.
 2. **Bộ Rulebook Đồ Sộ (67 Chapters):** 17 quy chuẩn Universal cốt lõi + 50 quy chuẩn chuyên sâu cho từng nền tảng (Android/Compose, Web, Backend).
 3. **Tầng phòng thủ bằng máy (Machine Safety Gates):** 9+ lifecycle hooks và 160+ unit contract tests tự động bắt lỗi và chặn code ảo giác/phỏng đoán.
-4. **Kho 45 Kỹ Năng Tinh Gọn (Curated Engineering Skills):** Phân thành 5 nhóm chuyên biệt bao quát 100% vòng đời phát triển phần mềm.
+4. **Kho 44 Kỹ Năng Tinh Gọn (Curated Engineering Skills):** Phân thành 5 nhóm chuyên biệt bao quát 100% vòng đời phát triển phần mềm.
 5. **Hệ sinh thái MCP Hub:** Tích hợp sẵn 6 MCP servers mạnh mẽ nhất cho AST Knowledge Graph discovery, Tra cứu Docs thực tế, Điều khiển thiết bị qua ADB, và Play Console.
 
 ---
@@ -48,7 +48,7 @@ DevKit cung cấp một hệ sinh thái khép kín:
 │ Paired Executable Oracle   │ Bảng quyết định C1-C9      │ Lifecycle Hooks chặn lỗi     │
 │ (Bắt buộc RED → GREEN)     │ Không bịa số, dòng, metric │ Pre-Code & Stop Gates        │
 ├────────────────────────────┼────────────────────────────┼──────────────────────────────┤
-│ ⚡ 7-Lens Multi-Audit      │ 📜 67 Rulebook Chapters    │ 🧰 45 Curated Skills         │
+│ ⚡ 7-Lens Multi-Audit      │ 📜 67 Rulebook Chapters    │ 🧰 44 Curated Skills         │
 │ Compile, Runtime, State,   │ Universal + 50 Android     │ 5 nhóm chuyên sâu từ QA, TDD │
 │ UX, Security, Architecture │ Domain Specialized Rules   │ đến Office Engines & DevTools│
 └────────────────────────────┴────────────────────────────┴──────────────────────────────┘
@@ -98,7 +98,7 @@ graph TD
         CoreRules["Core Protocols (AGENTS.md, CLAUDE.md)"]
         Rulebook["67 Rulebook Chapters (Universal + Android/Web)"]
         Gates["160+ Safety Gates & Lifecycle Hooks"]
-        SkillsCatalog["45 Curated Engineering Skills"]
+        SkillsCatalog["44 Curated Engineering Skills"]
         Workflows["Multi-Lens Audit & Evidence Engines"]
         MCPHub["6-Server MCP Integration Hub"]
     end
@@ -161,7 +161,7 @@ Bao quát 100% hệ sinh thái Android hiện đại:
 
 ---
 
-## 🧰 45 Curated Engineering Skills Catalog
+## 🧰 44 Curated Engineering Skills Catalog
 
 Kho 45 kỹ năng chuẩn hóa theo định dạng `SKILL.md` (YAML frontmatter + Progressive Disclosure), chia thành **5 nhóm chức năng chuyên biệt**:
 
@@ -204,7 +204,7 @@ Kho 45 kỹ năng chuẩn hóa theo định dạng `SKILL.md` (YAML frontmatter 
 
 ---
 
-### 4. 🛠️ Agent, Plugin & MCP Development (18 Skills)
+### 4. 🛠️ Agent, Plugin & MCP Development (17 Skills)
 | Skill | Slash Command | Chức Năng & Mục Đích Sử Dụng |
 |---|---|---|
 | **`plugin-creator`** | `/plugin-creator` | Scaffold và tạo mới plugin directory theo chuẩn Claude Code và Antigravity. |
@@ -223,7 +223,7 @@ Kho 45 kỹ năng chuẩn hóa theo định dạng `SKILL.md` (YAML frontmatter 
 | **`review-agent`** | `/review-agent` | Thực hiện defect-first code review độc lập trước khi commit hoặc merge PR. |
 | **`codebase-memory`** | `/codebase-memory` | Quản trị và đồng bộ AST Knowledge Graph Database cho dự án lớn. |
 | **`writing-rules`** | `/writing-rules` | Hướng dẫn viết và chuẩn hóa các rule chapters và hookify safety rules. |
-| **`writing-skills`** | `/writing-skills` | Quy chuẩn tác giả, audit và bảo trì hệ thống skills trong kho DevKit. |
+| **`skills-author`** | `/skills-author` | Quy chuẩn tác giả, audit và bảo trì hệ thống skills trong kho DevKit. |
 | **`schedule`** | `/schedule` | Quản lý recurring cron jobs và one-shot timers chạy ngầm cho Agent. |
 
 ---
@@ -368,7 +368,7 @@ universal-agent-devkit/
 │   └── knowledge/               # Universal Runbooks & Gate Layers
 ├── domains/                     # Domain Rulebooks
 │   └── android/rulebook/        # 50 chapters Android/Compose/Room/Kotlin rulebook
-├── skills/                      # 45 Curated Engineering Skills (SKILL.md standard)
+├── skills/                      # 44 Curated Engineering Skills (SKILL.md standard)
 ├── commands/                    # Auto-discovered Slash Commands & Aliases (68 commands)
 ├── agents/                      # Specialized Subagents (.md)
 ├── hooks/                       # 9+ Lifecycle Safety Gates & 160+ Contract Tests

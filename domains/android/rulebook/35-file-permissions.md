@@ -33,7 +33,7 @@ fun requestAllFilesPermission(context: Activity) {
 ### Google Play Policy
 - `MANAGE_EXTERNAL_STORAGE` requires Google Play declaration.
 - Only allowed for: file managers, backup/restore, document management.
-- OfficeReader qualifies as "document management".
+- App qualifies as "document management".
 
 ---
 

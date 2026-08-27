@@ -1,12 +1,12 @@
 # 41 — Compose Styles API (Future Track)
 
 ## Overview
-Compose 1.8+ introduces `Styles` API — a unified styling system that replaces inline modifiers for consistent theming. Currently in **beta** — tracked but **NOT** applied in OfficeReader yet.
+Compose 1.8+ introduces `Styles` API — a unified styling system that replaces inline modifiers for consistent theming. Currently in **beta** — tracked but **NOT** applied in App yet.
 
 ## Timeline
 - **beta01**: Released with Compose 1.8.0-beta01.
 - **Stable**: Expected Compose 1.8.x (mid-late 2025).
-- **OfficeReader adoption**: After stable release + migration plan.
+- **App adoption**: After stable release + migration plan.
 
 ## Why Track?
 - `Styles` will replace: `Modifier.background()`, `Modifier.border()`, `Modifier.padding()` for themed components.

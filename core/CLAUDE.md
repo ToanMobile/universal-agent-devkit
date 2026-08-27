@@ -520,7 +520,7 @@ Chỉ được kết thúc lượt khi trúng ĐÚNG một trong năm:
 ### W3 — Intelligence Delegation (Sub-Agents)
 - Delegate khi: generate > 5 files, refactor > 500 LOC, viết > 20 test case.
 - **Tự dùng expert review khi rủi ro đủ cao, không chờ User nhắc:**
-  - `officereader-code-reviewer`: sau mọi Kotlin/Java change không tầm thường; bắt buộc nếu chạm crash
+  - `exampleapp-code-reviewer`: sau mọi Kotlin/Java change không tầm thường; bắt buộc nếu chạm crash
     fix, file parsing, auth/cloud, navigation, lifecycle, error handling, security/privacy, hoặc diff
     nhiều file.
   - `test-architect-seti`: thêm/sửa test, flaky, QA script/CI, test orchestration, fix phụ thuộc

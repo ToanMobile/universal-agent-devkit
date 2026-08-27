@@ -43,7 +43,7 @@
 ## Boundary Instrumentation — Khoanh Vùng Component Lỗi Trước Khi Đoán
 - Bug đi qua nhiều layer (UI → VM → Repo → Native)? **Log data VÀO và RA mỗi ranh giới** trước khi hình thành hypothesis.
 - So input/output từng chặng với kỳ vọng → chặng đầu tiên lệch = component lỗi. Tránh đoán mù ở sai layer.
-- OfficeReader: `Timber.d` với event name ổn định + correlation id tại mỗi boundary; xem [[observability-instrumentation]].
+- App: `Timber.d` với event name ổn định + correlation id tại mỗi boundary; xem [[observability-instrumentation]].
 
 ## Red Flags — Stop and Return to Phase 1
 - Fix breaks something else.

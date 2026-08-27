@@ -86,7 +86,7 @@ function binaryEvidenceForTest(item) {
   const artifactSha256 = item.status === 'deleted' ? item.preimageSha256 : item.postimageSha256
   const mode = (value) => value === null ? 'absent' : Number(value).toString(8)
   return [
-    'OfficeReader binary evidence v1',
+    'App binary evidence v1',
     `path ${item.path}`,
     `status ${item.status}`,
     `preimage ${item.preimageSha256} mode ${mode(item.preimageMode)}`,
@@ -189,7 +189,7 @@ function input(overrides = {}) {
     }
     const oldPath = item.status === 'renamed' ? item.previousPath : item.path
     const patch = patchText || (item.kind === 'binary' ? binaryEvidenceForTest(result) : `diff --git a/${oldPath} b/${item.path}\n--- a/${oldPath}\n+++ b/${item.path}\n@@ -1,${item.deleted} +1,${item.added} @@\n${Array.from({ length: item.deleted }, (_, line) => `-old-${line}`).join('\n')}${item.deleted && item.added ? '\n' : ''}${Array.from({ length: item.added }, (_, line) => `+new-${line}`).join('\n')}\n`)
-    const artifact = inlineArtifact(item.patchArtifactId || `patch-${item.id || index}`, item.kind === 'binary' ? 'application/vnd.officereader.binary-evidence' : 'text/x-diff', patch)
+    const artifact = inlineArtifact(item.patchArtifactId || `patch-${item.id || index}`, item.kind === 'binary' ? 'application/vnd.exampleapp.binary-evidence' : 'text/x-diff', patch)
     patchArtifacts.push(artifact)
     result.patchArtifactId = artifact.id
     result.patchHash = artifact.sha256
@@ -290,7 +290,7 @@ function input(overrides = {}) {
         observationToken: sha256TextForTest(`scope-observation:${item.id}:${change.id}`),
       }
     }).sort((left, right) => left.path.localeCompare(right.path))
-    return inlineArtifact(artifactId, 'application/vnd.officereader.oracle-source+json', {
+    return inlineArtifact(artifactId, 'application/vnd.exampleapp.oracle-source+json', {
       oracleId: item.id,
       source: 'artifact-driver',
       startedAt: measurementStartedAt,
@@ -513,7 +513,7 @@ function validRuntimeReceipt(id, key = 'unused-runtime', overrides = {}) {
     runner: 'adb', deviceId: fields.deviceId, variant: fields.variant, trigger: fields.trigger, actual: fields.actual,
     observedState: 'INPUT_ERROR', crashCount: fields.crashCount, anrCount: fields.anrCount, appErrorCount: fields.appErrorCount,
     runStartedAt: fields.runStartedAt, capturedAt: fields.capturedAt, evidenceHash: fields.evidenceHash,
-    packageName: 'com.officereader', buildId: 'debug-build', captureFilter: 'OfficeReader:*',
+    packageName: 'com.exampleapp', buildId: 'debug-build', captureFilter: 'App:*',
     fixtureHash: sha256TextForTest('empty.docx'), appArtifactSha256: sha256TextForTest('debug-apk'),
     ...overrides.measurement,
   }
@@ -1466,7 +1466,7 @@ test('changed oracle source bytes cannot reuse the prior declared hash', async (
   payload.sourceStates[0].sha256 = sha256TextForTest('changed-reader-test-harness')
   args.artifacts[index] = inlineArtifact(
     artifact.id,
-    'application/vnd.officereader.oracle-source+json',
+    'application/vnd.exampleapp.oracle-source+json',
     payload,
   )
   const { result } = await run(args)
@@ -1489,7 +1489,7 @@ test('deleted oracle source uses an explicit ABSENT tombstone', async () => {
     source.sourceHash = sha256ValueForTest(source.sourceStates)
     args.artifacts[sourceIndex] = inlineArtifact(
       sourceId,
-      'application/vnd.officereader.oracle-source+json',
+      'application/vnd.exampleapp.oracle-source+json',
       source,
     )
     const measurementId = `measurement-${id}`
@@ -1521,7 +1521,7 @@ test('oracle source capture window must enclose the measured execution', async (
   payload.finishedAt = new Date(Date.parse(preExecutedAt) - 1).toISOString()
   args.artifacts[index] = inlineArtifact(
     artifact.id,
-    'application/vnd.officereader.oracle-source+json',
+    'application/vnd.exampleapp.oracle-source+json',
     payload,
   )
   const { result } = await run(args)
@@ -1537,7 +1537,7 @@ test('pre receipt must bind the captured intermediate scope state', async () => 
   payload.scopeContentId = sha256TextForTest('invented-intermediate-scope')
   args.artifacts[index] = inlineArtifact(
     artifact.id,
-    'application/vnd.officereader.oracle-source+json',
+    'application/vnd.exampleapp.oracle-source+json',
     payload,
   )
   const { result } = await run(args)
@@ -1558,7 +1558,7 @@ test('oracle source artifact must retain canonical scoped states backing scopeCo
     mutate(payload)
     args.artifacts[index] = inlineArtifact(
       artifact.id,
-      'application/vnd.officereader.oracle-source+json',
+      'application/vnd.exampleapp.oracle-source+json',
       payload,
     )
     const { result } = await run(args)
@@ -1585,7 +1585,7 @@ test('oracle source artifact must retain canonical scoped states backing scopeCo
   )
   subset.artifacts[index] = inlineArtifact(
     artifact.id,
-    'application/vnd.officereader.oracle-source+json',
+    'application/vnd.exampleapp.oracle-source+json',
     payload,
   )
   const redReceipt = subset.verificationReceipts.find((receipt) => receipt.id === 'base-red')
@@ -1605,7 +1605,7 @@ test('oracle source artifact must retain canonical scoped states backing scopeCo
   )
   divergentPost.artifacts[postIndex] = inlineArtifact(
     postArtifact.id,
-    'application/vnd.officereader.oracle-source+json',
+    'application/vnd.exampleapp.oracle-source+json',
     postPayload,
   )
   const divergentResult = (await run(divergentPost)).result
@@ -2298,7 +2298,7 @@ test('runtime RED and GREEN allow different build artifacts while binding stable
     measurement: {
       runner: 'adb', deviceId: runtimeFields.deviceId, variant: runtimeFields.variant, trigger: runtimeFields.trigger,
       actual: 'BUG_PRESENT', observedState: 'BUG_PRESENT', crashCount: 0, anrCount: 0, appErrorCount: 0,
-      packageName: 'com.officereader', buildId: 'pre-build', captureFilter: 'OfficeReader:*', fixtureHash: sha256TextForTest('fixture'),
+      packageName: 'com.exampleapp', buildId: 'pre-build', captureFilter: 'App:*', fixtureHash: sha256TextForTest('fixture'),
       appArtifactSha256: sha256TextForTest('pre-apk'), failureSignature: 'wrong branch',
     },
   })
@@ -2307,7 +2307,7 @@ test('runtime RED and GREEN allow different build artifacts while binding stable
     measurement: {
       runner: 'adb', deviceId: runtimeFields.deviceId, variant: runtimeFields.variant, trigger: runtimeFields.trigger,
       actual: 'INPUT_ERROR', observedState: 'INPUT_ERROR', crashCount: 0, anrCount: 0, appErrorCount: 0,
-      packageName: 'com.officereader', buildId: 'post-build', captureFilter: 'OfficeReader:*', fixtureHash: sha256TextForTest('fixture'),
+      packageName: 'com.exampleapp', buildId: 'post-build', captureFilter: 'App:*', fixtureHash: sha256TextForTest('fixture'),
       appArtifactSha256: sha256TextForTest('post-apk'),
     },
   })
@@ -2336,7 +2336,7 @@ test('fresh receipt labels cannot hide stale test or runtime measurement timesta
     measurement: {
       runner: 'adb', deviceId: 'pixel-8-api-35', variant: 'debug', trigger: 'launch fixture', actual: 'INPUT_ERROR', observedState: 'INPUT_ERROR',
       crashCount: 0, anrCount: 0, appErrorCount: 0, runStartedAt, capturedAt: preExecutedAt,
-      packageName: 'com.officereader', buildId: 'post-build', captureFilter: 'OfficeReader:*', fixtureHash: sha256TextForTest('fixture'),
+      packageName: 'com.exampleapp', buildId: 'post-build', captureFilter: 'App:*', fixtureHash: sha256TextForTest('fixture'),
       appArtifactSha256: sha256TextForTest('post-apk'), evidenceHash: sha256TextForTest('runtime-stale'),
     },
   })
