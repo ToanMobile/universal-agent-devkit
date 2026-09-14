@@ -1,0 +1,52 @@
+{
+  "baseUrl": "http://localhost:3000",
+  "routes": [
+    {
+      "path": "/",
+      "name": "home"
+    },
+    {
+      "path": "/dashboard",
+      "name": "dashboard"
+    }
+  ],
+  "viewports": [
+    {
+      "name": "desktop",
+      "width": 1440,
+      "height": 900
+    },
+    {
+      "name": "mobile",
+      "width": 390,
+      "height": 844
+    }
+  ],
+  "auth": {
+    "mode": "none",
+    "loginUrl": "/login",
+    "emailSelector": "input[name=\"email\"]",
+    "passwordSelector": "input[name=\"password\"]",
+    "submitSelector": "button[type=\"submit\"]",
+    "readySelector": "",
+    "statePath": ".auth/state.json",
+    "stateMaxAgeHours": 8
+  },
+  "audit": {
+    "alignTolerancePx": [
+      1,
+      8
+    ],
+    "ignoreSelectors": [],
+    "minElementArea": 4
+  },
+  "output": {
+    "screenshotDir": ".qa-screenshots",
+    "reportDir": "plans/reports"
+  },
+  "r2": {
+    "endpoint": "https://2210faeff2d8e1c3d1f7ae5efbd35d4f.r2.cloudflarestorage.com",
+    "bucket": "finos-qa-screenshots",
+    "publicBaseUrl": "https://pub-d57f89f936224835963c361c8f455058.r2.dev"
+  }
+}
