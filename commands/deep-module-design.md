@@ -1,1 +1,0 @@
-../skills/deep-module-design/SKILL.md

@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "version": "1.0.0",
+  "project": "Android Mobile / FinOS Application",
+  "description": "Ma trận kiểm thử hồi quy cho Mobile App & FinOS eSign",
+  "rules": [
+    {
+      "component": "ESignTransactionFlow",
+      "watch_files": [
+        "**/signature/**",
+        "**/esign/**",
+        "**/TransactionSignViewModel.*"
+      ],
+      "immutable_guards": [
+        "DoubleSubmitDebounce",
+        "SignSessionState"
+      ],
+      "mandatory_regression_tests": [
+        {
+          "id": "REG-ESIGN-01",
+          "name": "Anti-Spam Rapid Click & Button Debounce Verification",
+          "command": "./gradlew testDebugUnitTest --tests '*.ESignDebounceTest'"
+        },
+        {
+          "id": "REG-ESIGN-02",
+          "name": "Dual Mode (DEMO vs LIVE) Data Isolation Test",
+          "command": "./gradlew testDebugUnitTest --tests '*.DualModeAuditTest'"
+        }
+      ]
+    },
+    {
+      "component": "AndroidLifecycleAndPerf",
+      "watch_files": [
+        "**/ui/**",
+        "**/viewmodel/**",
+        "**/repository/**"
+      ],
+      "immutable_guards": [
+        "MainThreadSafety",
+        "PendingIntentFlags"
+      ],
+      "mandatory_regression_tests": [
+        {
+          "id": "REG-LIFECYCLE-01",
+          "name": "Configuration Change & Process Death State Restoration",
+          "command": "./gradlew testDebugUnitTest --tests '*.LifecycleRestorationTest'"
+        },
+        {
+          "id": "REG-PERF-02",
+          "name": "Background Database / Network Coroutine Dispatchers Audit",
+          "command": "./gradlew testDebugUnitTest --tests '*.CoroutineDispatchersTest'"
+        }
+      ]
+    }
+  ]
+}

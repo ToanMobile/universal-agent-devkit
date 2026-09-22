@@ -1,1 +1,1 @@
-/Users/alex/.universal-agent-devkit/hooks/read_ledger.sh
+/Volumes/Data/Toan/Agent_MCP/universal-agent-devkit/hooks/read_ledger.sh

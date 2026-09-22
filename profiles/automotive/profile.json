@@ -1,0 +1,22 @@
+{
+  "id": "automotive",
+  "name": "🚗 Xe hơi (Android Automotive OS / IVI / Flyme Auto / CAN Bus)",
+  "description": "Cấu hình chuyên sâu cho hệ thống xe hơi: cách ly luồng dùng chung (MediaKey, Maps), bảo tồn rào chắn phần cứng (FlymeAuto, API 28), debounce phím vô lăng, phân tích CAN bus và kiểm toán an toàn HMI (NHTSA/ASPICE).",
+  "essential_mcps": [
+    "codebase-memory-mcp",
+    "android-code-search",
+    "replicant-mcp"
+  ],
+  "active_councils": [
+    "01-automotive-hardware.md",
+    "02-architecture-blast-radius.md",
+    "03-zero-defect-tdd.md",
+    "04-deterministic-ocr-review.md",
+    "05-security-vulnerability.md",
+    "07-performance-anr.md",
+    "08-tiered-memory-governance.md",
+    "10-automotive-compliance.md"
+  ],
+  "regression_matrix": "profiles/automotive/regression_matrix.json",
+  "rules_file": "profiles/automotive/rules/automotive-rules.md"
+}

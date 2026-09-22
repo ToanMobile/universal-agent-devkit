@@ -1,1 +1,0 @@
-../skills/schedule/SKILL.md

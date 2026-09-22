@@ -1,1 +1,0 @@
-../skills/deprecation-migration/SKILL.md

@@ -1,1 +1,0 @@
-../skills/frontend-design/SKILL.md

@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "version": "1.0.0",
+  "project": "Automotive Android / Multi-App Platform",
+  "description": "Ma trận ánh xạ tính năng & file dùng chung sang bộ test hồi quy bắt buộc (Test Impact Analysis Matrix)",
+  "rules": [
+    {
+      "component": "MediaKeyProxyService",
+      "watch_files": [
+        "**/MediaKeyProxyService.kt",
+        "**/MediaSessionHelper.kt",
+        "**/CarAudioService.kt"
+      ],
+      "immutable_guards": [
+        "Build.VERSION.SDK_INT <= 28",
+        "FlymeAuto",
+        "ECARX"
+      ],
+      "mandatory_regression_tests": [
+        {
+          "id": "REG-MED-01",
+          "name": "Spotify Background MediaSession Playback",
+          "command": "./gradlew testDebugUnitTest --tests 'com.car.media.SpotifyRegressionTest'"
+        },
+        {
+          "id": "REG-MED-02",
+          "name": "Zing MP3 MediaSession Active Token Handling",
+          "command": "./gradlew testDebugUnitTest --tests 'com.car.media.ZingMp3RegressionTest'"
+        },
+        {
+          "id": "REG-MED-03",
+          "name": "Steering Wheel Hardware Key Event Dispatcher",
+          "command": "./gradlew testDebugUnitTest --tests 'com.car.hardware.SteeringWheelKeysTest'"
+        },
+        {
+          "id": "REG-MED-04",
+          "name": "Split Screen Multi-Window Audio Focus & Key Event",
+          "command": "./gradlew testDebugUnitTest --tests 'com.car.media.SplitScreenMediaTest'"
+        },
+        {
+          "id": "REG-MED-05",
+          "name": "Flyme Auto / Android 9 Legacy Guards Verification",
+          "command": "./gradlew testDebugUnitTest --tests 'com.car.compatibility.FlymeAutoGuardsTest'"
+        }
+      ]
+    },
+    {
+      "component": "GoogleMapsNavigator",
+      "watch_files": [
+        "**/GoogleMapsNavigator.kt",
+        "**/NavigationFloatingWidget.kt",
+        "**/SplitScreenLayoutManager.kt"
+      ],
+      "immutable_guards": [
+        "MultiWindowMode",
+        "PictureInPicture"
+      ],
+      "mandatory_regression_tests": [
+        {
+          "id": "REG-NAV-01",
+          "name": "Split Screen 50/50 and 70/30 Boundary Test",
+          "command": "./gradlew testDebugUnitTest --tests 'com.car.nav.SplitScreenBoundaryTest'"
+        },
+        {
+          "id": "REG-NAV-02",
+          "name": "Floating Widget Touch Target >= 48dp",
+          "command": "./gradlew testDebugUnitTest --tests 'com.car.nav.FloatingWidgetAccessibilityTest'"
+        }
+      ]
+    }
+  ]
+}

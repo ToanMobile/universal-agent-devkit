@@ -1,1 +1,0 @@
-../skills/writing-rules/SKILL.md

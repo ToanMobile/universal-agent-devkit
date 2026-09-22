@@ -1,1 +1,0 @@
-../skills/build-mcp-server/SKILL.md

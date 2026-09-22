@@ -1,0 +1,24 @@
+{
+  "id": "android",
+  "name": "📱 Android (Mobile App / FinOS eSign / Jetpack Compose)",
+  "description": "Cấu hình chuẩn cho phát triển ứng dụng di động Android: FinOS Solo-Dev workflow, chống spam ký (Debounce/Loading), Jetpack Compose recomposition, Room/SQLite local cache, chống ANR/Bitmap OOM, kiểm soát cờ PendingIntent an toàn.",
+  "essential_mcps": [
+    "codebase-memory-mcp",
+    "android-code-search",
+    "android-skills",
+    "replicant-mcp"
+  ],
+  "active_councils": [
+    "01-subsystem-shared-flow.md",
+    "02-architecture-blast-radius.md",
+    "03-zero-defect-tdd.md",
+    "04-deterministic-ocr-review.md",
+    "05-security-vulnerability.md",
+    "07-performance-anr.md",
+    "08-tiered-memory-governance.md",
+    "09-finos-solo-dev.md",
+    "10-standards-compliance-delivery.md"
+  ],
+  "regression_matrix": "profiles/android/regression_matrix.json",
+  "rules_file": "profiles/android/rules/android-rules.md"
+}

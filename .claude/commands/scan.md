@@ -1,1 +1,1 @@
-/Users/alex/.universal-agent-devkit/commands/scan.md
+/Volumes/Data/Toan/Agent_MCP/universal-agent-devkit/commands/scan.md

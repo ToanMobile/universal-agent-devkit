@@ -1,1 +1,0 @@
-../skills/documentation-and-adrs/SKILL.md

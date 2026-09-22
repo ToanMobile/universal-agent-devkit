@@ -1,1 +1,1 @@
-/Users/alex/.universal-agent-devkit/hooks/testsourceset_gate.sh
+/Volumes/Data/Toan/Agent_MCP/universal-agent-devkit/hooks/testsourceset_gate.sh

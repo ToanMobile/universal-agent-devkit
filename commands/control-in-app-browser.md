@@ -1,1 +1,0 @@
-../skills/control-in-app-browser/SKILL.md

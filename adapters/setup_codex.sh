@@ -14,24 +14,15 @@ if [ "$LANGUAGE" = "vi" ]; then
   LANG_DIRECTIVE="Default communication language: Vietnamese. Code identifiers/paths: always English."
 fi
 
-cat << HEADER_EOF > "$TARGET_DIR/CODEX.md"
-# CODEX.md — Master Rules for OpenAI Codex & ChatGPT Canvas
-# Language Policy: $LANG_DIRECTIVE
+# 1. Setup AGENTS.md (Codex natively supports AGENTS.md at root)
+rm -f "$TARGET_DIR/CODEX.md"
 
-HEADER_EOF
-
-cat "$DEVKIT_ROOT/core/AGENTS.md" >> "$TARGET_DIR/CODEX.md"
-
-if [ -d "$DEVKIT_ROOT/domains/$DOMAIN/rulebook" ]; then
-  echo "" >> "$TARGET_DIR/CODEX.md"
-  echo "---" >> "$TARGET_DIR/CODEX.md"
-  echo "## Domain Specific Guidelines ($DOMAIN)" >> "$TARGET_DIR/CODEX.md"
-  for rule in "$DEVKIT_ROOT/domains/$DOMAIN/rulebook"/*.md; do
-    [ -f "$rule" ] || continue
-    echo "" >> "$TARGET_DIR/CODEX.md"
-    echo "### $(basename "$rule" .md)" >> "$TARGET_DIR/CODEX.md"
-    cat "$rule" >> "$TARGET_DIR/CODEX.md"
-  done
+if [ "$TARGET_DIR" != "$DEVKIT_ROOT" ]; then
+  if [ -f "$TARGET_DIR/AGENTS.md" ] && [ ! -L "$TARGET_DIR/AGENTS.md" ]; then
+    cp "$TARGET_DIR/AGENTS.md" "$TARGET_DIR/AGENTS.md.bak"
+  fi
+  rm -f "$TARGET_DIR/AGENTS.md"
+  ln -sfn "$DEVKIT_ROOT/AGENTS.md" "$TARGET_DIR/AGENTS.md"
 fi
 
-echo "✓ OpenAI Codex / ChatGPT (CODEX.md) ready."
+echo "✓ OpenAI Codex / ChatGPT (AGENTS.md SSOT) ready."

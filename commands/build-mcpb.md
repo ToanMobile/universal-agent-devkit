@@ -1,1 +1,0 @@
-../skills/build-mcpb/SKILL.md

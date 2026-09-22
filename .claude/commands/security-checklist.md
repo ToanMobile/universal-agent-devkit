@@ -1,1 +1,1 @@
-/Users/alex/.universal-agent-devkit/commands/security-checklist.md
+/Volumes/Data/Toan/Agent_MCP/universal-agent-devkit/commands/security-checklist.md

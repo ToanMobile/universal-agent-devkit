@@ -32,20 +32,12 @@ ALIASES=(
   "scan:security-checklist"
   "tdd:tdd-workflow"
   "verify:verification-before-completion"
-  "adr:documentation-and-adrs"
   "conflict:merge-conflict-resolver"
-  "grill:grill-plan"
-  "incremental:incremental-implementation"
-  "migration:deprecation-migration"
-  "observability:observability-instrumentation"
   "handoff:session-handoff"
   "crashlytics:triage-crashlytics-bug"
-  "deep-design:deep-module-design"
   "graph:graph-navigation"
-  "skills-author:skill-development"
-  "docx:documents"
-  "xlsx:spreadsheets"
-  "pptx:presentations"
+  "review:qa-review"
+  "visual:qa-visual"
 )
 
 for mapping in "${ALIASES[@]}"; do

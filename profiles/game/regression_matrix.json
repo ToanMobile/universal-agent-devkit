@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "version": "1.0.0",
+  "project": "Unity 6 & Blender 3D Game",
+  "description": "Ma trận kiểm thử hồi quy cho Game 3D: GC Allocations, DrawCalls, Mesh & Scene Transitions",
+  "rules": [
+    {
+      "component": "UnityGameLoopAndMemory",
+      "watch_files": [
+        "**/Scripts/**",
+        "**/*Controller.cs",
+        "**/*Manager.cs"
+      ],
+      "immutable_guards": [
+        "ZeroGcInUpdate",
+        "EventUnsubscriptionOnDestroy"
+      ],
+      "mandatory_regression_tests": [
+        {
+          "id": "REG-GAME-01",
+          "name": "Zero GC Allocation in Frame Update Loop Audit",
+          "command": "dotnet test --filter 'Category=MemoryProfiler'"
+        },
+        {
+          "id": "REG-GAME-02",
+          "name": "Scene Load & Unload Memory Leak Regression Test",
+          "command": "dotnet test --filter 'Category=SceneTransition'"
+        }
+      ]
+    },
+    {
+      "component": "RenderingAndAssetBudget",
+      "watch_files": [
+        "**/Models/**",
+        "**/Textures/**",
+        "**/Materials/**"
+      ],
+      "immutable_guards": [
+        "DrawCallBudgetLimit",
+        "PowerOfTwoTextures"
+      ],
+      "mandatory_regression_tests": [
+        {
+          "id": "REG-RENDER-01",
+          "name": "DrawCall Count Under Frame Budget (<= 100 DC)",
+          "command": "dotnet test --filter 'Category=RenderingBenchmark'"
+        },
+        {
+          "id": "REG-ASSET-02",
+          "name": "3D Mesh Non-Manifold & Polycount Verification",
+          "command": "python3 scripts/verify_mesh_assets.py"
+        }
+      ]
+    }
+  ]
+}

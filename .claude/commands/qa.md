@@ -1,1 +1,1 @@
-/Users/alex/.universal-agent-devkit/commands/qa.md
+/Volumes/Data/Toan/Agent_MCP/universal-agent-devkit/commands/qa.md

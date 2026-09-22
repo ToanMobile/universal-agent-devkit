@@ -1,1 +1,0 @@
-../skills/grill-plan/SKILL.md

@@ -1,1 +1,0 @@
-../skills/presentations/SKILL.md

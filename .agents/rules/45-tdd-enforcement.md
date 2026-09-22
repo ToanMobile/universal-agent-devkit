@@ -1,1 +1,0 @@
-/Users/alex/.universal-agent-devkit/core/rules/45-tdd-enforcement.md

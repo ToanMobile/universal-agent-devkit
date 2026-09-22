@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "version": "1.0.0",
+  "project": "Universal Application / Multi-Tenant Platform",
+  "description": "Ma trận ánh xạ tính năng & file dùng chung sang bộ test hồi quy bắt buộc (Universal Test Impact Analysis Matrix)",
+  "rules": [
+    {
+      "component": "SharedCoreDispatcher",
+      "watch_files": [
+        "**/SharedDispatcher.*",
+        "**/BaseService.*",
+        "**/CoreEventBus.*"
+      ],
+      "immutable_guards": [
+        "PlatformCompatibilityGuard",
+        "LegacyVersionCheck",
+        "RateLimitThreshold"
+      ],
+      "mandatory_regression_tests": [
+        {
+          "id": "REG-CORE-01",
+          "name": "Default Tenant / Baseline Consumer Unmodified Flow",
+          "command": "npm test -- --testPathPattern=core.baseline"
+        },
+        {
+          "id": "REG-CORE-02",
+          "name": "Isolated Tenant / Specific Subsystem Override Test",
+          "command": "npm test -- --testPathPattern=core.tenant"
+        },
+        {
+          "id": "REG-CORE-03",
+          "name": "Event Debounce & Throttle Spam Prevention",
+          "command": "npm test -- --testPathPattern=core.debounce"
+        }
+      ]
+    },
+    {
+      "component": "ResponsiveViewportManager",
+      "watch_files": [
+        "**/ResponsiveLayout.*",
+        "**/WindowBoundsManager.*",
+        "**/NavigationWidget.*"
+      ],
+      "immutable_guards": [
+        "MultiWindowMode",
+        "CompactScreenBoundary"
+      ],
+      "mandatory_regression_tests": [
+        {
+          "id": "REG-VIEW-01",
+          "name": "Multi-Window & Split Screen Boundary Layout Integrity",
+          "command": "npm test -- --testPathPattern=view.boundary"
+        },
+        {
+          "id": "REG-VIEW-02",
+          "name": "Accessibility Touch Target Minimum Boundary (>= 48dp / 44px)",
+          "command": "npm test -- --testPathPattern=view.accessibility"
+        }
+      ]
+    }
+  ]
+}

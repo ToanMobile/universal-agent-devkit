@@ -1,1 +1,1 @@
-/Users/alex/.universal-agent-devkit/hooks/comment_claim_guard.sh
+/Volumes/Data/Toan/Agent_MCP/universal-agent-devkit/hooks/comment_claim_guard.sh

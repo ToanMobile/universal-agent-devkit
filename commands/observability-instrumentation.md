@@ -1,1 +1,0 @@
-../skills/observability-instrumentation/SKILL.md

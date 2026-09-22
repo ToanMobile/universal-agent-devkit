@@ -10,19 +10,20 @@ LANGUAGE="${3:-en}"
 echo "Configuring Claude Code for: $TARGET_DIR (mode: $MODE, lang: $LANGUAGE)"
 mkdir -p "$TARGET_DIR/.claude/hooks" "$TARGET_DIR/.claude/commands" "$TARGET_DIR/.claude/agents"
 
-# 1. Setup CLAUDE.md & AGENTS.md (Safely backup if existing regular file)
-for md_file in "CLAUDE.md" "AGENTS.md"; do
-  if [ -f "$TARGET_DIR/$md_file" ] && [ ! -L "$TARGET_DIR/$md_file" ]; then
-    cp "$TARGET_DIR/$md_file" "$TARGET_DIR/${md_file}.bak"
-    echo "  - Backed up existing $md_file to ${md_file}.bak"
+# 1. Setup AGENTS.md (Sole SSOT)
+rm -f "$TARGET_DIR/CLAUDE.md"
+if [ "$TARGET_DIR" != "$DEVKIT_ROOT" ]; then
+  if [ -f "$TARGET_DIR/AGENTS.md" ] && [ ! -L "$TARGET_DIR/AGENTS.md" ]; then
+    cp "$TARGET_DIR/AGENTS.md" "$TARGET_DIR/AGENTS.md.bak"
+    echo "  - Backed up existing AGENTS.md to AGENTS.md.bak"
   fi
-  rm -f "$TARGET_DIR/$md_file"
+  rm -f "$TARGET_DIR/AGENTS.md"
   if [ "$MODE" = "symlink" ]; then
-    ln -sfn "$DEVKIT_ROOT/core/$md_file" "$TARGET_DIR/$md_file"
+    ln -sfn "$DEVKIT_ROOT/AGENTS.md" "$TARGET_DIR/AGENTS.md"
   else
-    cp "$DEVKIT_ROOT/core/$md_file" "$TARGET_DIR/$md_file"
+    cp "$DEVKIT_ROOT/AGENTS.md" "$TARGET_DIR/AGENTS.md"
   fi
-done
+fi
 
 # 2. Additive Merge for .mcp.json
 python3 "$DEVKIT_ROOT/scripts/merge_json.py" "$DEVKIT_ROOT/mcp/.mcp.json" "$TARGET_DIR/.mcp.json"

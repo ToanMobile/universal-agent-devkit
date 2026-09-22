@@ -8,21 +8,23 @@ MODE="${2:-symlink}" # symlink or copy
 LANGUAGE="${3:-en}"
 
 echo "Configuring Antigravity / Google Gemini for: $TARGET_DIR (mode: $MODE, lang: $LANGUAGE)"
-mkdir -p "$TARGET_DIR/.agents/skills" "$TARGET_DIR/.agents/rules"
+mkdir -p "$TARGET_DIR/.agents/skills"
+rm -rf "$TARGET_DIR/.agents/rules"
 
-# 1. Setup AGENTS.md & GEMINI.md (Safely backup if existing regular file)
-for md_file in "AGENTS.md" "GEMINI.md"; do
-  if [ -f "$TARGET_DIR/$md_file" ] && [ ! -L "$TARGET_DIR/$md_file" ]; then
-    cp "$TARGET_DIR/$md_file" "$TARGET_DIR/${md_file}.bak"
-    echo "  - Backed up existing $md_file to ${md_file}.bak"
+# 1. Setup AGENTS.md (Sole SSOT)
+rm -f "$TARGET_DIR/Agent.md" "$TARGET_DIR/GEMINI.md"
+if [ "$TARGET_DIR" != "$DEVKIT_ROOT" ]; then
+  if [ -f "$TARGET_DIR/AGENTS.md" ] && [ ! -L "$TARGET_DIR/AGENTS.md" ]; then
+    cp "$TARGET_DIR/AGENTS.md" "$TARGET_DIR/AGENTS.md.bak"
+    echo "  - Backed up existing AGENTS.md to AGENTS.md.bak"
   fi
-  rm -f "$TARGET_DIR/$md_file"
+  rm -f "$TARGET_DIR/AGENTS.md"
   if [ "$MODE" = "symlink" ]; then
-    ln -sfn "$DEVKIT_ROOT/core/AGENTS.md" "$TARGET_DIR/$md_file"
+    ln -sfn "$DEVKIT_ROOT/AGENTS.md" "$TARGET_DIR/AGENTS.md"
   else
-    cp "$DEVKIT_ROOT/core/AGENTS.md" "$TARGET_DIR/$md_file"
+    cp "$DEVKIT_ROOT/AGENTS.md" "$TARGET_DIR/AGENTS.md"
   fi
-done
+fi
 
 # 2. Additive Merge for mcp_config.json
 python3 "$DEVKIT_ROOT/scripts/merge_json.py" "$DEVKIT_ROOT/mcp/mcp_config.json" "$TARGET_DIR/mcp_config.json"
@@ -41,17 +43,4 @@ for skill in "$DEVKIT_ROOT/skills"/*; do
   fi
 done
 
-# 4. Additive Item-by-Item Link for Rules (Preserving custom user rules)
-for rule in "$DEVKIT_ROOT/core/rules"/*; do
-  [ -e "$rule" ] || continue
-  rule_name="$(basename "$rule")"
-  target_rule_path="$TARGET_DIR/.agents/rules/$rule_name"
-  rm -rf "$target_rule_path"
-  if [ "$MODE" = "symlink" ]; then
-    ln -sfn "$rule" "$target_rule_path"
-  else
-    cp -R "$rule" "$target_rule_path"
-  fi
-done
-
-echo "✓ Antigravity & Google Gemini (.agents/skills, .agents/rules, GEMINI.md, AGENTS.md, mcp_config.json) ready (Custom skills/rules preserved)."
+echo "✓ Antigravity & Google Gemini (.agents/skills, AGENTS.md, mcp_config.json) ready."

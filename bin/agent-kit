@@ -42,7 +42,8 @@ case "$CMD" in
     bash "$DEVKIT_ROOT/scripts/sync_commands.sh"
     ;;
   list|skills)
-    echo "Available Skills in Universal Agent DevKit (45):"
+    skill_count="$(find "$DEVKIT_ROOT/skills" -mindepth 1 -maxdepth 1 -type d | wc -l | xargs)"
+    echo "Available Skills in Universal Agent DevKit ($skill_count):"
     for skill_dir in "$DEVKIT_ROOT/skills"/*; do
       [ -d "$skill_dir" ] || continue
       skill_name="$(basename "$skill_dir")"
@@ -69,7 +70,7 @@ Commands:
   install-global      Install 'agent-kit' globally into ~/.local/bin
   test                Run 294+ regression tests (160 hooks, 134 workflows)
   sync                Resync skills, slash commands, and aliases
-  list                List all 45 curated skills
+  list                List all curated skills
   commands            List all available slash commands
   help                Show this help message
 

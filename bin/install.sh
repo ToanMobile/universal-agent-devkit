@@ -15,15 +15,11 @@ show_help() {
   cat << HELP_EOF
 Universal Multi-Agent & Multi-Model DevKit Installer
 
-Supports ALL coding agents & LLMs:
+Supports 4 core coding agents & LLMs:
   - Claude Code (Anthropic)
+  - OpenAI Codex / ChatGPT Canvas
   - Google Antigravity & Gemini CLI
-  - Cursor IDE (.cursorrules & .cursor/rules/*.mdc)
-  - Windsurf / Cascade (.windsurfrules)
-  - GitHub Copilot (.github/copilot-instructions.md)
-  - Cline & Roo Code (.clinerules & .roomodes)
-  - OpenAI Codex / ChatGPT Canvas (CODEX.md)
-  - Aider (CONVENTIONS.md & .aider.conf.yml)
+  - Cursor IDE
 
 Usage:
   ./install.sh [OPTIONS]
@@ -32,7 +28,7 @@ Options:
   -t, --target <path>     Target project directory (default: current directory)
   -d, --domain <name>     Project domain: auto | android | web | backend | general (default: auto)
   -a, --agents <list>     Comma-separated agents or 'all'
-                          Supported: claude, gemini, cursor, windsurf, copilot, cline, codex, aider, all
+                          Supported: claude, codex, gemini, cursor, all
   -m, --mode <mode>       Install mode: symlink | copy (default: symlink)
   -l, --lang <code >      Primary communication language: en | vi (default: en)
   -y, --yes               Non-interactive mode (configure all agents without asking)
@@ -114,22 +110,18 @@ if [ "$AGENTS" = "ask" ]; then
   echo "================================================================="
   echo "  🤖 Universal AI Agent DevKit — Agent Selection Menu"
   echo "================================================================="
-  echo "  [1] 🤖 Claude Code          (CLAUDE.md, .claude/commands/, hooks, .mcp.json)"
-  echo "  [2] ✨ Google Gemini / AGY  (AGENTS.md, GEMINI.md, .agents/skills, mcp_config.json)"
-  echo "  [3] ⚡ Cursor IDE           (.cursorrules, .cursor/rules/*.mdc)"
-  echo "  [4] 🌊 Windsurf / Cascade   (.windsurfrules)"
-  echo "  [5] 🐙 GitHub Copilot       (.github/copilot-instructions.md)"
-  echo "  [6] 🛠️ Cline & Roo Code     (.clinerules, .roomodes)"
-  echo "  [7] 🧠 OpenAI Codex         (CODEX.md)"
-  echo "  [8] ⌨️ Aider                (CONVENTIONS.md, .aider.conf.yml)"
-  echo "  [A] 🌟 All Agents           (Configure all 8 ecosystems)"
+  echo "  [1] 🤖 Claude Code          (AGENTS.md, .claude/commands/, hooks, .mcp.json)"
+  echo "  [2] 🧠 OpenAI Codex         (AGENTS.md SSOT)"
+  echo "  [3] ✨ Google Gemini / AGY  (AGENTS.md, .agents/skills, mcp_config.json)"
+  echo "  [4] ⚡ Cursor IDE           (AGENTS.md SSOT)"
+  echo "  [A] 🌟 All Agents           (Configure all 4 ecosystems)"
   echo "-----------------------------------------------------------------"
   user_choice="A"
   if [ -t 0 ]; then
-    read -r -p "Select agents (e.g. 1,3 or 1,2,3 or A for all) [Default: A]: " input_choice || input_choice=""
+    read -r -p "Select agents (e.g. 1,2 or 1,2,3 or A for all) [Default: A]: " input_choice || input_choice=""
     user_choice="${input_choice:-A}"
   elif (exec 3</dev/tty) 2>/dev/null; then
-    read -r -p "Select agents (e.g. 1,3 or 1,2,3 or A for all) [Default: A]: " input_choice < /dev/tty || input_choice=""
+    read -r -p "Select agents (e.g. 1,2 or 1,2,3 or A for all) [Default: A]: " input_choice < /dev/tty || input_choice=""
     user_choice="${input_choice:-A}"
   fi
 
@@ -142,13 +134,9 @@ if [ "$AGENTS" = "ask" ]; then
       c_trim="$(echo "$c" | xargs)"
       case "$c_trim" in
         1|claude) selected_agents+=("claude") ;;
-        2|gemini|antigravity) selected_agents+=("gemini") ;;
-        3|cursor) selected_agents+=("cursor") ;;
-        4|windsurf|cascade) selected_agents+=("windsurf") ;;
-        5|copilot) selected_agents+=("copilot") ;;
-        6|cline|roo) selected_agents+=("cline") ;;
-        7|codex|chatgpt) selected_agents+=("codex") ;;
-        8|aider) selected_agents+=("aider") ;;
+        2|codex|chatgpt|openai) selected_agents+=("codex") ;;
+        3|gemini|antigravity) selected_agents+=("gemini") ;;
+        4|cursor) selected_agents+=("cursor") ;;
       esac
     done
     if [ ${#selected_agents[@]} -eq 0 ]; then
@@ -196,6 +184,10 @@ configure_agent() {
       echo "  🤖 [Claude Code]"
       bash "$DEVKIT_ROOT/adapters/setup_claude.sh" "$TARGET_DIR" "$MODE" "$LANGUAGE"
       ;;
+    codex|chatgpt|openai)
+      echo "  🧠 [OpenAI Codex / ChatGPT]"
+      bash "$DEVKIT_ROOT/adapters/setup_codex.sh" "$TARGET_DIR" "$DOMAIN" "$LANGUAGE"
+      ;;
     gemini|antigravity)
       echo "  ✨ [Google Antigravity / Gemini]"
       bash "$DEVKIT_ROOT/adapters/setup_gemini.sh" "$TARGET_DIR" "$MODE" "$LANGUAGE"
@@ -204,35 +196,11 @@ configure_agent() {
       echo "  ⚡ [Cursor IDE]"
       bash "$DEVKIT_ROOT/adapters/setup_cursor.sh" "$TARGET_DIR" "$DOMAIN" "$LANGUAGE"
       ;;
-    windsurf|cascade)
-      echo "  🌊 [Windsurf / Cascade]"
-      bash "$DEVKIT_ROOT/adapters/setup_windsurf.sh" "$TARGET_DIR" "$DOMAIN" "$LANGUAGE"
-      ;;
-    copilot|github-copilot)
-      echo "  🐙 [GitHub Copilot]"
-      bash "$DEVKIT_ROOT/adapters/setup_copilot.sh" "$TARGET_DIR" "$DOMAIN" "$LANGUAGE"
-      ;;
-    cline|roo|roomodes)
-      echo "  🛠️ [Cline & Roo Code]"
-      bash "$DEVKIT_ROOT/adapters/setup_cline.sh" "$TARGET_DIR" "$DOMAIN" "$LANGUAGE"
-      ;;
-    codex|chatgpt|openai)
-      echo "  🧠 [OpenAI Codex / ChatGPT]"
-      bash "$DEVKIT_ROOT/adapters/setup_codex.sh" "$TARGET_DIR" "$DOMAIN" "$LANGUAGE"
-      ;;
-    aider)
-      echo "  ⌨️ [Aider]"
-      bash "$DEVKIT_ROOT/adapters/setup_aider.sh" "$TARGET_DIR" "$LANGUAGE"
-      ;;
     all)
       configure_agent "claude"
+      configure_agent "codex"
       configure_agent "gemini"
       configure_agent "cursor"
-      configure_agent "windsurf"
-      configure_agent "copilot"
-      configure_agent "cline"
-      configure_agent "codex"
-      configure_agent "aider"
       ;;
     *)
       echo "  ⚠️ Unknown agent: $ag (skipping)"

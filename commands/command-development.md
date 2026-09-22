@@ -1,1 +1,0 @@
-../skills/command-development/SKILL.md

@@ -1,14 +1,14 @@
 <div align="center">
 
 # 🚀 Universal AI Agent DevKit & Quality Protocol
-### *A unified, production-grade framework providing Zero-Defect protocols, automated safety gates, 44 curated canonical skills, and MCP tools across Claude Code, Google Gemini/Antigravity, Cursor, Windsurf, Copilot, and Codex.*
+### *A unified, production-grade framework providing Zero-Defect protocols, automated safety gates, 15 curated canonical skills, and MCP tools across Claude Code, OpenAI Codex, Google Gemini/Antigravity, and Cursor.*
 
 [![GitHub Repository](https://img.shields.io/badge/GitHub-ToanMobile%2Funiversal--agent--devkit-blue.svg?style=for-the-badge&logo=github)](https://github.com/ToanMobile/universal-agent-devkit)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 [![Tests Passing](https://img.shields.io/badge/Tests-294%20PASS%20(100%25)-success.svg?style=for-the-badge)](./hooks/tests)
-[![Supported Agents](https://img.shields.io/badge/Agents-8%20Ecosystems-orange.svg?style=for-the-badge)](#-universal-multi-agent-matrix)
-[![Rulebook](https://img.shields.io/badge/Rules-63%20Chapters-red.svg?style=for-the-badge)](#-complete-rulebook--engineering-standards-catalog)
-[![Skills Catalog](https://img.shields.io/badge/Skills-45%20Curated-purple.svg?style=for-the-badge)](#-45-curated-engineering-skills-catalog)
+[![Supported Agents](https://img.shields.io/badge/Agents-4%20Core%20Platforms-orange.svg?style=for-the-badge)](#-universal-multi-agent-matrix)
+[![Rulebook](https://img.shields.io/badge/Rules-AGENTS.md%20(SSOT)-red.svg?style=for-the-badge)](#-complete-rulebook--engineering-standards-single-source-of-truth)
+[![Skills Catalog](https://img.shields.io/badge/Skills-15%20Curated-purple.svg?style=for-the-badge)](#-15-curated-engineering-skills-catalog)
 [![MCP Servers](https://img.shields.io/badge/MCP-6%20Integrated-brightgreen.svg?style=for-the-badge)](#-mcp-model-context-protocol-hub)
 
 <p align="center">
@@ -19,7 +19,7 @@
   <b>One DevKit to rule them all:</b> Elevate your AI coding assistants from conversational LLMs into rigorous, disciplined, and evidence-backed <b>Principal Pair Programmers</b>.
 </p>
 
-[Quick Start](#-quick-start--installation) • [Architecture](#-system-architecture) • [Multi-Agent Matrix](#-universal-multi-agent-matrix) • [Rulebook Catalog](#-complete-rulebook--engineering-standards-catalog) • [Skills Catalog](#-45-curated-engineering-skills-catalog) • [MCP Hub](#-mcp-model-context-protocol-hub) • [Verification](#-verification--test-evidence)
+[Quick Start](#-quick-start--installation) • [Architecture](#-system-architecture) • [Multi-Agent Matrix](#-universal-multi-agent-matrix) • [Rulebook Catalog](#-complete-rulebook--engineering-standards-single-source-of-truth) • [Skills Catalog](#-15-curated-engineering-skills-catalog) • [MCP Hub](#-mcp-model-context-protocol-hub) • [Verification](#-verification--test-evidence)
 
 ---
 
@@ -27,13 +27,13 @@
 
 ## 📖 Executive Summary
 
-**Universal Agent DevKit** is an enterprise-grade engineering framework designed for all major AI Coding Agents (**Claude Code**, **Google Antigravity & Gemini CLI**, **Cursor IDE**, **Windsurf**, **GitHub Copilot**, **Cline & Roo Code**, **OpenAI Codex**, **Aider**) and foundation models (**Claude 3.5/3.7 Sonnet**, **GPT-4o / o1 / o3**, **Gemini 2.0/3.0**, **DeepSeek R1/V3**, **Llama 3**).
+**Universal Agent DevKit** is an enterprise-grade engineering framework designed for the 4 core AI Coding Agents (**Claude Code**, **OpenAI Codex**, **Google Antigravity & Gemini CLI**, and **Cursor IDE**) and foundation models (**Claude 3.5/3.7 Sonnet**, **GPT-4o / o1 / o3**, **Gemini 2.0/3.0**, **DeepSeek R1/V3**).
 
 It delivers a complete, closed-loop software engineering ecosystem:
 1. **Supreme Engineering Protocols:** Zero-Defect Protocol, Paired Executable Oracle (RED→GREEN), and No-Fabrication Engine.
-2. **63 Rulebook Chapters:** 15 universal core rules + 48 domain-specialized chapters (Android/Compose, Web, Backend).
+2. **Single Source of Truth Rulebook (AGENTS.md):** Eliminates rule sprawl and conflicting chapters by unifying all engineering standards, architecture rules, pre-code gates, and quality protocols into a single, authoritative master rule file (`AGENTS.md` / `Agent.md`).
 3. **Machine Safety Gates:** 9 lifecycle safety hooks backed by 160+ unit contract tests that prevent hallucinated edits and catch bugs before commit.
-4. **44 Curated Engineering Skills:** Grouped into 5 specialized functional suites covering testing, architecture, office document parsing, meta-tooling, and UI.
+4. **15 Curated Engineering Skills:** Grouped into 4 specialized functional suites covering testing, visual QA, architecture, and platform tools.
 5. **Universal MCP Hub:** Pre-configured with 6 Model Context Protocol servers for AST Knowledge Graph discovery, real-time documentation lookup, Android ADB control, and Play Store automation.
 
 ---
@@ -48,9 +48,9 @@ It delivers a complete, closed-loop software engineering ecosystem:
 │ Paired Executable Oracle   │ C1–C9 Decision Table       │ Lifecycle Hooks              │
 │ (Mandatory RED → GREEN)    │ Zero hallucinated metrics  │ Pre-Code & Stop Gates        │
 ├────────────────────────────┼────────────────────────────┼──────────────────────────────┤
-│ ⚡ 7-Lens Multi-Audit      │ 📜 63 Rulebook Chapters    │ 🧰 44 Curated Skills         │
-│ Compile, Runtime, State,   │ Universal + 50 Android     │ 5 functional suites: QA,     │
-│ UX, Security, Architecture │ Domain Specialized Rules   │ TDD, Spec, Office, DevTools  │
+│ ⚡ 7-Lens Multi-Audit      │ 📜 Unified Master Rules    │ 🧰 15 Curated Skills         │
+│ Compile, Runtime, State,   │ AGENTS.md (Single SSOT)    │ 4 functional suites: QA,     │
+│ UX, Security, Architecture │ 0 Fragmented Rule Files    │ TDD, Spec, Review, Platform  │
 └────────────────────────────┴────────────────────────────┴──────────────────────────────┘
 ```
 
@@ -63,106 +63,70 @@ It delivers a complete, closed-loop software engineering ecosystem:
 
 ### 2. 🚫 No-Fabrication Engine (C1–C9 Decision Table)
 - **Eliminating Hallucinations:** Strict prohibition against guessing file paths, symbol signatures, library versions, benchmark metrics, or test outcomes.
-- **Strict Evidence Standards:**
-  - `C1`: Structural fact → Direct quote from fresh source or AST Knowledge Graph.
-  - `C2`: Version / API contract → Measured or verified via Context7 official documentation.
-  - `C3/C5`: Outcome / Fix works → Validated with discriminating runtime test evidence.
-  - `C4`: Negative claim ("X is unaffected") → Full codebase search verification.
+- **Strict Evidence Classes:** Enforces explicit citations for structural source facts (C1), version measurements (C2), runtime fixes (C3), scope coverage (C4), and terminal completion claims (C5).
 
 ### 3. 🔒 160+ Automated Safety Gates (Lifecycle Hooks)
-- `precode_gate.sh`: Blocks blind code edits if the file has not been read in the current session.
-- `review_gate.sh`: Enforces multi-lens code reviews before completing tasks.
-- `test_evidence_gate.sh`: Verifies actual XML test reports on disk (`tests > 0, failures = 0, errors = 0`).
-- `block-dangerous-git.sh`: Blocks destructive Git actions (force pushes, hard resets, unstaged drops).
-- `churn_guard.sh` & `comment_claim_guard.sh`: Blocks editing a single file > 3 times consecutively and scans comment claims.
+- **Real-Time Interception:** PreToolUse and Stop hooks intercept every write, shell execution, and subagent handoff.
+- **Automated Rejection:** Automatically blocks destructive git commands (`git push --force`, `git reset --hard`), unvetted file edits, credential leakage, and unverifiable completion claims.
 
 ### 4. ⚡ 7-Lens Multi-Audit Engine
-Automated 7-dimension review system (`multi-lens-audit.js`):
-1. 🔬 **Compile-time Lens:** Type-safety, nullability, deprecation, binary compatibility.
-2. ⚡ **Runtime Lens:** Resource leaks, memory allocation, OOM risks, boundary exceptions.
-3. 🔄 **State & Concurrency Lens:** Race conditions, thread safety, immutability.
-4. 🧪 **Test Quality Lens:** Mutation coverage, boundary test cases, oracle precision.
-5. 🎨 **UX & Accessibility Lens:** Visual hierarchy, accessibility standards, responsiveness.
-6. 🔒 **Security & Privacy Lens:** Intent injection, permission boundaries, credential safety.
-7. 📐 **Architecture Lens:** Seam isolation, clean DI, unidirectional data flow.
+- **Full Spectrum Auditing:** Analyzes diffs across 7 lenses: Compile, Runtime, State Continuity, UX, Security, Performance, and Architecture.
+- **Fail-Closed Receipts:** Requires deterministic cryptographically signed or content-hashed execution receipts before promoting any change to PASS.
 
 </details>
 
 ---
 
-## 📐 System Architecture
+## 🏛️ System Architecture
 
 ```mermaid
 graph TD
     subgraph DevKit_Core ["📦 Universal Agent DevKit Core"]
-        CoreRules["Core Protocols (AGENTS.md, CLAUDE.md)"]
-        Rulebook["63 Rulebook Chapters (Universal + Android/Web)"]
+        Rulebook["Single Source of Truth (AGENTS.md)"]
         Gates["160+ Safety Gates & Lifecycle Hooks"]
-        SkillsCatalog["44 Curated Engineering Skills"]
+        SkillsCatalog["15 Curated Engineering Skills"]
         Workflows["Multi-Lens Audit & Evidence Engines"]
         MCPHub["6-Server MCP Integration Hub"]
     end
 
-    subgraph Adapters ["🔌 Multi-Agent Adapters"]
+    subgraph Adapters ["🔌 Core Agent Adapters"]
         Installer["bin/install.sh / agent-kit"]
     end
 
-    DevKit_Core --> Installer
+    subgraph Coding_Agents ["🤖 Supported Agent Ecosystems"]
+        Claude["🤖 Claude Code<br/>(AGENTS.md, .claude/commands, hooks)"]
+        Codex["🧠 OpenAI Codex & ChatGPT<br/>(AGENTS.md SSOT)"]
+        Gemini["✨ Google Antigravity & Gemini<br/>(AGENTS.md, .agents/skills)"]
+        Cursor["⚡ Cursor IDE<br/>(AGENTS.md SSOT)"]
+    end
 
-    Installer -->|Auto-Config| Claude["🤖 Claude Code<br/>(CLAUDE.md, .claude/hooks)"]
-    Installer -->|Auto-Config| Gemini["✨ Google Antigravity & Gemini<br/>(AGENTS.md, .agents/skills)"]
-    Installer -->|Auto-Config| Cursor["⚡ Cursor IDE<br/>(.cursorrules, .cursor/rules/*.mdc)"]
-    Installer -->|Auto-Config| Windsurf["🌊 Windsurf / Cascade<br/>(.windsurfrules)"]
-    Installer -->|Auto-Config| Copilot["🐙 GitHub Copilot<br/>(copilot-instructions.md)"]
-    Installer -->|Auto-Config| Cline["🛠️ Cline & Roo Code<br/>(.clinerules, .roomodes)"]
-    Installer -->|Auto-Config| Codex["🧠 OpenAI Codex<br/>(CODEX.md)"]
-    Installer -->|Auto-Config| Aider["⌨️ Aider Terminal<br/>(CONVENTIONS.md)"]
+    Installer -->|Auto-Config| Claude
+    Installer -->|Auto-Config| Codex
+    Installer -->|Auto-Config| Gemini
+    Installer -->|Auto-Config| Cursor
+
+    DevKit_Core --> Installer
 ```
 
 ---
 
-## 📜 Complete Rulebook & Engineering Standards Catalog
+## 📜 Complete Rulebook & Engineering Standards (Single Source of Truth)
 
-The DevKit organizes rules into **15 Universal Core Rules** applicable to all projects and **48 Domain-Specific Rules**:
+All engineering rules, multi-agent architecture contracts, and quality protocols are consolidated into a single authoritative source of truth: [`AGENTS.md`](file://AGENTS.md).
 
-### 1. 🌐 Universal Core Rules (`core/rules/`)
-
-| Rule Chapter | Domain / Topic | Core Principles & Purpose |
-|---|---|---|
-| [`02-general.md`](file://core/rules/02-general.md) | General Engineering Policy | Level-4 engineer autonomous standards, Graph-First protocol, English default with multilingual support. |
-| [`03-monorepo-governance.md`](file://core/rules/03-monorepo-governance.md) | Architecture & Governance | Modular architecture boundaries, layer isolation (Presentation → Domain → Data), and clean DI. |
-| [`04-core-performance.md`](file://core/rules/04-core-performance.md) | Core Performance | Frame budget enforcement (16ms/60fps, 8ms/120fps), memory footprint optimization, zero allocations in tight loops. |
-| [`08-code-organization-dry.md`](file://core/rules/08-code-organization-dry.md) | DRY & Code Organization | Single source of truth for business logic, clean package structure, and safe code reuse. |
-| [`11-analyzer-enforcement.md`](file://core/rules/11-analyzer-enforcement.md) | Static Analyzers | Linter enforcement via ktlint, Detekt, compiler warnings-as-errors, and Metalava API checks. |
-| [`13-anti-patterns.md`](file://core/rules/13-anti-patterns.md) | Anti-Patterns | Prohibited code patterns (God classes, leaky abstractions, side-effects in getters, blocking Main thread). |
-| [`14-null-safety.md`](file://core/rules/14-null-safety.md) | Null Safety & Typing | Safe nullability handling, eliminating NPE risks, strict type invariants. |
-| [`16-security.md`](file://core/rules/16-security.md) | Security & Attack Surface | Input validation, credential protection, secure IPC/Intent filters, and safe storage access. |
-| [`17-testing.md`](file://core/rules/17-testing.md) | Testing & Quality Gate | Paired Executable Oracle (RED→GREEN), test source set enforcement, physical XML test report verification. |
-| [`18-naming-conventions.md`](file://core/rules/18-naming-conventions.md) | Naming Conventions | Uniform naming conventions for classes, functions, variables, test methods, and files. |
-| [`19-documentation-resources.md`](file://core/rules/19-documentation-resources.md) | Documentation & Resources | Accurate docstrings, resource isolation, avoiding stale or misleading comments. |
-| [`22-git-conventions.md`](file://core/rules/22-git-conventions.md) | Git Conventions | Conventional Commits (`feat`, `fix`, `refactor`...), branch naming, safe non-destructive Git workflows. |
-| [`23-ai-workflow.md`](file://core/rules/23-ai-workflow.md) | AI Workflow & Subagents | Subagent coordination, context compaction management, plan convergence workflows. |
-| [`44-systematic-debugging.md`](file://core/rules/44-systematic-debugging.md) | Systematic Debugging | 4-step root cause analysis: Reproduce → Isolate → Discriminating Test → Minimal Surgical Fix. |
-| [`45-tdd-enforcement.md`](file://core/rules/45-tdd-enforcement.md) | TDD Gate Enforcement | Strictly requires writing failing tests (RED) before implementing production code. |
-
-
-<details>
-<summary><b>📱 View 48 Specialized Android Rulebook Chapters (`domains/android/rulebook/`)</b></summary>
-
-Comprehensive coverage for modern Android development:
-- **UI & Compose:** `04-compose.md`, `06-compose-advanced.md`, `08-compose-performance.md`, `26-animations.md`, `27-accessibility.md`, `32-edge-to-edge.md`, `38-adaptive-layouts.md`, `41-custom-views.md`, `44-internationalization.md`.
-- **Architecture & State:** `03-architecture.md`, `16-viewmodel.md`, `24-process-death.md`, `31-workmanager.md`, `34-state-restoration.md`, `39-offline-first.md`, `40-modularization.md`, `48-dependency-injection.md`.
-- **Data & Storage:** `17-room.md`, `20-datastore.md`, `21-paging3.md`, `35-storage-access-framework.md`, `36-file-io.md`.
-- **Concurrency & Networking:** `05-coroutines.md`, `07-flow.md`, `10-networking.md`, `28-caching.md`.
-- **Quality, Perf & Benchmarks:** `01-testing.md`, `09-performance.md`, `11-analyzer-enforcement.md`, `23-memory-leaks.md`, `25-startup-optimization.md`, `29-battery-optimization.md`, `30-r8-proguard.md`, `33-baseline-profiles.md`, `37-microbenchmarks.md`, `42-ndk-jni.md`, `43-crash-reporting.md`, `45-tdd-enforcement.md`, `46-camera-media.md`, `47-deep-links.md`, `49-app-size.md`, `50-gradle-build-speed.md`.
-
-</details>
+No fragmented rule files or conflicting directories exist. Key protocols enforced within `AGENTS.md`:
+- **Architecture & Modularization:** Clean Architecture boundaries, Layer isolation (Presentation → Domain → Data), and clean DI.
+- **Pre-Code Gate (Section 5):** 5-box mandatory check (Target + authority, real source read, consumer list, failure mechanism, residual) before modifying production code.
+- **Zero-Defect Protocol & Paired Executable Oracle:** Mandatory RED → GREEN verification on physical failure boundary with zero waivers.
+- **No-Fabrication Engine (C1–C9 Decision Table):** Strict prohibition against hallucinated metrics, file paths, or test results.
+- **Solo Dev & Git Conventions:** Conventional Commits (`feat`, `fix`, `chore`), zero secret commits, surgical diffs, and clean PR workflows.
+- **Multi-Agent Cross-Compatibility:** Synchronized to all 8 AI agent platforms with 100% fidelity.
 
 ---
 
-## 🧰 44 Curated Engineering Skills Catalog
+## 🧰 15 Curated Engineering Skills Catalog
 
-Standardized under the `SKILL.md` format (YAML frontmatter + Progressive Disclosure) across **5 functional groups**:
+Standardized under the `SKILL.md` format (YAML frontmatter + Progressive Disclosure) across **4 functional suites**:
 
 ### 1. 🧪 Testing & Zero-Defect QA (6 Skills)
 | Skill | Slash Command | Description & Purpose |
@@ -176,83 +140,43 @@ Standardized under the `SKILL.md` format (YAML frontmatter + Progressive Disclos
 
 ---
 
-### 2. 📐 Architecture, Planning & Operations (11 Skills)
+### 2. 🔍 Code Review & Visual QA (2 Skills)
+| Skill | Slash Command | Description & Purpose |
+|---|---|---|
+| **`qa-review`** | `/qa-review`, `/review` | Deep code diff audit before PR, acceptance criteria generation, and test scenario matrix (Role × Data × Error). |
+| **`qa-visual`** | `/qa-visual`, `/visual` | Automated screenshot capture and DOM layout auditing (overflow, alignment, overlaps) with cloud upload. |
+
+---
+
+### 3. 📐 Architecture, Git & Planning (4 Skills)
 | Skill | Slash Command | Description & Purpose |
 |---|---|---|
 | **`spec-driven-development`** | `/plan` | Spec-Kit Lite planning for all changes touching ≥3 files or ≥2 modules. |
-| **`deep-module-design`** | `/deep-design` | Evaluates seams, interface contracts, testability, and module abstractions. |
-| **`grill-plan`** | `/grill` | Adversarial plan review: stress-test edge cases and architecture decisions before coding. |
-| **`incremental-implementation`** | `/incremental` | Breaks down and implements large features step-by-step with verified TDD iterations. |
-| **`session-handoff`** | `/handoff` | Packages active session context, uncommitted changes, and test proofs for seamless handoff. |
 | **`merge-conflict-resolver`** | `/conflict` | Resolves complex Git merge, rebase, and stash conflicts with semantic 3-way analysis. |
-| **`deprecation-migration`** | `/migration` | Sunset deprecated APIs and migrate dependencies safely without breaking consumers. |
-| **`documentation-and-adrs`** | `/adr` | Records Architecture Decision Records (ADRs) capturing long-term architectural trade-offs. |
-| **`graph-navigation`** | `/graph` | Codebase discovery, call-path tracing, and blast radius analysis via AST Knowledge Graph. |
+| **`session-handoff`** | `/handoff` | Packages active session context, uncommitted changes, and test proofs for seamless handoff. |
 | **`security-checklist`** | `/scan` | Security audit: Intent filters, URI traversal, Storage Access Framework, exported components, permissions. |
-| **`observability-instrumentation`** | `/observability` | Audits and adds telemetry, structured logging, Firebase Analytics, Crashlytics & Perf metrics. |
 
 ---
 
-### 3. 📄 Document & Data Processing Engines (4 Skills)
+### 4. 🛠️ Codebase & Platform Tools (3 Skills)
 | Skill | Slash Command | Description & Purpose |
 |---|---|---|
-| **`documents`** | `/documents`, `/docx` | High-fidelity Microsoft Word (`.docx`) and Google Docs generation, redlining, and rendering. |
-| **`spreadsheets`** | `/spreadsheets`, `/xlsx` | High-precision Microsoft Excel (`.xlsx`) formula evaluation, financial modeling, and charts. |
-| **`presentations`** | `/presentations`, `/pptx` | Microsoft PowerPoint (`.pptx`) slide deck generation, layout orchestration, and presentation design. |
-| **`pdf`** | `/pdf` | PDF reader, text/table extractor, OCR processor, merge/split tool, and form filler. |
-
----
-
-### 4. 🛠️ Agent, Plugin & MCP Development (17 Skills)
-| Skill | Slash Command | Description & Purpose |
-|---|---|---|
-| **`plugin-creator`** | `/plugin-creator` | Scaffolds and creates new plugin directories for Claude Code and Antigravity. |
-| **`plugin-structure`** | `/plugin-structure` | Plugin layout architecture, manifest `plugin.json` configuration, and component discovery. |
-| **`plugin-settings`** | `/plugin-settings` | Manages per-project plugin configurations via YAML frontmatter `.local.md` files. |
-| **`skill-creator`** | `/skill-creator` | Creates new skills from scratch, benchmarks trigger accuracy, and runs evaluation loops. |
-| **`skill-development`** | `/skill-development` | Progressive disclosure architecture for writing robust SKILL.md documentation. |
-| **`skill-installer`** | `/skill-installer` | Discovers and installs curated skills directly from GitHub or package registries. |
-| **`command-development`** | `/command-development` | Designs slash commands and establishes routing aliases for coding agents. |
-| **`hook-development`** | `/hook-development` | Builds lifecycle safety hooks (PreToolUse, PostToolUse, Stop, SessionStart). |
-| **`agent-development`** | `/agent-development` | Designs specialized subagents, tool permissions, and custom system prompts. |
-| **`build-mcp-server`** | `/build-mcp-server` | Builds and packages custom Model Context Protocol servers (stdio, SSE, HTTP). |
-| **`build-mcp-app`** | `/build-mcp-app` | Builds interactive UI widgets and form controls embedded directly in chat via MCP. |
-| **`build-mcpb`** | `/build-mcpb` | Bundles and distributes standalone local MCP server packages (.mcpb). |
-| **`mcp-integration`** | `/mcp-integration` | Configures `.mcp.json` and connects coding agents to external MCP services. |
-| **`review-agent`** | `/review-agent` | Performs defect-first independent code reviews before commits or pull requests. |
+| **`graph-navigation`** | `/graph` | Codebase discovery, call-path tracing, and blast radius analysis via AST Knowledge Graph. |
 | **`codebase-memory`** | `/codebase-memory` | Manages and synchronizes AST Knowledge Graph databases for large codebases. |
-| **`writing-rules`** | `/writing-rules` | Authoring and standardizing rulebook chapters and hookify safety policies. |
-| **`skills-author`** | `/skills-author` | Standards for authoring, auditing, and maintaining skills in the DevKit. |
-| **`schedule`** | `/schedule` | Manages background recurring cron jobs and one-shot timer reminders for agents. |
-
----
-
-### 5. 🎨 Frontend, Visualization & Platform Tools (6 Skills)
-| Skill | Slash Command | Description & Purpose |
-|---|---|---|
-| **`frontend-design`** | `/frontend-design` | Modern UI aesthetics, typography, color palettes, and component design principles. |
-| **`visualize`** | `/visualize` | Generates rich interactive HTML/SVG widgets, flowcharts, and data visualizations. |
-| **`playground`** | `/playground` | Creates single-file interactive HTML playgrounds with visual control panels. |
-| **`imagegen`** | `/imagegen` | Generates UI mockup wireframes, raster assets, and diagrams using AI image generation. |
-| **`control-in-app-browser`** | `/control-in-app-browser` | Controls headless browser to inspect DOM, click, type, and capture visual state screenshots. |
 | **`android-cli`** | `/android-cli` | Manages Android SDK components, controls emulators/AVDs, and captures UI hierarchy from CLI. |
 
 ---
 
 ## 🌐 Universal Multi-Agent Matrix
 
-The DevKit automatically generates native configuration formats for all 8 major AI coding ecosystems:
+The DevKit natively synchronizes with the 4 core AI coding ecosystems using `AGENTS.md` as the universal single source of truth:
 
-| Platform / IDE | Generated Configuration Files | Activated Capabilities | Status |
+| Platform / IDE | Configuration & Integration | Activated Capabilities | Status |
 |---|---|---|:---:|
-| **Claude Code** | `CLAUDE.md`, `.claude/settings.json`, `.claude/commands/`, `.claude/hooks/`, `.mcp.json` | Slash Commands (`/qc`, `/fix`, `/plan`), automated runtime hooks, subagents, MCP tools | `READY` 🟢 |
-| **Antigravity / Gemini** | `AGENTS.md`, `GEMINI.md`, `.agents/skills/`, `.agents/rules/`, `mcp_config.json` | Auto-discovery skills, contextual rulebook hierarchy, MCP integration | `READY` 🟢 |
-| **Cursor IDE** | `.cursorrules`, `.cursor/rules/*.mdc` | Modular Rules format (`.mdc`), `alwaysApply` for Core Protocol | `READY` 🟢 |
-| **Windsurf / Cascade** | `.windsurfrules`, `.windsurf/rules/` | Cascade System Rules, Zero-Defect & Pre-Code Gate enforcement | `READY` 🟢 |
-| **GitHub Copilot** | `.github/copilot-instructions.md` | Workspace custom instructions for VS Code & JetBrains Copilot | `READY` 🟢 |
-| **Cline & Roo Code** | `.clinerules`, `.roomodes` | Custom specialized subagent roles (*Principal Architect*, *Code Reviewer*, *SETI*) | `READY` 🟢 |
-| **OpenAI Codex** | `CODEX.md` | Zero-Defect & Pre-Code Gate instructions for GPT models | `READY` 🟢 |
-| **Aider** | `CONVENTIONS.md`, `.aider.conf.yml` | Auto test-command bindings, git diff verification, coding standards | `READY` 🟢 |
+| **Claude Code** | `AGENTS.md`, `.claude/settings.json`, `.claude/commands/`, `.claude/hooks/`, `.mcp.json` | Slash Commands (`/qc`, `/fix`, `/plan`), automated runtime safety hooks, subagents, MCP tools | `READY` 🟢 |
+| **OpenAI Codex** | `AGENTS.md` (SSOT) | Universal Master Rules, Pre-Code Gate & Zero-Defect protocol for OpenAI GPT models & Canvas | `READY` 🟢 |
+| **Antigravity / Gemini** | `AGENTS.md`, `.agents/skills/`, `mcp_config.json` | Auto-discovery skills, Zero-Defect QA protocols, MCP integration | `READY` 🟢 |
+| **Cursor IDE** | `AGENTS.md` (SSOT) | Native repository rules, Zero-Defect QA & Pre-Code Gate enforcement | `READY` 🟢 |
 
 ---
 
@@ -352,7 +276,7 @@ agent-kit sync
 ### 📊 Verified Test Evidence:
 - **Hook Contract Tests:** `160 / 160 PASS (100%)` ✅
 - **Workflow Engine Tests:** `134 / 134 PASS (100%)` ✅
-- **Multi-Agent Sandbox Matrix:** `8 / 8 Ecosystems Verified` ✅
+- **Multi-Agent Sandbox Matrix:** `4 / 4 Core Ecosystems Verified` ✅
 
 ---
 
@@ -362,20 +286,16 @@ agent-kit sync
 universal-agent-devkit/
 ├── .claude-plugin/              # Claude Code Plugin Manifest (plugin.json)
 ├── bin/                         # CLI entrypoints (install.sh, agent-kit, quick-install.sh)
-├── core/                        # Universal SSOT (AGENTS.md, CLAUDE.md, rules, knowledge)
-│   ├── rules/                   # 17 Universal Rule Chapters (Testing, Architecture, DRY, Security...)
-│   └── knowledge/               # Universal Runbooks & Gate Layers
-├── domains/                     # Domain-Specific Rulebooks
-│   └── android/rulebook/        # 50 chapters Android/Compose/Room/Kotlin rulebook
-├── skills/                      # 44 Curated Engineering Skills (SKILL.md standard)
-├── commands/                    # Auto-discovered Slash Commands & Aliases (68 commands)
+├── AGENTS.md                    # Universal Master Rules & SSOT (Sole Rule File)
+├── skills/                      # 15 Curated Engineering Skills (SKILL.md standard)
+├── commands/                    # Auto-discovered Slash Commands & Aliases (30 commands)
 ├── agents/                      # Specialized Subagents (.md)
 ├── hooks/                       # 9+ Lifecycle Safety Gates & 160+ Contract Tests
 ├── workflows/                   # Audit & Test Engines (134+ JS/MJS Tests)
 ├── mcp/                         # MCP Hub (.mcp.json, mcp_config.json, schemas)
 ├── setup.sh                     # Root setup entrypoint
 ├── Makefile                     # Build & Global install automation
-└── adapters/                    # Setup scripts for 8 Agent & IDE platforms
+└── adapters/                    # Setup scripts for 4 Core Agent & IDE platforms
 ```
 
 ---

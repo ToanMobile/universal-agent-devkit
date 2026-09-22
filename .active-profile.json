@@ -1,0 +1,23 @@
+{
+  "profile": "game",
+  "name": "🎮 Game (Unity 6 / Blender 3D / Mesh & Asset Optimization)",
+  "updated_at": "2026-09-22T21:20:00Z",
+  "description": "Cấu hình chuyên sâu cho phát triển Game 3D: kiểm toán rò rỉ bộ nhớ MonoBehaviour/C# delegates, triệt tiêu GC allocations trong Update(), tối ưu DrawCall batching, kiểm soát topology/polygon count trong Blender 4.x và kết nối MCP Unity/Blender.",
+  "essential_mcps": [
+    "unity",
+    "blender",
+    "codebase-memory-mcp"
+  ],
+  "active_councils": [
+    "06-game-unity-blender.md",
+    "02-architecture-blast-radius.md",
+    "03-zero-defect-tdd.md",
+    "04-deterministic-ocr-review.md",
+    "05-security-vulnerability.md",
+    "07-performance-anr.md",
+    "08-tiered-memory-governance.md",
+    "10-standards-compliance-delivery.md"
+  ],
+  "rules_file": "profiles/game/rules/game-rules.md",
+  "regression_matrix": "profiles/game/regression_matrix.json"
+}

@@ -9,72 +9,22 @@ LANGUAGE="${3:-en}"
 DOMAIN_UPPER="$(echo "$DOMAIN" | tr '[:lower:]' '[:upper:]')"
 
 echo "Configuring Cursor IDE for: $TARGET_DIR (domain: $DOMAIN, lang: $LANGUAGE)"
-mkdir -p "$TARGET_DIR/.cursor/rules"
+rm -rf "$TARGET_DIR/.cursor/rules" "$TARGET_DIR/.cursorrules.bak"
 
 LANG_DIRECTIVE="Default communication language: English. Switch to Vietnamese when requested by user. Code identifiers/paths: always English."
 if [ "$LANGUAGE" = "vi" ]; then
   LANG_DIRECTIVE="Default communication language: Vietnamese. Code identifiers/paths: always English."
 fi
 
-# Backup existing .cursorrules if it is a regular file
-if [ -f "$TARGET_DIR/.cursorrules" ] && [ ! -L "$TARGET_DIR/.cursorrules" ]; then
-  cp "$TARGET_DIR/.cursorrules" "$TARGET_DIR/.cursorrules.bak"
-  echo "  - Backed up existing .cursorrules to .cursorrules.bak"
+# 1. Setup AGENTS.md (Cursor natively supports AGENTS.md at root)
+rm -rf "$TARGET_DIR/.cursor/rules" "$TARGET_DIR/.cursorrules" "$TARGET_DIR/.cursorrules.bak"
+
+if [ "$TARGET_DIR" != "$DEVKIT_ROOT" ]; then
+  if [ -f "$TARGET_DIR/AGENTS.md" ] && [ ! -L "$TARGET_DIR/AGENTS.md" ]; then
+    cp "$TARGET_DIR/AGENTS.md" "$TARGET_DIR/AGENTS.md.bak"
+  fi
+  rm -f "$TARGET_DIR/AGENTS.md"
+  ln -sfn "$DEVKIT_ROOT/AGENTS.md" "$TARGET_DIR/AGENTS.md"
 fi
 
-# 1. Generate consolidated .cursorrules
-cat << HEADER_EOF > "$TARGET_DIR/.cursorrules"
-# Cursor & Multi-Model Master Rules (Universal DevKit)
-# Language Policy: $LANG_DIRECTIVE
-
-HEADER_EOF
-
-cat "$DEVKIT_ROOT/core/AGENTS.md" >> "$TARGET_DIR/.cursorrules"
-
-if [ -d "$DEVKIT_ROOT/domains/$DOMAIN/rulebook" ]; then
-  echo "" >> "$TARGET_DIR/.cursorrules"
-  echo "---" >> "$TARGET_DIR/.cursorrules"
-  echo "## Domain Specific Rules ($DOMAIN)" >> "$TARGET_DIR/.cursorrules"
-  for rule in "$DEVKIT_ROOT/domains/$DOMAIN/rulebook"/*.md; do
-    [ -f "$rule" ] || continue
-    echo "" >> "$TARGET_DIR/.cursorrules"
-    echo "### $(basename "$rule" .md)" >> "$TARGET_DIR/.cursorrules"
-    cat "$rule" >> "$TARGET_DIR/.cursorrules"
-  done
-fi
-
-# 2. Generate Modern Cursor Rules (.cursor/rules/*.mdc) — Existing custom .mdc files remain untouched
-cat << MDC_EOF > "$TARGET_DIR/.cursor/rules/core-protocol.mdc"
----
-description: Universal Quality Protocol, Pre-Code Gate, Zero-Defect, and Verification Rules
-globs: *
-alwaysApply: true
----
-
-# Core Protocol (Language: $LANGUAGE)
-# $LANG_DIRECTIVE
-
-MDC_EOF
-cat "$DEVKIT_ROOT/core/AGENTS.md" >> "$TARGET_DIR/.cursor/rules/core-protocol.mdc"
-
-# Domain specific MDC rule
-if [ -d "$DEVKIT_ROOT/domains/$DOMAIN/rulebook" ]; then
-  cat << DOMAIN_MDC_EOF > "$TARGET_DIR/.cursor/rules/${DOMAIN}-domain.mdc"
----
-description: ${DOMAIN_UPPER} specific architectural, testing, and engineering guidelines
-globs: **/*.kt, **/*.java, **/*.ts, **/*.tsx, **/*.js, **/*.py, **/*.swift
-alwaysApply: true
----
-
-# Domain Rules: ${DOMAIN_UPPER}
-
-DOMAIN_MDC_EOF
-  for rule in "$DEVKIT_ROOT/domains/$DOMAIN/rulebook"/*.md; do
-    [ -f "$rule" ] || continue
-    echo "" >> "$TARGET_DIR/.cursor/rules/${DOMAIN}-domain.mdc"
-    echo "## $(basename "$rule" .md)" >> "$TARGET_DIR/.cursor/rules/${DOMAIN}-domain.mdc"
-    cat "$rule" >> "$TARGET_DIR/.cursor/rules/${DOMAIN}-domain.mdc"
-  done
-fi
-
-echo "✓ Cursor IDE (.cursorrules & .cursor/rules/*.mdc) ready (Custom .mdc rules preserved)."
+echo "✓ Cursor IDE (AGENTS.md SSOT) ready."

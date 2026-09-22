@@ -1,14 +1,14 @@
 <div align="center">
 
 # 🚀 Universal AI Agent DevKit & Quality Protocol
-### *Framework chuẩn hóa toàn diện cung cấp Zero-Defect Protocol, 160+ Safety Gates, 63 Rule Chapters, 44 Curated Skills và Hệ sinh thái MCP cho mọi AI Coding Agent.*
+### *Framework chuẩn hóa toàn diện cung cấp Zero-Defect Protocol, 160+ Safety Gates, 48 Rule Chapters, 15 Curated Skills và Hệ sinh thái MCP cho mọi AI Coding Agent.*
 
 [![GitHub Repository](https://img.shields.io/badge/GitHub-ToanMobile%2Funiversal--agent--devkit-blue.svg?style=for-the-badge&logo=github)](https://github.com/ToanMobile/universal-agent-devkit)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 [![Tests Passing](https://img.shields.io/badge/Tests-294%20PASS%20(100%25)-success.svg?style=for-the-badge)](./hooks/tests)
-[![Supported Agents](https://img.shields.io/badge/Agents-8%20Ecosystems-orange.svg?style=for-the-badge)](#-universal-multi-agent-matrix)
-[![Rulebook](https://img.shields.io/badge/Rules-63%20Chapters-red.svg?style=for-the-badge)](#-complete-rulebook--engineering-standards-catalog)
-[![Skills Catalog](https://img.shields.io/badge/Skills-45%20Curated-purple.svg?style=for-the-badge)](#-45-curated-engineering-skills-catalog)
+[![Supported Agents](https://img.shields.io/badge/Agents-4%20N%E1%BB%81n%20T%E1%BA%A3ng-orange.svg?style=for-the-badge)](#-universal-multi-agent-matrix)
+[![Rulebook](https://img.shields.io/badge/Rules-AGENTS.md%20(SSOT)-red.svg?style=for-the-badge)](#-quy-chuẩn-kỹ-thuật-tập-trung-single-source-of-truth)
+[![Skills Catalog](https://img.shields.io/badge/Skills-15%20Curated-purple.svg?style=for-the-badge)](#-15-curated-engineering-skills-catalog)
 [![MCP Servers](https://img.shields.io/badge/MCP-6%20Integrated-brightgreen.svg?style=for-the-badge)](#-mcp-model-context-protocol-hub)
 
 <p align="center">
@@ -19,7 +19,7 @@
   <b>One DevKit to rule them all:</b> Nâng tầm AI Coding Assistant từ mô hình đối thoại thông thường trở thành một <b>Senior Pair Programmer</b> kỷ luật, thực chứng và chuẩn mực.
 </p>
 
-[Cài Đặt Nhanh](#-quick-start--installation) • [Kiến Trúc](#-system-architecture) • [Ma Trận Đa Nền Tảng](#-universal-multi-agent-matrix) • [Danh Mục Rulebook](#-complete-rulebook--engineering-standards-catalog) • [Danh Mục Skills](#-45-curated-engineering-skills-catalog) • [MCP Hub](#-mcp-model-context-protocol-hub) • [Kiểm Thử](#-verification--test-evidence)
+[Cài Đặt Nhanh](#-quick-start--installation) • [Kiến Trúc](#-system-architecture) • [Ma Trận Đa Nền Tảng](#-universal-multi-agent-matrix) • [Quy Chuẩn Rulebook](#-quy-chuẩn-kỹ-thuật-tập-trung-single-source-of-truth) • [Danh Mục Skills](#-15-curated-engineering-skills-catalog) • [MCP Hub](#-mcp-model-context-protocol-hub) • [Kiểm Thử](#-verification--test-evidence)
 
 ---
 
@@ -27,13 +27,13 @@
 
 ## 📖 Tổng quan (Executive Summary)
 
-**Universal Agent DevKit** là framework chuẩn hóa toàn diện dành cho mọi AI Coding Agent (**Claude Code**, **Google Antigravity & Gemini**, **Cursor IDE**, **Windsurf**, **GitHub Copilot**, **Cline & Roo Code**, **OpenAI Codex**, **Aider**) và mọi mô hình nền tảng (**Claude 3.5/3.7 Sonnet**, **GPT-4o / o1 / o3**, **Gemini 2.0/3.0**, **DeepSeek R1/V3**, **Llama 3**).
+**Universal Agent DevKit** là framework chuẩn hóa toàn diện dành cho 4 AI Coding Agent cốt lõi (**Claude Code**, **OpenAI Codex**, **Google Antigravity & Gemini**, **Cursor IDE**) và mọi mô hình nền tảng (**Claude 3.5/3.7 Sonnet**, **GPT-4o / o1 / o3**, **Gemini 2.0/3.0**, **DeepSeek R1/V3**).
 
 DevKit cung cấp một hệ sinh thái khép kín:
 1. **Quy chuẩn lập trình tối thượng:** Zero-Defect Protocol, Paired Executable Oracle, No-Fabrication Engine.
-2. **Bộ Rulebook Đồ Sộ (63 Chapters):** 15 quy chuẩn Universal cốt lõi + 48 quy chuẩn chuyên sâu cho từng nền tảng (Android/Compose, Web, Backend).
+2. **Bộ Rulebook Độc Tôn (AGENTS.md / Agent.md):** Khử bỏ hoàn toàn tình trạng phân mảnh rulebook; hợp nhất 100% quy chuẩn kiến trúc, an ninh, kiểm thử và Pre-Code Gates vào một file quy chuẩn tối cao duy nhất.
 3. **Tầng phòng thủ bằng máy (Machine Safety Gates):** 9+ lifecycle hooks và 160+ unit contract tests tự động bắt lỗi và chặn code ảo giác/phỏng đoán.
-4. **Kho 44 Kỹ Năng Tinh Gọn (Curated Engineering Skills):** Phân thành 5 nhóm chuyên biệt bao quát 100% vòng đời phát triển phần mềm.
+4. **Kho 15 Kỹ Năng Tinh Gọn (Curated Engineering Skills):** Phân thành 4 nhóm chuyên biệt bao quát trọn vẹn quy trình lập trình, kiểm thử và bàn giao.
 5. **Hệ sinh thái MCP Hub:** Tích hợp sẵn 6 MCP servers mạnh mẽ nhất cho AST Knowledge Graph discovery, Tra cứu Docs thực tế, Điều khiển thiết bị qua ADB, và Play Console.
 
 ---
@@ -48,9 +48,9 @@ DevKit cung cấp một hệ sinh thái khép kín:
 │ Paired Executable Oracle   │ Bảng quyết định C1-C9      │ Lifecycle Hooks chặn lỗi     │
 │ (Bắt buộc RED → GREEN)     │ Không bịa số, dòng, metric │ Pre-Code & Stop Gates        │
 ├────────────────────────────┼────────────────────────────┼──────────────────────────────┤
-│ ⚡ 7-Lens Multi-Audit      │ 📜 67 Rulebook Chapters    │ 🧰 44 Curated Skills         │
-│ Compile, Runtime, State,   │ Universal + 50 Android     │ 5 nhóm chuyên sâu từ QA, TDD │
-│ UX, Security, Architecture │ Domain Specialized Rules   │ đến Office Engines & DevTools│
+│ ⚡ 7-Lens Multi-Audit      │ 📜 Unified Master Rules    │ 🧰 15 Curated Skills         │
+│ Compile, Runtime, State,   │ AGENTS.md (Single SSOT)    │ 4 nhóm thực chiến: QA, TDD,  │
+│ UX, Security, Architecture │ 0 File Rule Phân Mảnh      │ Spec Planning & Platform Dev │
 └────────────────────────────┴────────────────────────────┴──────────────────────────────┘
 ```
 
@@ -63,106 +63,70 @@ DevKit cung cấp một hệ sinh thái khép kín:
 
 ### 2. 🚫 No-Fabrication Engine (Bảng Quyết Định C1–C9)
 - **Triệt tiêu ảo giác:** Cấm tuyệt đối việc suy đoán file path, số dòng code, version thư viện, metric benchmark hoặc kết quả test.
-- **Phân loại claim chặt chẽ:**
-  - `C1`: Fact cấu trúc → Trích dẫn trực tiếp từ AST Graph/Source tươi.
-  - `C2`: Phiên bản/API behavior → Đo kiểm hoặc tra cứu official documentation qua Context7.
-  - `C3/C5`: Outcome / "Đã fix" → Bắt buộc có bằng chứng thực nghiệm phân biệt (discriminating evidence).
-  - `C4`: Negative claim ("X không ảnh hưởng") → Bắt buộc search đối chiếu toàn bộ codebase.
+- **Phân loại claim chặt chẽ:** C1 (Source Fact), C2 (Version/Docs), C3/C5 (Outcome/Fix Works), C4 (Scope Claim).
 
 ### 3. 🔒 160+ Automated Safety Gates (Lifecycle Hooks)
-- `precode_gate.sh`: Chặn sửa code nếu file chưa từng được đọc kỹ trong phiên làm việc.
-- `review_gate.sh`: Bắt buộc thực hiện multi-lens review độc lập trước khi hoàn thành task.
-- `test_evidence_gate.sh`: Kiểm tra trực tiếp file XML test kết quả trên ổ đĩa để xác thực `tests > 0, failures = 0, errors = 0`.
-- `block-dangerous-git.sh`: Chặn đứng các lệnh Git phá hủy working tree.
-- `churn_guard.sh` & `comment_claim_guard.sh`: Chặn sửa lặp lại một file quá 3 lần và quét claim sai trong code comment.
+- **Kiểm soát tức thời:** PreToolUse và Stop hooks tự động đánh chặn mọi thao tác ghi file, gọi lệnh shell và bàn giao subagent.
+- **Chặn đứng thao tác phá hủy:** Tự động chặn các lệnh git nguy hiểm (`git push --force`, `git reset --hard`), rò rỉ credentials và tuyên bố xong việc thiếu bằng chứng.
 
 ### 4. ⚡ 7-Lens Multi-Audit Engine
-Hệ thống audit 7 góc nhìn độc lập (`multi-lens-audit.js`):
-1. 🔬 **Compile-time Lens:** Type-safety, nullability, deprecation, binary compatibility.
-2. ⚡ **Runtime Lens:** Resource leaks, memory allocation, OOM risk, boundary exceptions.
-3. 🔄 **State & Concurrency Lens:** Race conditions, thread safety, state immutability.
-4. 🧪 **Test Quality Lens:** Mutation coverage, boundary test cases, oracle precision.
-5. 🎨 **UX & Accessibility Lens:** Visual hierarchy, a11y standards, responsiveness.
-6. 🔒 **Security & Privacy Lens:** Intent injection, permission boundaries, credential safety.
-7. 📐 **Architecture Lens:** Seam isolation, clean DI, unidirectional data flow.
+- **Audit toàn diện 7 góc nhìn:** Compile, Runtime, State Continuity, UX, Security, Performance, và Architecture.
+- **Biên nhận thực thi đóng (Fail-Closed Receipts):** Bắt buộc có receipt hàm băm/chữ ký thực thi thật trước khi cho phép trạng thái PASS.
 
 </details>
 
 ---
 
-## 📐 System Architecture
+## 🏛️ System Architecture
 
 ```mermaid
 graph TD
     subgraph DevKit_Core ["📦 Universal Agent DevKit Core"]
-        CoreRules["Core Protocols (AGENTS.md, CLAUDE.md)"]
-        Rulebook["67 Rulebook Chapters (Universal + Android/Web)"]
+        Rulebook["Single Source of Truth (AGENTS.md)"]
         Gates["160+ Safety Gates & Lifecycle Hooks"]
-        SkillsCatalog["44 Curated Engineering Skills"]
+        SkillsCatalog["15 Curated Engineering Skills"]
         Workflows["Multi-Lens Audit & Evidence Engines"]
         MCPHub["6-Server MCP Integration Hub"]
     end
 
-    subgraph Adapters ["🔌 Multi-Agent Adapters"]
+    subgraph Adapters ["🔌 Core Agent Adapters"]
         Installer["bin/install.sh / agent-kit"]
     end
 
-    DevKit_Core --> Installer
+    subgraph Coding_Agents ["🤖 Supported Agent Ecosystems"]
+        Claude["🤖 Claude Code<br/>(AGENTS.md, .claude/commands, hooks)"]
+        Codex["🧠 OpenAI Codex & ChatGPT<br/>(AGENTS.md SSOT)"]
+        Gemini["✨ Google Antigravity & Gemini<br/>(AGENTS.md, .agents/skills)"]
+        Cursor["⚡ Cursor IDE<br/>(AGENTS.md SSOT)"]
+    end
 
-    Installer -->|Auto-Config| Claude["🤖 Claude Code<br/>(CLAUDE.md, .claude/hooks)"]
-    Installer -->|Auto-Config| Gemini["✨ Google Antigravity & Gemini<br/>(AGENTS.md, .agents/skills)"]
-    Installer -->|Auto-Config| Cursor["⚡ Cursor IDE<br/>(.cursorrules, .cursor/rules/*.mdc)"]
-    Installer -->|Auto-Config| Windsurf["🌊 Windsurf / Cascade<br/>(.windsurfrules)"]
-    Installer -->|Auto-Config| Copilot["🐙 GitHub Copilot<br/>(copilot-instructions.md)"]
-    Installer -->|Auto-Config| Cline["🛠️ Cline & Roo Code<br/>(.clinerules, .roomodes)"]
-    Installer -->|Auto-Config| Codex["🧠 OpenAI Codex<br/>(CODEX.md)"]
-    Installer -->|Auto-Config| Aider["⌨️ Aider Terminal<br/>(CONVENTIONS.md)"]
+    Installer -->|Auto-Config| Claude
+    Installer -->|Auto-Config| Codex
+    Installer -->|Auto-Config| Gemini
+    Installer -->|Auto-Config| Cursor
+
+    DevKit_Core --> Installer
 ```
 
 ---
 
-## 📜 Complete Rulebook & Engineering Standards Catalog
+## 📜 Quy Chuẩn Kỹ Thuật Tập Trung (Single Source of Truth)
 
-DevKit sở hữu hệ thống quy chuẩn chia thành **Universal Core Rules (17 chapters)** dùng chung cho mọi dự án và **Domain Rulebooks (48 chapters)** chuyên sâu:
+Mọi quy chuẩn kỹ thuật, hợp đồng kiến trúc đa agent và quy trình chất lượng đều được tập trung vào duy nhất một Single Source of Truth: [`AGENTS.md`](file://AGENTS.md).
 
-### 1. 🌐 Universal Core Rules (`core/rules/`)
-
-| File Quy Chuẩn | Chủ Đề / Lĩnh Vực | Mục Đích & Nguyên Tắc Cốt Lõi |
-|---|---|---|
-| [`02-general.md`](file://core/rules/02-general.md) | Quy chuẩn Kỹ sư Cấp cao | Tiêu chuẩn kỹ sư Level-4, Graph-First protocol, chính sách ngôn ngữ mặc định English / tùy chọn Vietnamese. |
-| [`03-monorepo-governance.md`](file://core/rules/03-monorepo-governance.md) | Kiến trúc & Quản trị Module | Phân tầng Clean Architecture (Presentation → Domain → Data), phân lập ranh giới module và DI độc lập. |
-| [`04-core-performance.md`](file://core/rules/04-core-performance.md) | Hiệu Năng Cốt Lõi | Kiểm soát frame budget (16ms/60fps, 8ms/120fps), tối ưu bộ nhớ, cấm cấp phát object trong vòng lặp hẹp. |
-| [`08-code-organization-dry.md`](file://core/rules/08-code-organization-dry.md) | Tổ chức Code & DRY | Single Source of Truth cho business logic, cấu trúc thư mục sạch và tái sử dụng mã nguồn an toàn. |
-| [`11-analyzer-enforcement.md`](file://core/rules/11-analyzer-enforcement.md) | Kiểm Tra Tĩnh (Static Analyzer) | Ràng buộc kiểm tra tĩnh qua ktlint, Detekt, warnings-as-errors, Metalava API compatibility check. |
-| [`13-anti-patterns.md`](file://core/rules/13-anti-patterns.md) | Anti-Patterns | Danh mục các lỗi cấm: God classes, leaky abstractions, side-effects trong getter, blocking Main thread. |
-| [`14-null-safety.md`](file://core/rules/14-null-safety.md) | An Toàn Null & Kiểu Dữ Liệu | Xử lý nullability an toàn, triệt tiêu nguy cơ NullPointerException, bất biến hóa kiểu dữ liệu. |
-| [`16-security.md`](file://core/rules/16-security.md) | An Ninh & Bề Mặt Tấn Công | Kiểm tra tính hợp lệ dữ liệu đầu vào, bảo vệ credentials/tokens, an toàn IPC/Intent và SAF. |
-| [`17-testing.md`](file://core/rules/17-testing.md) | Kiểm Thử & Quality Gate | Paired Executable Oracle (RED→GREEN), test source set enforcement, đo kiểm file XML test thật trên ổ đĩa. |
-| [`18-naming-conventions.md`](file://core/rules/18-naming-conventions.md) | Quy Chuẩn Đặt Tên | Đồng nhất cách đặt tên class, function, variable, test method, package và file theo chuẩn kỹ thuật. |
-| [`19-documentation-resources.md`](file://core/rules/19-documentation-resources.md) | Tài Liệu & Tài Nguyên | Viết tài liệu chính xác, quản lý string/resource tập trung, loại bỏ comment sai lệch hoặc gây nhiễu. |
-| [`22-git-conventions.md`](file://core/rules/22-git-conventions.md) | Quy Ước Git | Chuẩn Conventional Commits (`feat`, `fix`, `refactor`...), branch naming, cấm lệnh phá hủy working tree. |
-| [`23-ai-workflow.md`](file://core/rules/23-ai-workflow.md) | Điều Phối AI & Subagent | Phân quyền Subagent, nén ngữ cảnh (compaction), quản lý hội thoại và hội tụ kế hoạch trước khi code. |
-| [`44-systematic-debugging.md`](file://core/rules/44-systematic-debugging.md) | Chẩn Đoán Lỗi Hệ Thống | 4 bước xử lý lỗi: Tái hiện → Phân lập → Kiểm chứng bằng chứng phân biệt → Sửa tối thiểu (Surgical Fix). |
-| [`45-tdd-enforcement.md`](file://core/rules/45-tdd-enforcement.md) | Ràng Buộc TDD Bắt Buộc | Bắt buộc viết test thất bại (RED) trước khi viết code production, cấm bypass quy trình TDD. |
-
-
-<details>
-<summary><b>📱 Xem 48 Chapters Chuyên Sâu cho Android (`domains/android/rulebook/`)</b></summary>
-
-Bao quát 100% hệ sinh thái Android hiện đại:
-- **UI & Compose:** `04-compose.md`, `06-compose-advanced.md`, `08-compose-performance.md`, `26-animations.md`, `27-accessibility.md`, `32-edge-to-edge.md`, `38-adaptive-layouts.md`, `41-custom-views.md`, `44-internationalization.md`.
-- **Architecture & State:** `03-architecture.md`, `16-viewmodel.md`, `24-process-death.md`, `31-workmanager.md`, `34-state-restoration.md`, `39-offline-first.md`, `40-modularization.md`, `48-dependency-injection.md`.
-- **Data & Storage:** `17-room.md`, `20-datastore.md`, `21-paging3.md`, `35-storage-access-framework.md`, `36-file-io.md`.
-- **Concurrency & Networking:** `05-coroutines.md`, `07-flow.md`, `10-networking.md`, `28-caching.md`.
-- **Quality, Perf & Benchmarks:** `01-testing.md`, `09-performance.md`, `11-analyzer-enforcement.md`, `23-memory-leaks.md`, `25-startup-optimization.md`, `29-battery-optimization.md`, `30-r8-proguard.md`, `33-baseline-profiles.md`, `37-microbenchmarks.md`, `42-ndk-jni.md`, `43-crash-reporting.md`, `45-tdd-enforcement.md`, `46-camera-media.md`, `47-deep-links.md`, `49-app-size.md`, `50-gradle-build-speed.md`.
-
-</details>
+Không còn các thư mục rulebook phân mảnh gây xung đột hay phình to context. Các nội dung cốt lõi được bảo đảm trong `AGENTS.md`:
+- **Kiến trúc & Modularization:** Phân tầng Clean Architecture, phân lập ranh giới module (Presentation → Domain → Data) và DI độc lập.
+- **Pre-Code Gate (Mục 5):** 5 tiêu chí bắt buộc (Target + authority, đọc file thật, danh sách consumer, failure mechanism, residual) trước khi chạm vào mã nguồn.
+- **Zero-Defect Protocol & Paired Executable Oracle:** Bắt buộc có kiểm thử RED → GREEN thật trên failure boundary, không có ngoại lệ (zero waivers).
+- **No-Fabrication Engine (Bảng C1–C9):** Triệt tiêu ảo giác, cấm bịa đặt metric, dòng code hoặc kết quả kiểm thử.
+- **Solo Dev & Quy Ước Git:** Chuẩn Conventional Commits (`feat`, `fix`, `chore`), cấm commit secrets, sửa mã nguồn phẫu thuật (surgical diffs).
+- **Tương thích Đa Nền Tảng:** Tự động đồng bộ hóa sang toàn bộ 8 hệ sinh thái coding agent với độ tin cậy tuyệt đối.
 
 ---
 
-## 🧰 44 Curated Engineering Skills Catalog
+## 🧰 15 Curated Engineering Skills Catalog
 
-Kho 45 kỹ năng chuẩn hóa theo định dạng `SKILL.md` (YAML frontmatter + Progressive Disclosure), chia thành **5 nhóm chức năng chuyên biệt**:
+Kho 15 kỹ năng chuẩn hóa theo định dạng `SKILL.md` (YAML frontmatter + Progressive Disclosure), chia thành **4 nhóm chức năng thực chiến**:
 
 ### 1. 🧪 Testing & Zero-Defect QA (6 Skills)
 | Skill | Slash Command | Chức Năng & Mục Đích Sử Dụng |
@@ -176,83 +140,44 @@ Kho 45 kỹ năng chuẩn hóa theo định dạng `SKILL.md` (YAML frontmatter 
 
 ---
 
-### 2. 📐 Architecture, Planning & Operations (11 Skills)
+### 2. 🔍 Code Review & Visual QA (3 Skills)
+| Skill | Slash Command | Chức Năng & Mục Đích Sử Dụng |
+|---|---|---|
+| **`qa-review`** | `/qa-review`, `/review` | Chất vấn và audit code diff trước PR, sinh acceptance criteria và ma trận kịch bản test (Vai trò × Dữ liệu × Luồng lỗi). |
+| **`open-code-review`** | `/ocr`, `/open-code-review` | Tích hợp engine Alibaba OpenCodeReview: giải quyết triệt để lệch dòng (resolver.go), gom nhóm file thông minh, audit diff tự động không ồn. |
+| **`qa-visual`** | `/qa-visual`, `/visual` | Tự động chụp màn hình và audit lỗi bố cục layout DOM (tràn khung, lệch align, chồng lấp) kèm upload cloud. |
+
+---
+
+### 3. 📐 Kiến Trúc, Git & Lập Kế Hoạch (4 Skills)
 | Skill | Slash Command | Chức Năng & Mục Đích Sử Dụng |
 |---|---|---|
 | **`spec-driven-development`** | `/plan` | Lập kế hoạch theo mô hình Spec-Kit Lite cho mọi thay đổi chạm ≥3 files hoặc ≥2 modules. |
-| **`deep-module-design`** | `/deep-design` | Đánh giá seam, interface contract, testability và abstraction độc lập của module. |
-| **`grill-plan`** | `/grill` | Phản biện, stress-test kế hoạch thiết kế và truy vết edge-cases trước khi viết code. |
-| **`incremental-implementation`** | `/incremental` | Chia tách và triển khai từng bước nhỏ cho tính năng lớn theo step-by-step TDD an toàn. |
-| **`session-handoff`** | `/handoff` | Đóng gói toàn bộ ngữ cảnh, công việc dở dang và bằng chứng để chuyển giao sang session mới. |
 | **`merge-conflict-resolver`** | `/conflict` | Giải quyết Git merge / rebase / stash conflict an toàn dựa trên phân tích ngữ nghĩa 3-way merge. |
-| **`deprecation-migration`** | `/migration` | Quy trình thay thế API/thư viện deprecated, dọn code cũ mà không làm vỡ các consumer. |
-| **`documentation-and-adrs`** | `/adr` | Ghi nhận Architecture Decision Record (ADR) dài hạn cho các quyết định kiến trúc quan trọng. |
-| **`graph-navigation`** | `/graph` | Khám phá codebase, trace call/data flow, phân tích blast radius bằng AST Knowledge Graph. |
+| **`session-handoff`** | `/handoff` | Đóng gói toàn bộ ngữ cảnh, công việc dở dang và bằng chứng để chuyển giao sang session mới. |
 | **`security-checklist`** | `/scan` | Audit an ninh: Intent filter, URI traversal, Storage Access Framework, exported components, permissions. |
-| **`observability-instrumentation`** | `/observability` | Thêm và audit telemetry, structured logging, Firebase Analytics, Crashlytics & Perf metrics. |
 
 ---
 
-### 3. 📄 Document & Data Processing Engines (4 Skills)
+### 4. 🛠️ Công Cụ Codebase & Nền Tảng (3 Skills)
 | Skill | Slash Command | Chức Năng & Mục Đích Sử Dụng |
 |---|---|---|
-| **`documents`** | `/documents`, `/docx` | Engine tạo, chỉnh sửa, redline và render tài liệu Microsoft Word (`.docx`) & Google Docs chất lượng cao. |
-| **`spreadsheets`** | `/spreadsheets`, `/xlsx` | Engine tính toán công thức, phân tích tài chính, tạo biểu đồ và xử lý Microsoft Excel (`.xlsx`). |
-| **`presentations`** | `/presentations`, `/pptx` | Engine thiết kế, dàn trang layout, dựng slide thuyết trình Microsoft PowerPoint (`.pptx`). |
-| **`pdf`** | `/pdf` | Bộ công cụ đọc, trích xuất text/table, OCR, merge/split, mã hóa và điền biểu mẫu PDF. |
-
----
-
-### 4. 🛠️ Agent, Plugin & MCP Development (17 Skills)
-| Skill | Slash Command | Chức Năng & Mục Đích Sử Dụng |
-|---|---|---|
-| **`plugin-creator`** | `/plugin-creator` | Scaffold và tạo mới plugin directory theo chuẩn Claude Code và Antigravity. |
-| **`plugin-structure`** | `/plugin-structure` | Chuẩn hóa cấu trúc thư mục plugin, manifest `plugin.json` và auto-discovery. |
-| **`plugin-settings`** | `/plugin-settings` | Quản lý cấu hình per-project qua file YAML frontmatter `.local.md`. |
-| **`skill-creator`** | `/skill-creator` | Tạo skill mới từ đầu, đo lường benchmark và tối ưu trigger description. |
-| **`skill-development`** | `/skill-development` | Hướng dẫn cấu trúc Progressive Disclosure cho SKILL.md. |
-| **`skill-installer`** | `/skill-installer` | Tìm kiếm và cài đặt skills trực tiếp từ GitHub hoặc package registry. |
-| **`command-development`** | `/command-development` | Xây dựng Slash Commands và thiết lập alias router cho Agent. |
-| **`hook-development`** | `/hook-development` | Xây dựng Lifecycle Safety Hooks (PreToolUse, PostToolUse, Stop, SessionStart). |
-| **`agent-development`** | `/agent-development` | Thiết kế subagents chuyên biệt, phân quyền tools và system prompt. |
-| **`build-mcp-server`** | `/build-mcp-server` | Hướng dẫn lập trình và đóng gói custom MCP server (stdio, SSE, HTTP). |
-| **`build-mcp-app`** | `/build-mcp-app` | Xây dựng interactive UI widgets và form controls nhúng trực tiếp trong chat MCP. |
-| **`build-mcpb`** | `/build-mcpb` | Đóng gói local MCP server thành file `.mcpb` chạy độc lập không cần cài runtime. |
-| **`mcp-integration`** | `/mcp-integration` | Hướng dẫn tích hợp và cấu hình MCP server vào các hệ thống AI coding agent. |
-| **`review-agent`** | `/review-agent` | Thực hiện defect-first code review độc lập trước khi commit hoặc merge PR. |
+| **`graph-navigation`** | `/graph` | Khám phá codebase, trace call/data flow, phân tích blast radius bằng AST Knowledge Graph. |
 | **`codebase-memory`** | `/codebase-memory` | Quản trị và đồng bộ AST Knowledge Graph Database cho dự án lớn. |
-| **`writing-rules`** | `/writing-rules` | Hướng dẫn viết và chuẩn hóa các rule chapters và hookify safety rules. |
-| **`skills-author`** | `/skills-author` | Quy chuẩn tác giả, audit và bảo trì hệ thống skills trong kho DevKit. |
-| **`schedule`** | `/schedule` | Quản lý recurring cron jobs và one-shot timers chạy ngầm cho Agent. |
-
----
-
-### 5. 🎨 Frontend, Visualization & Platform Tools (6 Skills)
-| Skill | Slash Command | Chức Năng & Mục Đích Sử Dụng |
-|---|---|---|
-| **`frontend-design`** | `/frontend-design` | Hướng dẫn thiết kế giao diện UI hiện đại, phối màu, typography aesthetic. |
-| **`visualize`** | `/visualize` | Dựng trực quan hóa tương tác (HTML/SVG widgets, flowcharts, data graphs). |
-| **`playground`** | `/playground` | Tạo single-file HTML playground tương tác với các control trực quan. |
-| **`imagegen`** | `/imagegen` | Tạo mockup hình ảnh, wireframe và asset đồ họa bằng AI image generator. |
-| **`control-in-app-browser`** | `/control-in-app-browser` | Điều khiển browser nội bộ để inspect trang web, click, gõ text và chụp screenshot. |
 | **`android-cli`** | `/android-cli` | Quản lý Android SDK, điều khiển emulator/AVD và chụp UI screenshot từ CLI. |
 
 ---
 
 ## 🌐 Universal Multi-Agent Matrix
 
-DevKit tự động sinh và đồng bộ cấu hình tương thích 100% cho 8 hệ sinh thái agent phổ biến:
+DevKit tự động đồng bộ cấu hình tương thích cho 4 hệ sinh thái agent cốt lõi với `AGENTS.md` làm Single Source of Truth:
 
-| Nền tảng / IDE | File Cấu Hình Tự Động Sinh | Tính Năng Được Kích Hoạt | Trạng Thái |
+| Nền tảng / IDE | Cấu Hình & Tích Hợp | Tính Năng Được Kích Hoạt | Trạng Thái |
 |---|---|---|:---:|
-| **Claude Code** | `CLAUDE.md`, `.claude/settings.json`, `.claude/commands/`, `.claude/hooks/`, `.mcp.json` | Slash Commands (`/qc`, `/fix`, `/plan`), Safety Hooks chặn lỗi runtime, Subagents, MCP Tools | `READY` 🟢 |
-| **Antigravity / Gemini** | `AGENTS.md`, `GEMINI.md`, `.agents/skills/`, `.agents/rules/`, `mcp_config.json` | Auto-discovery Skills, phân tầng nạp Rules theo ngữ cảnh dự án | `READY` 🟢 |
-| **Cursor IDE** | `.cursorrules`, `.cursor/rules/*.mdc` | Modular Rules chuẩn mới (`.mdc`), `alwaysApply` cho Core Protocol | `READY` 🟢 |
-| **Windsurf / Cascade** | `.windsurfrules`, `.windsurf/rules/` | Cascade System Rules, Zero-Defect & Pre-Code Gate enforcement | `READY` 🟢 |
-| **GitHub Copilot** | `.github/copilot-instructions.md` | Workspace custom instructions cho VS Code & JetBrains Copilot | `READY` 🟢 |
-| **Cline & Roo Code** | `.clinerules`, `.roomodes` | Tùy chỉnh vai trò: *Principal Architect*, *Code Reviewer*, *SETI Test Architect* | `READY` 🟢 |
-| **OpenAI Codex** | `CODEX.md` | Zero-Defect & Pre-Code Gate instructions cho GPT models | `READY` 🟢 |
-| **Aider** | `CONVENTIONS.md`, `.aider.conf.yml` | Auto test-command bindings, git diff verification, coding conventions | `READY` 🟢 |
+| **Claude Code** | `AGENTS.md`, `.claude/settings.json`, `.claude/commands/`, `.claude/hooks/`, `.mcp.json` | Slash Commands (`/qc`, `/fix`, `/plan`), Safety Hooks chặn lỗi runtime, Subagents, MCP Tools | `READY` 🟢 |
+| **OpenAI Codex** | `AGENTS.md` (SSOT) | Universal Master Rules, Pre-Code Gate & Zero-Defect protocol cho GPT models & Canvas | `READY` 🟢 |
+| **Antigravity / Gemini** | `AGENTS.md`, `.agents/skills/`, `mcp_config.json` | Auto-discovery Skills, QA Protocols, Tích hợp MCP Hub | `READY` 🟢 |
+| **Cursor IDE** | `AGENTS.md` (SSOT) | Quy chuẩn repo gốc, Zero-Defect & Pre-Code Gate enforcement | `READY` 🟢 |
 
 ---
 
@@ -352,7 +277,7 @@ agent-kit sync
 ### 📊 Báo Cáo Kiểm Thử (Test Evidence):
 - **Hook Contract Tests:** `160 / 160 PASS (100%)` ✅
 - **Workflow Engine Tests:** `134 / 134 PASS (100%)` ✅
-- **Multi-Agent Sandbox Matrix:** `8 / 8 Ecosystems Verified` ✅
+- **Multi-Agent Sandbox Matrix:** `4 / 4 Nền Tảng Cốt Lõi Verified` ✅
 
 ---
 
@@ -362,20 +287,16 @@ agent-kit sync
 universal-agent-devkit/
 ├── .claude-plugin/              # Claude Code Plugin Manifest (plugin.json)
 ├── bin/                         # CLI entrypoints (install.sh, agent-kit, quick-install.sh)
-├── core/                        # Universal SSOT (AGENTS.md, CLAUDE.md, rules, knowledge)
-│   ├── rules/                   # 17 Universal Rule Chapters (Testing, Architecture, DRY, Security...)
-│   └── knowledge/               # Universal Runbooks & Gate Layers
-├── domains/                     # Domain Rulebooks
-│   └── android/rulebook/        # 50 chapters Android/Compose/Room/Kotlin rulebook
-├── skills/                      # 44 Curated Engineering Skills (SKILL.md standard)
-├── commands/                    # Auto-discovered Slash Commands & Aliases (68 commands)
+├── AGENTS.md                    # Universal Master Rules & SSOT (File Rule Duy Nhất)
+├── skills/                      # 15 Curated Engineering Skills (SKILL.md standard)
+├── commands/                    # Auto-discovered Slash Commands & Aliases (30 commands)
 ├── agents/                      # Specialized Subagents (.md)
 ├── hooks/                       # 9+ Lifecycle Safety Gates & 160+ Contract Tests
 ├── workflows/                   # Audit & Test Engines (134+ JS/MJS Tests)
 ├── mcp/                         # MCP Hub (.mcp.json, mcp_config.json, schemas)
 ├── setup.sh                     # Root setup entrypoint
 ├── Makefile                     # Build & Global install automation
-└── adapters/                    # Setup scripts cho 8 nền tảng Agent & IDE
+└── adapters/                    # Setup scripts cho 4 nền tảng Agent & IDE cốt lõi
 ```
 
 ---

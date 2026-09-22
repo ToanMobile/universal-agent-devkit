@@ -1,6 +1,6 @@
 # 🔌 MCP (Model Context Protocol) Integration Hub
 
-Universal configuration and schemas for Model Context Protocol (MCP) servers used across **Claude Code**, **Antigravity / Gemini**, **Cursor**, and **Windsurf**.
+Universal configuration and schemas for Model Context Protocol (MCP) servers used across **Claude Code**, **OpenAI Codex**, **Antigravity / Gemini**, and **Cursor**.
 
 ---
 
@@ -35,7 +35,7 @@ File cấu hình: `.mcp.json` tại root dự án hoặc `~/.claude/.mcp.json`.
 ### 2. Google Antigravity & Gemini CLI
 File cấu hình: `mcp_config.json` tại root dự án hoặc `~/.gemini/config/mcp_config.json`.
 
-### 3. Cursor & Windsurf
+### 3. Cursor & OpenAI Codex
 Thêm cấu hình vào Settings -> MCP Servers hoặc copy từ `mcp/.mcp.json`.
 
 ---
