@@ -8,6 +8,7 @@ DEVKIT_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
 TARGET_DIR="$PWD"
 DOMAIN="auto"
 AGENTS="ask"
+PROFILE="ask"
 MODE="symlink"
 LANGUAGE="en"
 
@@ -27,6 +28,7 @@ Usage:
 Options:
   -t, --target <path>     Target project directory (default: current directory)
   -d, --domain <name>     Project domain: auto | android | web | backend | general (default: auto)
+  -p, --profile <name>    Domain profile: automotive | android | game | universal (default: ask)
   -a, --agents <list>     Comma-separated agents or 'all'
                           Supported: claude, codex, gemini, cursor, all
   -m, --mode <mode>       Install mode: symlink | copy (default: symlink)
@@ -63,6 +65,14 @@ while [[ $# -gt 0 ]]; do
       ;;
     --domain=*)
       DOMAIN="${1#*=}"
+      shift
+      ;;
+    -p|--profile)
+      PROFILE="$2"
+      shift 2
+      ;;
+    --profile=*)
+      PROFILE="${1#*=}"
       shift
       ;;
     -a|--agents)
@@ -108,20 +118,20 @@ TARGET_DIR="$(cd "$TARGET_DIR" && pwd)"
 # Interactive Agent Selection Menu if not specified via CLI
 if [ "$AGENTS" = "ask" ]; then
   echo "================================================================="
-  echo "  🤖 Universal AI Agent DevKit — Agent Selection Menu"
+  echo "  🤖 Universal AI Agent DevKit — Bước 1/2: Chọn AI Coding Tools"
   echo "================================================================="
   echo "  [1] 🤖 Claude Code          (AGENTS.md, .claude/commands/, hooks, .mcp.json)"
   echo "  [2] 🧠 OpenAI Codex         (AGENTS.md SSOT)"
   echo "  [3] ✨ Google Gemini / AGY  (AGENTS.md, .agents/skills, mcp_config.json)"
   echo "  [4] ⚡ Cursor IDE           (AGENTS.md SSOT)"
-  echo "  [A] 🌟 All Agents           (Configure all 4 ecosystems)"
+  echo "  [A] 🌟 All Agents           (Cấu hình toàn bộ 4 nền tảng)"
   echo "-----------------------------------------------------------------"
   user_choice="A"
   if [ -t 0 ]; then
-    read -r -p "Select agents (e.g. 1,2 or 1,2,3 or A for all) [Default: A]: " input_choice || input_choice=""
+    read -r -p "Chọn AI Tools (ví dụ: 1,2 hoặc A cho tất cả) [Default: A]: " input_choice || input_choice=""
     user_choice="${input_choice:-A}"
   elif (exec 3</dev/tty) 2>/dev/null; then
-    read -r -p "Select agents (e.g. 1,2 or 1,2,3 or A for all) [Default: A]: " input_choice < /dev/tty || input_choice=""
+    read -r -p "Chọn AI Tools (ví dụ: 1,2 hoặc A cho tất cả) [Default: A]: " input_choice < /dev/tty || input_choice=""
     user_choice="${input_choice:-A}"
   fi
 
@@ -145,6 +155,34 @@ if [ "$AGENTS" = "ask" ]; then
       AGENTS="$(IFS=','; echo "${selected_agents[*]}")"
     fi
   fi
+fi
+
+# Interactive Project Profile Selection Menu if not specified via CLI
+if [ "$PROFILE" = "ask" ]; then
+  echo
+  echo "================================================================="
+  echo "  🎯 Universal AI Agent DevKit — Bước 2/2: Chọn Profile Dự Án"
+  echo "================================================================="
+  echo "  [1] 🚗 Xe hơi (Automotive: AAOS / IVI / Flyme Auto / CAN bus)"
+  echo "  [2] 📱 Android (Mobile App / FinOS eSign Solo-Dev / Compose)"
+  echo "  [3] 🎮 Game (Unity 6 / Blender 3D / Shaders & Assets)"
+  echo "  [4] 🌐 Universal / General (Mặc định đa nền tảng)"
+  echo "-----------------------------------------------------------------"
+  user_profile="4"
+  if [ -t 0 ]; then
+    read -r -p "Chọn Profile dự án (1=Xe hơi, 2=Android, 3=Game, 4=Universal) [Default: 4]: " input_prof || input_prof=""
+    user_profile="${input_prof:-4}"
+  elif (exec 3</dev/tty) 2>/dev/null; then
+    read -r -p "Chọn Profile dự án (1=Xe hơi, 2=Android, 3=Game, 4=Universal) [Default: 4]: " input_prof < /dev/tty || input_prof=""
+    user_profile="${input_prof:-4}"
+  fi
+
+  case "$user_profile" in
+    1|automotive|car|xehoi) PROFILE="automotive" ;;
+    2|android|mobile|finos) PROFILE="android" ;;
+    3|game|unity|blender) PROFILE="game" ;;
+    *) PROFILE="universal" ;;
+  esac
 fi
 
 # Smart Auto-Detection of Project Domain
@@ -218,3 +256,8 @@ echo "================================================================="
 echo "  ✨ Setup Complete for Selected Agents: [$AGENTS]!"
 echo "  No unnecessary agent rules or files were created."
 echo "================================================================="
+
+# 3. Kích hoạt Domain Profile nếu có chọn
+if [ "$PROFILE" != "universal" ] && [ -n "$PROFILE" ]; then
+  python3 "$DEVKIT_ROOT/bin/agent-config.py" --profile "$PROFILE" || true
+fi
