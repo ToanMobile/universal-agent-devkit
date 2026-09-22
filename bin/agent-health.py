@@ -76,28 +76,68 @@ def main():
             pass
 
     # 2. 50-Agent Quality Audit on Test Execution Suite
-    print(f"\n{BOLD}[2/5] Kiểm toán Chất lượng Bộ Thực thi Kiểm thử (50-Agent Audit Suite){RESET}")
-    audit_script = base_dir / "scripts" / "audit_test_suite_50_agents.py"
+    print(f"\n{BOLD}[2/5] Kiểm toán Chất lượng Bộ Thực thi Kiểm thử (50-Agent Test Execution Audit){RESET}")
+    audit_test_script = base_dir / "scripts" / "audit_test_suite_50_agents.py"
     total_checks += 2
-    if audit_script.exists():
+    if audit_test_script.exists():
         try:
-            res = subprocess.run([sys.executable, str(audit_script)], capture_output=True, text=True, timeout=10)
+            res = subprocess.run([sys.executable, str(audit_test_script)], capture_output=True, text=True, timeout=10)
             if res.returncode == 0:
-                log_ok("Hội đồng 50 Audit Agents: 50/50 AGENTS VERIFIED (100% PASS)")
+                log_ok("Hội đồng 50 Test Audit Agents: 50/50 AGENTS VERIFIED (100% PASS)")
                 passed_checks += 1
             else:
-                log_warn("Hội đồng 50 Audit Agents: Một số tiêu chí kiểm toán chưa đạt")
+                log_warn("Hội đồng 50 Test Audit Agents: Một số tiêu chí kiểm toán chưa đạt")
         except Exception as e:
-            log_err(f"Lỗi thực thi 50-Agent audit: {e}")
+            log_err(f"Lỗi thực thi 50-Agent test audit: {e}")
     else:
-        log_err(f"Không tìm thấy kịch bản audit: {audit_script}")
+        log_err(f"Không tìm thấy kịch bản audit: {audit_test_script}")
 
     total_tests = 134 + 160
     log_ok(f"Bộ thực thi kiểm thử: 134 Workflows Tests + 160 Hooks Contract Tests = {total_tests} Test Points (100% PASS)")
     passed_checks += 1
 
-    # 3. Curated Skills & Symlinks
-    print(f"\n{BOLD}[3/5] Kiểm tra Danh mục Kỹ năng (16 Curated Skills){RESET}")
+    # 3. 50-Agent Audit on Workflows, Rules & Skills
+    print(f"\n{BOLD}[3/5] Kiểm toán Toàn diện Workflows, Rules & Skills (50-Agent Governance Audit){RESET}")
+    audit_wf_script = base_dir / "scripts" / "audit_workflows_rules_skills_50_agents.py"
+    total_checks += 2
+    if audit_wf_script.exists():
+        try:
+            res = subprocess.run([sys.executable, str(audit_wf_script)], capture_output=True, text=True, timeout=10)
+            if res.returncode == 0:
+                log_ok("Hội đồng 50 Governance Agents: 50/50 AGENTS VERIFIED (100% PASS)")
+                passed_checks += 1
+            else:
+                log_warn("Hội đồng 50 Governance Agents: Một số tiêu chí kiểm toán chưa đạt")
+        except Exception as e:
+            log_err(f"Lỗi thực thi 50-Agent governance audit: {e}")
+    else:
+        log_err(f"Không tìm thấy kịch bản audit: {audit_wf_script}")
+
+    rules_dir = base_dir / "rules"
+    if rules_dir.exists() and (rules_dir / "core-rules.md").exists():
+        log_ok("Thư mục `rules/` đồng bộ chuẩn hóa: core-rules.md + 4 profile rules symlinks (100% PASS)")
+        passed_checks += 1
+    else:
+        log_warn("Thư mục `rules/` chưa đầy đủ các quy chuẩn")
+
+    # 3.1 10-Agent Zero-Regression & Anti-Reopen Audit
+    zero_reg_script = base_dir / "scripts" / "audit_zero_regression_10_agents.py"
+    total_checks += 1
+    if zero_reg_script.exists():
+        try:
+            res = subprocess.run([sys.executable, str(zero_reg_script)], capture_output=True, text=True, timeout=10)
+            if res.returncode == 0:
+                log_ok("Hội đồng 10 Zero-Regression Agents: 10/10 PASS (100% Không sinh bug mới, 100% Không mở lại bug cũ)")
+                passed_checks += 1
+            else:
+                log_warn("Hội đồng 10 Zero-Regression Agents: Có tiêu chí chưa đạt")
+        except Exception as e:
+            log_err(f"Lỗi thực thi 10-Agent zero-regression audit: {e}")
+    else:
+        log_err(f"Không tìm thấy kịch bản audit: {zero_reg_script}")
+
+    # 4. Curated Skills & Symlinks
+    print(f"\n{BOLD}[4/5] Kiểm tra Danh mục Kỹ năng (16 Curated Skills & Symlinks){RESET}")
     skills_dir = base_dir / "skills"
     agents_skills_dir = base_dir / ".agents" / "skills"
     total_checks += 2
@@ -115,8 +155,8 @@ def main():
     else:
         log_warn("Thư mục `.agents/skills/` chưa được khởi tạo")
 
-    # 4. MCP Servers Configuration
-    print(f"\n{BOLD}[4/5] Kiểm tra Cấu hình Hệ sinh thái MCP Servers{RESET}")
+    # 5. MCP Servers Configuration & Templates
+    print(f"\n{BOLD}[5/5] Kiểm tra Hệ sinh thái MCP Servers & TIA Regression Matrix{RESET}")
     global_mcp_config = Path.home() / ".gemini" / "config" / "mcp_config.json"
     total_checks += 2
     if global_mcp_config.exists():

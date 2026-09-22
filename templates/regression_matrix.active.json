@@ -1,54 +1,54 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "version": "1.0.0",
-  "project": "Unity 6 & Blender 3D Game",
-  "description": "Ma trận kiểm thử hồi quy cho Game 3D: GC Allocations, DrawCalls, Mesh & Scene Transitions",
+  "project": "Android Mobile Application",
+  "description": "Ma trận kiểm thử hồi quy cho Mobile App & Critical Flows",
   "rules": [
     {
-      "component": "UnityGameLoopAndMemory",
+      "component": "CriticalTransactionFlow",
       "watch_files": [
-        "**/Scripts/**",
-        "**/*Controller.cs",
-        "**/*Manager.cs"
+        "**/transaction/**",
+        "**/action/**",
+        "**/TransactionViewModel.*"
       ],
       "immutable_guards": [
-        "ZeroGcInUpdate",
-        "EventUnsubscriptionOnDestroy"
+        "DoubleSubmitDebounce",
+        "SessionState"
       ],
       "mandatory_regression_tests": [
         {
-          "id": "REG-GAME-01",
-          "name": "Zero GC Allocation in Frame Update Loop Audit",
-          "command": "dotnet test --filter 'Category=MemoryProfiler'"
+          "id": "REG-TXN-01",
+          "name": "Anti-Spam Rapid Click & Button Debounce Verification",
+          "command": "./gradlew testDebugUnitTest --tests '*.TransactionDebounceTest'"
         },
         {
-          "id": "REG-GAME-02",
-          "name": "Scene Load & Unload Memory Leak Regression Test",
-          "command": "dotnet test --filter 'Category=SceneTransition'"
+          "id": "REG-TXN-02",
+          "name": "Data Isolation & Integrity Verification",
+          "command": "./gradlew testDebugUnitTest --tests '*.DataIsolationTest'"
         }
       ]
     },
     {
-      "component": "RenderingAndAssetBudget",
+      "component": "AndroidLifecycleAndPerf",
       "watch_files": [
-        "**/Models/**",
-        "**/Textures/**",
-        "**/Materials/**"
+        "**/ui/**",
+        "**/viewmodel/**",
+        "**/repository/**"
       ],
       "immutable_guards": [
-        "DrawCallBudgetLimit",
-        "PowerOfTwoTextures"
+        "MainThreadSafety",
+        "PendingIntentFlags"
       ],
       "mandatory_regression_tests": [
         {
-          "id": "REG-RENDER-01",
-          "name": "DrawCall Count Under Frame Budget (<= 100 DC)",
-          "command": "dotnet test --filter 'Category=RenderingBenchmark'"
+          "id": "REG-LIFECYCLE-01",
+          "name": "Configuration Change & Process Death State Restoration",
+          "command": "./gradlew testDebugUnitTest --tests '*.LifecycleRestorationTest'"
         },
         {
-          "id": "REG-ASSET-02",
-          "name": "3D Mesh Non-Manifold & Polycount Verification",
-          "command": "python3 scripts/verify_mesh_assets.py"
+          "id": "REG-PERF-02",
+          "name": "Background Database / Network Coroutine Dispatchers Audit",
+          "command": "./gradlew testDebugUnitTest --tests '*.CoroutineDispatchersTest'"
         }
       ]
     }

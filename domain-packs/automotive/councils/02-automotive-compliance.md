@@ -45,7 +45,7 @@ Hội đồng chuyên trách kiểm soát tiêu chuẩn chất lượng xe hơi 
 - **Core Directive:**
   - Định dạng báo cáo bàn giao bằng **Tiếng Việt**, tiêu đề tuân thủ chuẩn Conventional Commits (`feat:`, `fix:`, `test:`, `chore:`).
   - Tự động đính kèm ảnh minh chứng nghiệm thu THÀNH CÔNG (PASS).
-  - Soạn sẵn lệnh tạo PR chỉ định reviewer Tech Lead `hohiep102`:
+  - Soạn sẵn lệnh tạo PR chỉ định reviewer Tech Lead:
     ```bash
-    gh pr create --assignee hohiep102 --title "fix: ..." --body-file pr.md
+    gh pr create --assignee <tech-lead-reviewer> --title "fix: ..." --body-file pr.md
     ```

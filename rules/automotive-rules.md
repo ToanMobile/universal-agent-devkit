@@ -1,0 +1,1 @@
+../profiles/automotive/rules/automotive-rules.md

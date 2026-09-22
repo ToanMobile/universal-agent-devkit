@@ -1,7 +1,7 @@
-# Android Mobile & FinOS Specific Engineering Rules
+# Android Mobile Engineering Rules
 
-## 1. FinOS Solo-Dev & Chống Spam Ký (Debounce/Disabled)
-- Mọi nút kích hoạt ký, xác nhận giao dịch hoặc gọi API quan trọng bắt buộc phải:
+## 1. Solo-Dev & Chống Spam Thao Tác (Debounce/Disabled)
+- Mọi nút kích hoạt thao tác quan trọng, xác nhận giao dịch hoặc gọi API bắt buộc phải:
   1. **Disable ngay lập tức** sau cú click đầu tiên.
   2. Hiển thị trạng thái Loading hoặc Spinner.
   3. Áp dụng debounce tối thiểu $1000\text{ms}$ để tránh double click hoặc spam job queue.
@@ -18,4 +18,4 @@
 
 ## 4. Nghiệm thu & Chụp ảnh Minh chứng (Acceptance Gate)
 - Mọi tính năng hoàn thành bắt buộc phải có ảnh chụp màn hình xác minh trạng thái **THÀNH CÔNG (PASS / Success State)**.
-- Soát git diff trước khi báo cáo Tech Lead `hohiep102`.
+- Soát git diff trước khi báo cáo Tech Lead / Reviewer.

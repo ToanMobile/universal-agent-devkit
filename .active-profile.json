@@ -1,23 +1,25 @@
 {
-  "profile": "game",
-  "name": "🎮 Game (Unity 6 / Blender 3D / Mesh & Asset Optimization)",
+  "profile": "android",
+  "name": "📱 Android (Mobile App / Jetpack Compose / Clean Architecture)",
   "updated_at": "2026-09-22T21:20:00Z",
-  "description": "Cấu hình chuyên sâu cho phát triển Game 3D: kiểm toán rò rỉ bộ nhớ MonoBehaviour/C# delegates, triệt tiêu GC allocations trong Update(), tối ưu DrawCall batching, kiểm soát topology/polygon count trong Blender 4.x và kết nối MCP Unity/Blender.",
+  "description": "Cấu hình chuẩn cho phát triển ứng dụng di động Android: Solo-Dev workflow, chống spam thao tác (Debounce/Loading), Jetpack Compose recomposition, Room/SQLite local cache, chống ANR/Bitmap OOM, kiểm soát cờ PendingIntent an toàn.",
   "essential_mcps": [
-    "unity",
-    "blender",
-    "codebase-memory-mcp"
+    "codebase-memory-mcp",
+    "android-code-search",
+    "android-skills",
+    "replicant-mcp"
   ],
   "active_councils": [
-    "06-game-unity-blender.md",
+    "01-subsystem-shared-flow.md",
     "02-architecture-blast-radius.md",
     "03-zero-defect-tdd.md",
     "04-deterministic-ocr-review.md",
     "05-security-vulnerability.md",
     "07-performance-anr.md",
     "08-tiered-memory-governance.md",
+    "09-solo-dev-workflow.md",
     "10-standards-compliance-delivery.md"
   ],
-  "rules_file": "profiles/game/rules/game-rules.md",
-  "regression_matrix": "profiles/game/regression_matrix.json"
+  "rules_file": "profiles/android/rules/android-rules.md",
+  "regression_matrix": "profiles/android/regression_matrix.json"
 }

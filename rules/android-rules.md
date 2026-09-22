@@ -1,0 +1,1 @@
+../profiles/android/rules/android-rules.md

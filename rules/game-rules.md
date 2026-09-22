@@ -1,0 +1,1 @@
+../profiles/game/rules/game-rules.md

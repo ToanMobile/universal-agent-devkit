@@ -58,6 +58,18 @@ case "$CMD" in
       echo "  - /$cmd_name"
     done
     ;;
+  profile)
+    shift || true
+    python3 "$DEVKIT_ROOT/bin/agent-config.py" "$@"
+    ;;
+  health|check-health)
+    shift || true
+    python3 "$DEVKIT_ROOT/bin/agent-health.py" "$@"
+    ;;
+  gate|postfix|postfix-gate|audit-gate)
+    shift || true
+    python3 "$DEVKIT_ROOT/bin/post-fix-gate.py" "$@"
+    ;;
   help|*)
     cat << HELP_EOF
 Universal Agent DevKit CLI (agent-kit)
@@ -68,6 +80,9 @@ Usage:
 Commands:
   init [path]         Initialize AI agents (interactive menu or --agents flag)
   install-global      Install 'agent-kit' globally into ~/.local/bin
+  profile [name]      Switch or inspect domain profile (automotive, android, game, universal)
+  health              Run comprehensive health & quality audit diagnostic
+  gate                Execute post-fix 5-layer quality & regression audit
   test                Run 294+ regression tests (160 hooks, 134 workflows)
   sync                Resync skills, slash commands, and aliases
   list                List all curated skills
@@ -76,8 +91,10 @@ Commands:
 
 Examples:
   agent-kit init                   # Interactive setup for current project
-  agent-kit init -a claude,cursor  # Specific agents only
-  agent-kit init -y                # All agents without prompting
+  agent-kit profile automotive     # Switch domain profile to Automotive (AAOS/CAN)
+  agent-kit health                 # Run 100-point diagnostic audit
+  agent-kit gate                   # Run post-fix quality gate
+  agent-kit test                   # Run all 294 regression tests
 HELP_EOF
     ;;
 esac

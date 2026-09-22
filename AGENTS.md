@@ -39,6 +39,7 @@ All automated skills reside in `.agents/skills/` (SSOT) or are loaded directly v
 | `/review`, `/qa-review` | [qa-review](skills/qa-review/SKILL.md) | Audit diff before PR, acceptance criteria, test scenario matrix | Code / PR Review |
 | `/ocr`, `/open-code-review` | [open-code-review](skills/open-code-review/SKILL.md) | Alibaba OpenCodeReview: Deterministic line resolver, file bundling, code audit | Automated Diff Review |
 | `/visual`, `/qa-visual` | [qa-visual](skills/qa-visual/SKILL.md) | Automated screenshot capture and DOM layout audit | Visual UI QA |
+| `/audit-gate`, `/postfix-gate` | [audit-gate](commands/audit-gate.md) | Post-fix 5-layer audit, anti-laziness, DESIGN.md a11y, and TIA checklist | Post-Fix Quality Shield |
 
 ---
 
@@ -142,7 +143,7 @@ Whenever the user asks to fix a bug, refactor code, or change behavior in a comp
    - Run `ocr review` or `ocr delegate preview` to audit the diff before declaring completion.
 
 > **Modular Domain Packs:**
-> Domain-specific and project-specific rules (such as Automotive Hardware, FlymeAuto, CAN Bus, or FinOS eSign specifics) are kept isolated in `domain-packs/` (e.g. `domain-packs/automotive/`) to keep the DevKit core 100% universal and domain-agnostic.
+> Domain-specific and project-specific rules (such as Automotive Hardware, FlymeAuto, or CAN Bus specifics) are kept isolated in `domain-packs/` (e.g. `domain-packs/automotive/`) to keep the DevKit core 100% universal and domain-agnostic.
 
 ### 8.2 The 10 Quality Audit Councils (50 Specialized Agents)
 The DevKit provides a multi-lens audit council organized in `agents/councils/`:
@@ -154,14 +155,17 @@ The DevKit provides a multi-lens audit council organized in `agents/councils/`:
 - **Council 6 — Game Engine & 3D Assets (Unity & Blender) (5 Agents):** Mono GC memory leaks, draw call batching & UI canvas, scene hierarchy integrity, Blender poly count & mesh topology, game asset memory budget.
 - **Council 7 — Performance, ANR & Thermal (5 Agents):** Main thread blocking (>16ms/ANR), frame drop jank, battery drain & thermal throttling, bitmap OOM prevention, Binder transaction limits (1MB).
 - **Council 8 — Tiered Memory Governance (L0-L3) (5 Agents):** Session trace harvesting, recurrence pattern promotion, on-demand domain context routing, master rulebook bloat control, anti-rationalization policing.
-- **Council 9 — FinOS Solo Dev & Operational Process (5 Agents):** Anti-spam click & debounce verification, mandatory acceptance screenshot with PASS badge, audit trail logging, DEMO vs LIVE isolation, fail-closed receipt signing.
+- **Council 9 — Solo Dev & Operational Process (5 Agents):** Anti-spam click & debounce verification, mandatory acceptance screenshot with PASS badge, audit trail logging, DEMO vs LIVE isolation, fail-closed receipt signing.
 - **Council 10 — Standards Compliance & Delivery (5 Agents):** Bidirectional requirement traceability, protocol & data stream integrity, accessibility & UX visual safety, offline resilience & fault tolerance, Tech Lead handover formatting.
+
+### 8.3 Engineering Excellence & Failure Prevention
+- **`DESIGN.md` Design System Baseline:** Every UI change adheres to the semantic color tokens, 8pt/4px typography grid, and accessibility touch target ($\ge 48\times 48\text{dp}$ / $\ge 44\times 44\text{px}$) defined in `DESIGN.md`.
+- **Instincts & Failure Memory (`.agents/instincts.md`):** Traps, anti-patterns, and past regressions are recorded so that the agent never falls into the same mistake twice.
+- **Triết lý Kỹ sư Già "Lười biếng" (Lazy Senior Dev Principle):** Always reuse internal utilities before creating new ones; avoid dependency bloat; celebrate negative net diff (deleting dead code).
+- **Anti-Laziness & File Integrity:** Strictly prohibit `// ... existing code ...` or placeholder omissions; enforce full contiguous block replacement and backward compatibility.
+- **Compiler AST Self-Healing:** Parse compiler diagnostic logs to extract exact `file:line:col`, error codes, and caller blast radius to fix build issues methodically.
 
 Health Diagnostic Command:
 ```bash
 ./bin/agent-health.py
 ```
-
-
-
-

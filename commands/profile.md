@@ -1,17 +1,21 @@
-# Command: `/profile` (hoặc `/config`)
+# /profile — Switch or Inspect Project Domain Profile
 
-Chuyển đổi hoặc xem Profile cấu hình dự án đang kích hoạt trong Universal Agent DevKit:
+Switch between or view active domain profiles (`automotive`, `android`, `game`, `universal`).
 
-## Cú pháp:
+## Commands & Aliases
+- `/profile`
+- `agent-profile`
+- `agent-config`
+
+## Usage
 ```bash
-# Hiển thị menu tương tác chọn 1 trong 3 Option:
-./bin/profile
+# View active profile
+agent-profile --status
 
-# Hoặc chỉ định trực tiếp bằng cờ:
-./bin/profile --profile automotive   # [1] 🚗 Xe hơi (AAOS / IVI / FlymeAuto / CAN bus)
-./bin/profile --profile android      # [2] 📱 Android (FinOS eSign / Mobile / Jetpack)
-./bin/profile --profile game         # [3] 🎮 Game (Unity 6 / Blender 3D / Shaders)
-
-# Xem trạng thái profile hiện tại:
-./bin/profile --status
+# Switch profile
+agent-profile --set <profile_name>
+# or
+python3 bin/agent-config.py --profile <profile_name>
 ```
+
+Supported profiles: `automotive`, `android`, `game`, `universal`.

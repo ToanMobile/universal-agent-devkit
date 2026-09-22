@@ -46,7 +46,7 @@
   },
   "r2": {
     "endpoint": "https://2210faeff2d8e1c3d1f7ae5efbd35d4f.r2.cloudflarestorage.com",
-    "bucket": "finos-qa-screenshots",
+    "bucket": "qa-screenshots",
     "publicBaseUrl": "https://pub-d57f89f936224835963c361c8f455058.r2.dev"
   }
 }

@@ -35,6 +35,7 @@ ln -sf "$INSTALL_DIR/bin/agent-kit" "$BIN_DIR/agent-kit"
 ln -sf "$INSTALL_DIR/bin/install.sh" "$BIN_DIR/agent-install"
 ln -sf "$INSTALL_DIR/bin/profile" "$BIN_DIR/agent-profile"
 ln -sf "$INSTALL_DIR/bin/agent-health.py" "$BIN_DIR/agent-health"
+ln -sf "$INSTALL_DIR/bin/postfix-gate" "$BIN_DIR/postfix-gate"
 
 # 3. Ensure PATH contains ~/.local/bin
 export PATH="$BIN_DIR:$PATH"
@@ -42,6 +43,7 @@ export PATH="$BIN_DIR:$PATH"
 echo "✓ 'agent-kit' successfully installed to $BIN_DIR/agent-kit"
 echo "✓ 'agent-profile' successfully installed to $BIN_DIR/agent-profile"
 echo "✓ 'agent-health' successfully installed to $BIN_DIR/agent-health"
+echo "✓ 'postfix-gate' successfully installed to $BIN_DIR/postfix-gate"
 echo
 
 # 4. If current directory is a project, launch agent setup

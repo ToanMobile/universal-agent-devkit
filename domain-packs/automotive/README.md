@@ -21,6 +21,12 @@ ln -s /path/to/universal-agent-devkit/domain-packs/automotive/councils/* .agents
 cp -r /path/to/universal-agent-devkit/domain-packs/automotive/councils/ path/to/your-car-project/.agents/councils/
 ```
 
+### Cách 3: Kích hoạt nhanh bằng DevKit CLI (Khuyến nghị)
+```bash
+agent-kit profile automotive
+# hoặc trong cửa sổ chat: /profile automotive
+```
+
 ---
 
 ## 2. Các Hội Đồng Chuyên Sâu (Automotive Councils)

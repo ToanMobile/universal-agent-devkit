@@ -2,10 +2,11 @@
 """
 Agent Profile Configuration CLI Tool
 Universal Agent DevKit — Dynamic Domain Profile Switcher
-Provides 3 specialized configuration options:
+Provides 4 specialized configuration options:
   [1] 🚗 Automotive (Xe hơi: AAOS / IVI / Flyme Auto / CAN Bus)
-  [2] 📱 Android    (Mobile App: FinOS eSign Solo-Dev / Jetpack Compose)
+  [2] 📱 Android    (Mobile App: Jetpack Compose / Clean Architecture)
   [3] 🎮 Game       (Game 3D: Unity 6 / Blender 3D / Shaders & Mesh)
+  [4] 🌐 Universal  (General: Full-Stack / Clean Architecture / TDD)
 100% Standard Library — Zero external dependencies.
 """
 
@@ -37,12 +38,17 @@ PROFILES = {
     "2": "android",
     "android": "android",
     "mobile": "android",
-    "finos": "android",
     
     "3": "game",
     "game": "game",
     "unity": "game",
-    "blender": "game"
+    "blender": "game",
+
+    "4": "universal",
+    "universal": "universal",
+    "general": "universal",
+    "all": "universal",
+    "default": "universal"
 }
 
 def log_ok(msg):
@@ -165,17 +171,19 @@ def show_interactive_menu():
 
     current = get_current_profile()
     print(f"  {DIM}Profile đang kích hoạt hiện tại:{RESET} {BOLD}{CYAN}{current.upper()}{RESET}\n")
-    print(f"  Vui lòng chọn 1 trong 3 Option cấu hình chuyên biệt:\n")
+    print(f"  Vui lòng chọn 1 trong các Option cấu hình chuyên biệt:\n")
     print(f"    {BOLD}[1] 🚗 Xe hơi (Automotive){RESET}")
     print(f"        {DIM}Android Automotive OS, IVI, Flyme Auto, CAN Bus, vô lăng, split-screen.{RESET}\n")
-    print(f"    {BOLD}[2] 📱 Android (Mobile / FinOS){RESET}")
-    print(f"        {DIM}FinOS Solo-Dev, eSign anti-spam, Jetpack Compose, an toàn mobile, ANR/OOM.{RESET}\n")
+    print(f"    {BOLD}[2] 📱 Android (Mobile App){RESET}")
+    print(f"        {DIM}Solo-Dev workflow, anti-spam debounce, Jetpack Compose, an toàn mobile, ANR/OOM.{RESET}\n")
     print(f"    {BOLD}[3] 🎮 Game (Unity 6 & Blender){RESET}")
     print(f"        {DIM}Unity 6, Blender 3D, GC memory leak, DrawCall batching, mesh topology.{RESET}\n")
+    print(f"    {BOLD}[4] 🌐 Universal (General / Clean Arch){RESET}")
+    print(f"        {DIM}Full-Stack, Clean Architecture, TDD Paired Oracle, Zero Secret Leakage.{RESET}\n")
     print(f"    {DIM}[q] Thoát mà không thay đổi{RESET}\n")
 
     try:
-        choice = input(f"{BOLD}Nhập lựa chọn của bạn (1, 2, 3): {RESET}").strip().lower()
+        choice = input(f"{BOLD}Nhập lựa chọn của bạn (1, 2, 3, 4): {RESET}").strip().lower()
     except (EOFError, KeyboardInterrupt):
         print("\nĐã hủy.")
         return 0
@@ -188,13 +196,13 @@ def show_interactive_menu():
         target_profile = PROFILES[choice]
         return apply_profile(target_profile)
     else:
-        log_err(f"Lựa chọn không hợp lệ: `{choice}`. Vui lòng nhập 1, 2, hoặc 3.")
+        log_err(f"Lựa chọn không hợp lệ: `{choice}`. Vui lòng nhập 1, 2, 3, hoặc 4.")
         return 1
 
 def main():
     parser = argparse.ArgumentParser(description="Universal Agent DevKit Profile Configurator")
-    parser.add_argument("-p", "--profile", choices=["automotive", "android", "game", "1", "2", "3", "car", "mobile", "unity"],
-                        help="Tên hoặc mã số profile cần kích hoạt (1=automotive, 2=android, 3=game)")
+    parser.add_argument("-p", "--profile", choices=["automotive", "android", "game", "universal", "1", "2", "3", "4", "car", "mobile", "unity", "general"],
+                        help="Tên hoặc mã số profile cần kích hoạt (1=automotive, 2=android, 3=game, 4=universal)")
     parser.add_argument("-s", "--status", action="store_true", help="Hiển thị profile đang kích hoạt")
     args = parser.parse_args()
 

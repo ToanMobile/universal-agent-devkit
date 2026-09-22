@@ -164,7 +164,7 @@ if [ "$PROFILE" = "ask" ]; then
   echo "  🎯 Universal AI Agent DevKit — Bước 2/2: Chọn Profile Dự Án"
   echo "================================================================="
   echo "  [1] 🚗 Xe hơi (Automotive: AAOS / IVI / Flyme Auto / CAN bus)"
-  echo "  [2] 📱 Android (Mobile App / FinOS eSign Solo-Dev / Compose)"
+  echo "  [2] 📱 Android (Mobile App / Jetpack Compose / Clean Arch)"
   echo "  [3] 🎮 Game (Unity 6 / Blender 3D / Shaders & Assets)"
   echo "  [4] 🌐 Universal / General (Mặc định đa nền tảng)"
   echo "-----------------------------------------------------------------"
@@ -179,7 +179,7 @@ if [ "$PROFILE" = "ask" ]; then
 
   case "$user_profile" in
     1|automotive|car|xehoi) PROFILE="automotive" ;;
-    2|android|mobile|finos) PROFILE="android" ;;
+    2|android|mobile) PROFILE="android" ;;
     3|game|unity|blender) PROFILE="game" ;;
     *) PROFILE="universal" ;;
   esac
@@ -257,7 +257,20 @@ echo "  ✨ Setup Complete for Selected Agents: [$AGENTS]!"
 echo "  No unnecessary agent rules or files were created."
 echo "================================================================="
 
-# 3. Kích hoạt Domain Profile nếu có chọn
-if [ "$PROFILE" != "universal" ] && [ -n "$PROFILE" ]; then
+# 3. Setup DESIGN.md & Instincts Memory if not existing in target project
+if [ "$TARGET_DIR" != "$DEVKIT_ROOT" ]; then
+  if [ ! -f "$TARGET_DIR/DESIGN.md" ]; then
+    cp "$DEVKIT_ROOT/templates/DESIGN.md" "$TARGET_DIR/DESIGN.md"
+    echo "  - Initialized DESIGN.md (Design system & a11y baseline)"
+  fi
+  mkdir -p "$TARGET_DIR/.agents"
+  if [ ! -f "$TARGET_DIR/.agents/instincts.md" ]; then
+    cp "$DEVKIT_ROOT/templates/instincts.template.md" "$TARGET_DIR/.agents/instincts.md"
+    echo "  - Initialized .agents/instincts.md (Failure memory & repository traps)"
+  fi
+fi
+
+# 4. Kích hoạt Domain Profile nếu có chọn
+if [ -n "$PROFILE" ]; then
   python3 "$DEVKIT_ROOT/bin/agent-config.py" --profile "$PROFILE" || true
 fi
