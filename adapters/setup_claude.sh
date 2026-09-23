@@ -8,18 +8,35 @@ MODE="${2:-symlink}" # symlink or copy
 LANGUAGE="${3:-en}"
 SKIP_EXISTING="${SKIP_EXISTING:-0}"
 
+source "$DEVKIT_ROOT/scripts/backup_conflict.sh"
+
 echo "Configuring Claude Code for: $TARGET_DIR (mode: $MODE, lang: $LANGUAGE, skip_existing: $SKIP_EXISTING)"
+
+if [ "$TARGET_DIR" != "$DEVKIT_ROOT" ]; then
+  backup_dir_if_user_content "$TARGET_DIR/.claude/hooks" "$DEVKIT_ROOT"
+  backup_dir_if_user_content "$TARGET_DIR/.claude/commands" "$DEVKIT_ROOT"
+  backup_dir_if_user_content "$TARGET_DIR/.claude/agents" "$DEVKIT_ROOT"
+fi
+
 mkdir -p "$TARGET_DIR/.claude/hooks" "$TARGET_DIR/.claude/commands" "$TARGET_DIR/.claude/agents"
 
 # 1. Non-Destructive Smart Merge for CLAUDE.md and AGENTS.md
+if [ "$TARGET_DIR" != "$DEVKIT_ROOT" ] && [ -f "$TARGET_DIR/CLAUDE.md" ] && [ ! -L "$TARGET_DIR/CLAUDE.md" ]; then
+  if ! grep -q "universal-agent-devkit" "$TARGET_DIR/CLAUDE.md" 2>/dev/null && [ ! -f "$TARGET_DIR/CLAUDE_old.md" ]; then
+    cp "$TARGET_DIR/CLAUDE.md" "$TARGET_DIR/CLAUDE_old.md"
+    echo "  - Preserved original CLAUDE.md as CLAUDE_old.md"
+  fi
+fi
+
 CLAUDE_INJECT="$DEVKIT_ROOT/templates/claude_injection_block.md"
 python3 "$DEVKIT_ROOT/scripts/merge_markdown.py" "$CLAUDE_INJECT" "$TARGET_DIR/CLAUDE.md" "universal-agent-devkit"
 
 if [ "$TARGET_DIR" != "$DEVKIT_ROOT" ]; then
   if [ -f "$TARGET_DIR/AGENTS.md" ] && [ ! -L "$TARGET_DIR/AGENTS.md" ]; then
-    # Target already has its own custom AGENTS.md -> Inject DevKit block without deleting
-    if [ ! -f "$TARGET_DIR/AGENTS.md.bak" ]; then
-      cp "$TARGET_DIR/AGENTS.md" "$TARGET_DIR/AGENTS.md.bak"
+    # Target already has its own custom AGENTS.md -> Preserve as AGENTS_old.md and Inject DevKit block
+    if [ ! -f "$TARGET_DIR/AGENTS_old.md" ]; then
+      cp "$TARGET_DIR/AGENTS.md" "$TARGET_DIR/AGENTS_old.md"
+      echo "  - Preserved original AGENTS.md as AGENTS_old.md"
     fi
     AGENTS_INJECT="$DEVKIT_ROOT/templates/agents_injection_block.md"
     python3 "$DEVKIT_ROOT/scripts/merge_markdown.py" "$AGENTS_INJECT" "$TARGET_DIR/AGENTS.md" "universal-agent-devkit"
@@ -35,6 +52,9 @@ if [ "$TARGET_DIR" != "$DEVKIT_ROOT" ]; then
 fi
 
 # 2. Additive Merge for .mcp.json
+if [ "$TARGET_DIR" != "$DEVKIT_ROOT" ] && [ -f "$TARGET_DIR/.mcp.json" ] && [ ! -f "$TARGET_DIR/.mcp_old.json" ]; then
+  cp "$TARGET_DIR/.mcp.json" "$TARGET_DIR/.mcp_old.json"
+fi
 python3 "$DEVKIT_ROOT/scripts/merge_json.py" "$DEVKIT_ROOT/mcp/.mcp.json" "$TARGET_DIR/.mcp.json"
 echo "  - Merged MCP servers into .mcp.json (preserved existing custom MCPs)"
 
@@ -110,6 +130,10 @@ cat << 'SETTINGS_EOF' > "$DEFAULT_SETTINGS"
 }
 SETTINGS_EOF
 
+if [ "$TARGET_DIR" != "$DEVKIT_ROOT" ] && [ -f "$TARGET_DIR/.claude/settings.json" ] && [ ! -f "$TARGET_DIR/.claude/settings_old.json" ]; then
+  cp "$TARGET_DIR/.claude/settings.json" "$TARGET_DIR/.claude/settings_old.json"
+fi
+
 python3 "$DEVKIT_ROOT/scripts/merge_json.py" "$DEFAULT_SETTINGS" "$TARGET_DIR/.claude/settings.json"
 echo "  - Merged safety gates into .claude/settings.json (preserved custom settings)"
 
@@ -121,6 +145,9 @@ for hook in "$DEVKIT_ROOT/hooks"/*; do
   if [ "$SKIP_EXISTING" = "1" ] && [ -e "$target_hook" ] && [ ! -L "$target_hook" ]; then
     echo "  - Preserved custom hook: $hook_name (--skip-existing active)"
     continue
+  fi
+  if [ -e "$target_hook" ] && [ ! -L "$target_hook" ]; then
+    backup_conflict "$target_hook" "$DEVKIT_ROOT"
   fi
   rm -rf "$target_hook"
   if [ "$MODE" = "symlink" ]; then
@@ -139,6 +166,9 @@ for cmd in "$DEVKIT_ROOT/commands"/*; do
     echo "  - Preserved custom command: $cmd_name (--skip-existing active)"
     continue
   fi
+  if [ -e "$target_cmd" ] && [ ! -L "$target_cmd" ]; then
+    backup_conflict "$target_cmd" "$DEVKIT_ROOT"
+  fi
   rm -rf "$target_cmd"
   if [ "$MODE" = "symlink" ]; then
     ln -sfn "$cmd" "$target_cmd"
@@ -156,6 +186,9 @@ for agent in "$DEVKIT_ROOT/agents"/*; do
     echo "  - Preserved custom agent: $agent_name (--skip-existing active)"
     continue
   fi
+  if [ -e "$target_agent" ] && [ ! -L "$target_agent" ]; then
+    backup_conflict "$target_agent" "$DEVKIT_ROOT"
+  fi
   rm -rf "$target_agent"
   if [ "$MODE" = "symlink" ]; then
     ln -sfn "$agent" "$target_agent"
@@ -163,5 +196,8 @@ for agent in "$DEVKIT_ROOT/agents"/*; do
     cp -R "$agent" "$target_agent"
   fi
 done
+
+# Clean broken symlinks if any
+find "$TARGET_DIR/.claude/hooks" "$TARGET_DIR/.claude/commands" "$TARGET_DIR/.claude/agents" -type l ! -exec test -e {} \; -delete 2>/dev/null || true
 
 echo "✓ Claude Code integration complete (Non-destructive smart merge; custom files preserved)."

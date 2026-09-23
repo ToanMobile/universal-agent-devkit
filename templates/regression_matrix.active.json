@@ -1,54 +1,60 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "version": "1.0.0",
-  "project": "Android Mobile Application",
-  "description": "Ma trận kiểm thử hồi quy cho Mobile App & Critical Flows",
+  "project": "Universal Application / Multi-Tenant Platform",
+  "description": "Ma trận ánh xạ tính năng & file dùng chung sang bộ test hồi quy bắt buộc (Universal Test Impact Analysis Matrix)",
   "rules": [
     {
-      "component": "CriticalTransactionFlow",
+      "component": "SharedCoreDispatcher",
       "watch_files": [
-        "**/transaction/**",
-        "**/action/**",
-        "**/TransactionViewModel.*"
+        "**/SharedDispatcher.*",
+        "**/BaseService.*",
+        "**/CoreEventBus.*"
       ],
       "immutable_guards": [
-        "DoubleSubmitDebounce",
-        "SessionState"
+        "PlatformCompatibilityGuard",
+        "LegacyVersionCheck",
+        "RateLimitThreshold"
       ],
       "mandatory_regression_tests": [
         {
-          "id": "REG-TXN-01",
-          "name": "Anti-Spam Rapid Click & Button Debounce Verification",
-          "command": "./gradlew testDebugUnitTest --tests '*.TransactionDebounceTest'"
+          "id": "REG-CORE-01",
+          "name": "Default Tenant / Baseline Consumer Unmodified Flow",
+          "command": "npm test -- --testPathPattern=core.baseline"
         },
         {
-          "id": "REG-TXN-02",
-          "name": "Data Isolation & Integrity Verification",
-          "command": "./gradlew testDebugUnitTest --tests '*.DataIsolationTest'"
+          "id": "REG-CORE-02",
+          "name": "Isolated Tenant / Specific Subsystem Override Test",
+          "command": "npm test -- --testPathPattern=core.tenant"
+        },
+        {
+          "id": "REG-CORE-03",
+          "name": "Event Debounce & Throttle Spam Prevention",
+          "command": "npm test -- --testPathPattern=core.debounce"
         }
       ]
     },
     {
-      "component": "AndroidLifecycleAndPerf",
+      "component": "ResponsiveViewportManager",
       "watch_files": [
-        "**/ui/**",
-        "**/viewmodel/**",
-        "**/repository/**"
+        "**/ResponsiveLayout.*",
+        "**/WindowBoundsManager.*",
+        "**/NavigationWidget.*"
       ],
       "immutable_guards": [
-        "MainThreadSafety",
-        "PendingIntentFlags"
+        "MultiWindowMode",
+        "CompactScreenBoundary"
       ],
       "mandatory_regression_tests": [
         {
-          "id": "REG-LIFECYCLE-01",
-          "name": "Configuration Change & Process Death State Restoration",
-          "command": "./gradlew testDebugUnitTest --tests '*.LifecycleRestorationTest'"
+          "id": "REG-VIEW-01",
+          "name": "Multi-Window & Split Screen Boundary Layout Integrity",
+          "command": "npm test -- --testPathPattern=view.boundary"
         },
         {
-          "id": "REG-PERF-02",
-          "name": "Background Database / Network Coroutine Dispatchers Audit",
-          "command": "./gradlew testDebugUnitTest --tests '*.CoroutineDispatchersTest'"
+          "id": "REG-VIEW-02",
+          "name": "Accessibility Touch Target Minimum Boundary (>= 48dp / 44px)",
+          "command": "npm test -- --testPathPattern=view.accessibility"
         }
       ]
     }

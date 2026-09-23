@@ -1,1 +1,0 @@
-/Users/alex/.universal-agent-devkit/commands/plugin-structure.md

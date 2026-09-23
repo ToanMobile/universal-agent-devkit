@@ -75,6 +75,10 @@ case "$CMD" in
     TARGET_F="${1:-$DEVKIT_ROOT/.agents/instincts.md}"
     python3 "$DEVKIT_ROOT/scripts/index_memory.py" "$TARGET_F"
     ;;
+  list-old|old|backups)
+    shift || true
+    bash "$DEVKIT_ROOT/scripts/backup_conflict.sh" list "${1:-$PWD}"
+    ;;
   help|*)
     cat << HELP_EOF
 Universal Agent DevKit CLI (agent-kit)
@@ -92,10 +96,12 @@ Commands:
   sync                Resync skills, slash commands, and aliases
   list                List all curated skills
   commands            List all available slash commands
+  list-old [path]     List all preserved *_old backup folders and files
   help                Show this help message
 
 Examples:
   agent-kit init                   # Interactive setup for current project
+  agent-kit list-old               # Inspect preserved *_old folders and files
   agent-kit profile automotive     # Switch domain profile to Automotive (AAOS/CAN)
   agent-kit health                 # Run 100-point diagnostic audit
   agent-kit gate                   # Run post-fix quality gate

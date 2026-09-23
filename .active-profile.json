@@ -1,16 +1,13 @@
 {
-  "profile": "android",
-  "name": "📱 Android (Mobile App / Jetpack Compose / Clean Architecture)",
+  "profile": "universal",
+  "name": "🌐 Universal (General / Full-Stack / Clean Architecture)",
   "updated_at": "2026-09-22T21:20:00Z",
-  "description": "Cấu hình chuẩn cho phát triển ứng dụng di động Android: Solo-Dev workflow, chống spam thao tác (Debounce/Loading), Jetpack Compose recomposition, Room/SQLite local cache, chống ANR/Bitmap OOM, kiểm soát cờ PendingIntent an toàn.",
+  "description": "Cấu hình chuẩn chung cho mọi dự án: Clean Architecture, TDD Paired Oracle, Zero Secret Leakage, Solo-Dev Delivery, TIA Regression Verification.",
   "essential_mcps": [
     "codebase-memory-mcp",
-    "android-code-search",
-    "android-skills",
-    "replicant-mcp"
+    "context7"
   ],
   "active_councils": [
-    "01-subsystem-shared-flow.md",
     "02-architecture-blast-radius.md",
     "03-zero-defect-tdd.md",
     "04-deterministic-ocr-review.md",
@@ -20,6 +17,6 @@
     "09-solo-dev-workflow.md",
     "10-standards-compliance-delivery.md"
   ],
-  "rules_file": "profiles/android/rules/android-rules.md",
-  "regression_matrix": "profiles/android/regression_matrix.json"
+  "rules_file": "profiles/universal/rules/universal-rules.md",
+  "regression_matrix": "profiles/universal/regression_matrix.json"
 }

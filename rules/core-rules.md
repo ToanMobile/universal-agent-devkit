@@ -144,9 +144,19 @@ Mọi dòng mã sinh ra hoặc sửa đổi BẮT BUỘC phải tuân thủ 5 ng
    - **Khi làm việc với Android:** Tự động kích hoạt `android-real-device-qa` (đo FPS SurfaceFlinger, dump view hierarchy, ANR logcat triage, DEX scan).
    - **Khi điều phối Leader PM ↔ Worker:** Tự động kích hoạt `giao` (giao thức 7 giai đoạn có cổng nghiệm thu cứng).
    - **Trước khi hoàn tất:** Tự động chạy `open-code-review` và xuất báo cáo nghiệm thu 4 mục kèm ảnh chụp PASS.
-3. **Bao Phủ Toàn Bộ 26 Kỹ Năng (100% Zero-Touch Automation):**
-   - 100% kỹ năng trong bộ 26 skills (`skills/`) đã được quy định điều kiện kích hoạt tự động theo 6 giai đoạn vòng đời trong `AGENTS.md` Mục 8.2.
+3. **Bao Phủ Toàn Bộ 23 Kỹ Năng Chuẩn Mực (100% Zero-Touch Automation):**
+   - 100% kỹ năng trong bộ 23 skills chuẩn mực (`skills/`) đã được quy định điều kiện kích hoạt tự động theo 6 giai đoạn vòng đời trong `AGENTS.md` Mục 8.2.
    - Senior Developer không cần phải ghi nhớ cú pháp slash command (`/cmd`), không cần can thiệp thủ công bất kỳ bước nào. Mọi rào chắn chất lượng, kiểm toán TIA hồi quy, đo đạc thiết bị thật, chụp ảnh nghiệm thu và xuất báo cáo B10 đều được hệ thống tự giác thực thi 100%.
 
-
-
+## 17. Quy Chuẩn Tối Ưu Hóa Token & Quản Trị Ngân Sách Ngữ Cảnh (Token Economics & Context Budget Management)
+Mọi tác vụ thực thi BẮT BUỘC phải tuân thủ 5 nguyên tắc vàng về kinh tế token nhằm giữ nguyên chất lượng 10/10 và workflow chuẩn mực nhưng tiết kiệm 70% – 90% chi phí token:
+1. **Tiết Lộ Tịnh Tiến (Progressive Disclosure):**
+   - Không nạp toàn văn bộ kỹ năng vào ngữ cảnh ban đầu. Chỉ tải YAML frontmatter (`name` + `description` ~30 tokens/skill). Toàn văn `SKILL.md` chỉ được đọc On-Demand khi và chỉ khi tác vụ kích hoạt kỹ năng đó.
+2. **Khám Phá Qua Đồ Thị Thay Vì Đọc Tràn Lan (Graph-First Discovery):**
+   - Tuyệt đối KHÔNG đọc toàn bộ file mã nguồn lớn (>500 dòng) khi tìm kiếm hàm. Ưu tiên `search_graph`, `trace_path`, và `get_code_snippet` (hoặc `view_file` có lát cắt `StartLine`/`EndLine`) để chỉ nạp đúng 10–30 dòng code mục tiêu (~100 tokens thay vì 4.000 tokens).
+3. **Phẫu Thuật Mã Nguồn Tối Thiểu (Surgical Diffs vs Full-File Rewrite):**
+   - Nghiêm cấm ghi đè toàn bộ tệp tin (Full-file rewrite) khi thực hiện sửa đổi cục bộ. Bắt buộc dùng công cụ thay thế khối liên tục (`replace_file_content`), chỉ sinh đúng phần diff cần thiết để tiết kiệm đến 95% output tokens.
+4. **Cô Lập Thư Mục Rác & Giới Hạn Quyền Đọc (Permissions Deny Gate):**
+   - Cấm Agent đọc các thư mục tự sinh và tệp nhị phân (`build/`, `.gradle/`, `node_modules/`, `dist/`, `*.apk`, `*.hprof`).
+5. **Chống Phình Ngữ Cảnh & Ngưỡng "Dumb Zone" (Anti-Dumb Zone Context Hygiene):**
+   - Kiểm soát ngân sách ngữ cảnh không vượt quá 50% cửa sổ làm việc. Tự động checkpoint và nén ngữ cảnh (`/compact` hoặc handoff) trước khi bước vào các đợt refactor nhiều file, bảo toàn 100% năng lực suy luận sắc bén của mô hình.

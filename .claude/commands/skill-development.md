@@ -1,1 +1,0 @@
-/Users/alex/.universal-agent-devkit/commands/skill-development.md

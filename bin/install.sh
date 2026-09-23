@@ -217,7 +217,29 @@ echo
 # 1. Sync internal commands first
 bash "$DEVKIT_ROOT/scripts/sync_commands.sh" > /dev/null 2>&1 || true
 
-# 2. Configure selected agents
+# 2. Source X_old Conflict Protection Helper
+source "$DEVKIT_ROOT/scripts/backup_conflict.sh"
+
+# 3. Setup Project Rules, Skills & Commands with X_old Protection
+if [ "$TARGET_DIR" != "$DEVKIT_ROOT" ]; then
+  echo "  🛡️  [X_old Protection] Kiểm tra xung đột tài nguyên dự án..."
+  backup_dir_if_user_content "$TARGET_DIR/rules" "$DEVKIT_ROOT"
+  backup_dir_if_user_content "$TARGET_DIR/skills" "$DEVKIT_ROOT"
+  backup_dir_if_user_content "$TARGET_DIR/commands" "$DEVKIT_ROOT"
+
+  if [ "$MODE" = "symlink" ]; then
+    ln -sfn "$DEVKIT_ROOT/rules" "$TARGET_DIR/rules"
+    ln -sfn "$DEVKIT_ROOT/skills" "$TARGET_DIR/skills"
+    ln -sfn "$DEVKIT_ROOT/commands" "$TARGET_DIR/commands"
+  else
+    cp -R "$DEVKIT_ROOT/rules" "$TARGET_DIR/rules"
+    cp -R "$DEVKIT_ROOT/skills" "$TARGET_DIR/skills"
+    cp -R "$DEVKIT_ROOT/commands" "$TARGET_DIR/commands"
+  fi
+  echo "  - Initialized rules/, skills/ (23 canonical skills), and commands/"
+fi
+
+# 4. Configure selected agents
 IFS=',' read -ra AGENT_LIST <<< "$AGENTS"
 export SKIP_EXISTING="${SKIP_EXISTING:-0}"
 
@@ -263,20 +285,38 @@ echo "  ✨ Setup Complete for Selected Agents: [$AGENTS]!"
 echo "  No unnecessary agent rules or files were created."
 echo "================================================================="
 
-# 3. Setup DESIGN.md & Instincts Memory if not existing in target project
+# 5. Setup DESIGN.md & Instincts Memory if not existing in target project
 if [ "$TARGET_DIR" != "$DEVKIT_ROOT" ]; then
+  if [ -f "$TARGET_DIR/DESIGN.md" ] && [ ! -L "$TARGET_DIR/DESIGN.md" ] && [ ! -f "$TARGET_DIR/DESIGN_old.md" ]; then
+    if ! grep -q "Touch Target >= 48dp" "$TARGET_DIR/DESIGN.md" 2>/dev/null; then
+      cp "$TARGET_DIR/DESIGN.md" "$TARGET_DIR/DESIGN_old.md"
+      echo "  - Preserved existing DESIGN.md as DESIGN_old.md"
+    fi
+  fi
   if [ ! -f "$TARGET_DIR/DESIGN.md" ]; then
     cp "$DEVKIT_ROOT/templates/DESIGN.md" "$TARGET_DIR/DESIGN.md"
     echo "  - Initialized DESIGN.md (Design system & a11y baseline)"
   fi
+
   mkdir -p "$TARGET_DIR/.agents"
+  if [ -f "$TARGET_DIR/.agents/instincts.md" ] && [ ! -L "$TARGET_DIR/.agents/instincts.md" ] && [ ! -f "$TARGET_DIR/.agents/instincts_old.md" ]; then
+    if ! grep -q "Repository Trap Memory" "$TARGET_DIR/.agents/instincts.md" 2>/dev/null; then
+      cp "$TARGET_DIR/.agents/instincts.md" "$TARGET_DIR/.agents/instincts_old.md"
+      echo "  - Preserved existing .agents/instincts.md as .agents/instincts_old.md"
+    fi
+  fi
   if [ ! -f "$TARGET_DIR/.agents/instincts.md" ]; then
     cp "$DEVKIT_ROOT/templates/instincts.template.md" "$TARGET_DIR/.agents/instincts.md"
     echo "  - Initialized .agents/instincts.md (Failure memory & repository traps)"
   fi
 fi
 
-# 4. Kích hoạt Domain Profile nếu có chọn
+# 6. Kích hoạt Domain Profile nếu có chọn
 if [ -n "$PROFILE" ]; then
   python3 "$DEVKIT_ROOT/bin/agent-config.py" --profile "$PROFILE" || true
+fi
+
+# 7. Hiển thị báo cáo bảo vệ X_old nếu có
+if [ "$TARGET_DIR" != "$DEVKIT_ROOT" ]; then
+  list_old_backups "$TARGET_DIR"
 fi

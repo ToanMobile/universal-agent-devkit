@@ -10,6 +10,11 @@ LANGUAGE="${3:-en}"
 echo "Configuring Cursor IDE for: $TARGET_DIR (domain: $DOMAIN, lang: $LANGUAGE)"
 
 # 1. Non-Destructive Smart Merge for .cursorrules and AGENTS.md
+if [ "$TARGET_DIR" != "$DEVKIT_ROOT" ] && [ -f "$TARGET_DIR/.cursorrules" ] && [ ! -f "$TARGET_DIR/.cursorrules_old" ]; then
+  cp "$TARGET_DIR/.cursorrules" "$TARGET_DIR/.cursorrules_old"
+  echo "  - Preserved original .cursorrules as .cursorrules_old"
+fi
+
 if [ -f "$TARGET_DIR/.cursorrules" ]; then
   CURSOR_INJECT="$DEVKIT_ROOT/templates/claude_injection_block.md"
   python3 "$DEVKIT_ROOT/scripts/merge_markdown.py" "$CURSOR_INJECT" "$TARGET_DIR/.cursorrules" "universal-agent-devkit"
@@ -17,8 +22,9 @@ fi
 
 if [ "$TARGET_DIR" != "$DEVKIT_ROOT" ]; then
   if [ -f "$TARGET_DIR/AGENTS.md" ] && [ ! -L "$TARGET_DIR/AGENTS.md" ]; then
-    if [ ! -f "$TARGET_DIR/AGENTS.md.bak" ]; then
-      cp "$TARGET_DIR/AGENTS.md" "$TARGET_DIR/AGENTS.md.bak"
+    if [ ! -f "$TARGET_DIR/AGENTS_old.md" ]; then
+      cp "$TARGET_DIR/AGENTS.md" "$TARGET_DIR/AGENTS_old.md"
+      echo "  - Preserved original AGENTS.md as AGENTS_old.md"
     fi
     AGENTS_INJECT="$DEVKIT_ROOT/templates/agents_injection_block.md"
     python3 "$DEVKIT_ROOT/scripts/merge_markdown.py" "$AGENTS_INJECT" "$TARGET_DIR/AGENTS.md" "universal-agent-devkit"
