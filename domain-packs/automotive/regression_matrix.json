@@ -13,19 +13,19 @@
       ],
       "immutable_guards": [
         "Build.VERSION.SDK_INT <= 28",
-        "FlymeAuto",
-        "ECARX"
+        "GenericIVI",
+        "AndroidAutomotiveOS"
       ],
       "mandatory_regression_tests": [
         {
           "id": "REG-MED-01",
-          "name": "Spotify Background MediaSession Playback",
-          "command": "./gradlew testDebugUnitTest --tests 'com.car.media.SpotifyRegressionTest'"
+          "name": "Background MediaSession Playback & Token Lifecycle",
+          "command": "./gradlew testDebugUnitTest --tests 'com.car.media.GenericMediaSessionPlaybackTest'"
         },
         {
           "id": "REG-MED-02",
-          "name": "Zing MP3 MediaSession Active Token Handling",
-          "command": "./gradlew testDebugUnitTest --tests 'com.car.media.ZingMp3RegressionTest'"
+          "name": "Third-Party MediaSession Active Token Handling",
+          "command": "./gradlew testDebugUnitTest --tests 'com.car.media.ThirdPartyMediaTokenTest'"
         },
         {
           "id": "REG-MED-03",

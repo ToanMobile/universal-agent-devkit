@@ -7,7 +7,7 @@
   if (isTargetPackage(packageName, TARGET_PACKAGE)) {
       // Logic riêng cho target app
   } else {
-      // Luồng mặc định cho Spotify, Zing MP3, v.v. giữ nguyên 100%
+      // Luồng mặc định cho ứng dụng bên thứ 3 (Media, Radio, Navigation) giữ nguyên 100%
       super.handleEvent(event)
   }
   ```
@@ -15,9 +15,9 @@
 ## 2. Bảo tồn Rào chắn Phần cứng Bất biến
 - CẤM xóa bỏ hoặc sửa đổi các điều kiện kiểm tra:
   - `Build.VERSION.SDK_INT <= 28`
-  - `Build.MANUFACTURER.contains("FlymeAuto")`
-  - `ECARX` hardware quirks
-  - Timeout trễ CAN bus đã đo đạc trên xe thật.
+  - `Build.MANUFACTURER.contains("GenericAutomotiveIVI")`
+  - IVI Head-Unit & CAN hardware quirks
+  - Timeout trễ CAN bus đã đo đạc trên phần cứng thật.
 
 ## 3. Quản lý Sự kiện & Tranh chấp Âm thanh
 - Bắt buộc Debounce phím vô lăng $\ge 80\text{ms}$.

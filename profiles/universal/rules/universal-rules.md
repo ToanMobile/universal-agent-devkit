@@ -20,3 +20,10 @@
 - Tính năng chỉ được xem là hoàn tất khi có bằng chứng xác minh trạng thái **THÀNH CÔNG (PASS / Success State)**:
   - Thông báo thành công (toast/modal), trạng thái nghiệp vụ hoàn tất.
   - Báo cáo kiểm thử hoặc screenshot kết quả thực tế.
+
+## 5. Clean Architecture & The Dependency Rule
+- **Tách biệt phân tầng (Separation of Concerns):**
+  - `Domain`: Chứa Entities, Value Objects và Use Cases thuần túy, độc lập tuyệt đối với UI và CSDL.
+  - `Adapters`: Controllers, Presenters, Gateways chuyển đổi dữ liệu.
+  - `Frameworks & Drivers`: UI, Web/Desktop runtime, Database, Third-party SDKs.
+- **The Dependency Rule:** Mọi phụ thuộc mã nguồn chỉ được phép trỏ từ ngoài vào trong. Lớp Domain cốt lõi không bao giờ biết đến sự tồn tại của UI, database hay framework bên ngoài.

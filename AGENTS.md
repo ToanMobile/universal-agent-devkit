@@ -25,17 +25,14 @@ All automated skills reside in `.agents/skills/` (SSOT) or are loaded directly v
 |---|---|---|---|
 | `/qc`, `/test`, `/qa` | [qc](skills/qc/SKILL.md) | Automated testing, lint checks, unit tests, and QA release gates | Test / Build Gates |
 | `/deploy`, `/build` | [deploy](skills/deploy/SKILL.md) | Build binaries/bundles, verify ProGuard/R8/bundling, release checks | Build / Deploy |
-| `/fixbugs`, `/bugs`, `/fix` | [fixbugs](skills/fixbugs/SKILL.md) | Standard bug-fixing with Paired Executable Oracle (RED→GREEN) | Repro / Fix / Verification |
+| `/fixbugs`, `/bugs`, `/fix`, `/crashlytics` | [fixbugs](skills/fixbugs/SKILL.md) | Standard bug-fixing with Paired Executable Oracle (RED→GREEN) & Crashlytics/ANR triage | Repro / Fix / Verification |
 | `/plan` | [spec-driven-development](skills/spec-driven-development/SKILL.md) | Spec-driven plan for changes ≥3 files or ≥2 modules | Spec / Plan / Tasks |
 | `/scan` | [security-checklist](skills/security-checklist/SKILL.md) | Security audit: Input validation, URI/Permissions, Secrets, Auth | Security Gate |
 | `/tdd` | [tdd-workflow](skills/tdd-workflow/SKILL.md) | TDD Workflow: Write failing RED test before implementation logic | Test-First |
-| `/crashlytics` | [triage-crashlytics-bug](skills/triage-crashlytics-bug/SKILL.md) | Triage production stack trace, crash reports, memory leaks | Incident Triage |
 | `/verify` | [verification-before-completion](skills/verification-before-completion/SKILL.md) | Verification gate before declaring task completion | Verification Gate |
 | `/conflict` | [merge-conflict-resolver](skills/merge-conflict-resolver/SKILL.md) | Resolve Git merge / rebase / cherry-pick / stash conflicts | Git 3-way merge |
 | `/handoff` | [session-handoff](skills/session-handoff/SKILL.md) | Transfer work-in-progress context across sessions | Session Handoff |
-| `/graph` | [graph-navigation](skills/graph-navigation/SKILL.md) | Explore codebase, trace call flow, blast radius | Codebase Navigation |
-| `/codebase-memory` | [codebase-memory](skills/codebase-memory/SKILL.md) | Codebase knowledge graph database management | Knowledge Graph |
-| `/android-cli` | [android-cli](skills/android-cli/SKILL.md) | Android CLI tools for development and testing | Android Tooling |
+| `/graph`, `/codebase-memory` | [codebase-memory](skills/codebase-memory/SKILL.md) | Explore codebase, trace call flow, blast radius, AST knowledge graph & Cypher | Codebase Navigation & Graph |
 | `/review`, `/qa-review` | [qa-review](skills/qa-review/SKILL.md) | Audit diff before PR, acceptance criteria, test scenario matrix | Code / PR Review |
 | `/ocr`, `/open-code-review` | [open-code-review](skills/open-code-review/SKILL.md) | Alibaba OpenCodeReview: Deterministic line resolver, file bundling, code audit | Automated Diff Review |
 | `/visual`, `/qa-visual` | [qa-visual](skills/qa-visual/SKILL.md) | Automated screenshot capture and DOM layout audit | Visual UI QA |
@@ -145,7 +142,37 @@ Whenever the user asks to fix a bug, refactor code, or change behavior in a comp
 > **Modular Domain Packs:**
 > Domain-specific and project-specific rules (such as Automotive Hardware, FlymeAuto, or CAN Bus specifics) are kept isolated in `domain-packs/` (e.g. `domain-packs/automotive/`) to keep the DevKit core 100% universal and domain-agnostic.
 
-### 8.2 The 10 Quality Audit Councils (50 Specialized Agents)
+### 8.2 Autonomous Skill Routing Matrix (Bảng Điều Phối Tự Động Toàn Bộ 23 Kỹ Năng - Zero Manual Effort)
+AI Agent BẮT BUỘC PHẢI TỰ ĐỘNG nhận diện ngữ cảnh và kích hoạt các kỹ năng sau ĐỘC LẬP TỰ ĐỘNG, TUYỆT ĐỐI KHÔNG bắt người dùng phải gõ lệnh slash command hay chạy bằng tay. Người dùng (Senior Dev) chỉ cần đưa ra yêu cầu tự nhiên, hệ thống tự động điều phối toàn bộ:
+
+| Giai Đoạn Vòng Đời | Kỹ Năng Tự Động Kích Hoạt | Ngữ Cảnh / Tình Huống Kỹ Thuật Tự Động Kích Hoạt | Hành Động Tự Động Của Agent |
+|---|---|---|---|
+| **0. Gateway & Context** | `context-enricher` | **MỌI YÊU CẦU ĐẦU VÀO / PROMPT NGẮN CỦA USER** | **CỔNG BẮT BUỘC:** Tự động mở rộng 5 chiều: dò tìm AST/Graph, nạp active profile, bẫy instincts, tiêm yêu cầu ngầm định (debounce >= 1000ms, a11y >= 48dp, non-blocking main thread, mask PII, paired oracle). |
+| **0. Gateway & Context** | `session-handoff` | Phiên làm việc dài, context window > 50%, trước refactor lớn | Tự động tóm tắt tiến độ (checkpoint), dọn sạch ngữ cảnh thừa, chống suy thoái năng lực suy luận. |
+| **1. Discovery & Arch** | `codebase-memory` | Khám phá dự án, tìm symbol, hàm, route, truy vết blast radius, Cypher | **SSOT ĐỒ THỊ:** Tự động resolve symbol, trace inbound/outbound callers, truy vấn Cypher, hoặc fallback Read/Grep an toàn. |
+| **1. Discovery & Arch** | `spec-driven-development` | Tính năng mới phức tạp chạm $\ge 2$ module, $\ge 3$ files hoặc > 200 LOC | Tự động soạn thảo spec kỹ thuật, phân tích assumptions và edge cases trước khi code. |
+| **1. Discovery & Arch** | `grill-plan` | Kế hoạch có rủi ro kiến trúc cao, thay đổi shared flow | Tự động phản biện đối lập, stress-test kế hoạch, tìm lỗ hổng kiến trúc trước khi code. |
+| **1. Discovery & Arch** | `documentation-and-adrs` | Quyết định kiến trúc, chọn pattern/thư viện, đổi data model | Tự động tạo hồ sơ ADR (Architecture Decision Record) lưu trữ rationale và trade-offs. |
+| **1. Discovery & Arch** | `deep-module-design` | Thiết kế interface, seam kiểm thử, phân tách trừu tượng | Tự động đánh giá interface sâu, tính đóng gói, Dependency Inversion (DIP) và mockability. |
+| **2. Dual-Agent Orchestration** | `giao` | Tác vụ code phức tạp khi Claude Code đóng vai Leader PM | Tự động kích hoạt quy trình 7 giai đoạn: Task ➔ Plan ➔ Review ➔ Implement ➔ Audit ➔ Test ➔ Proof ➔ Accept. |
+| **3. Implementation & TDD** | `fixbugs` | Sửa mọi loại lỗi / bug, Crashlytics, stack trace, ANR traces.txt | **PAIRED ORACLE & INCIDENT TRIAGE:** Bóc tách stack trace, phân loại failure mechanism, bắt buộc Paired Oracle (RED ➔ GREEN). |
+| **3. Implementation & TDD** | `tdd-workflow` | Viết logic nghiệp vụ mới có thể kiểm thử (testable) | Tự động viết unit/integration test trước khi viết code logic (RED-first). |
+| **3. Implementation & TDD** | `incremental-implementation` | Thay đổi nhiều file hoặc task khó kiểm chứng trong 1 bước | Tự động chia nhỏ thành các bước phẫu thuật tăng dần, kiểm chứng liên tục từng bước. |
+| **3. Implementation & TDD** | `deprecation-migration` | Sunset API cũ, xóa code cũ, di trú schema CSDL | Tự động rà soát callers, lập kế hoạch di trú 3 pha (Soft ➔ Hard ➔ Sunset), bảo toàn tương thích. |
+| **3. Implementation & TDD** | `security-checklist` | Thay đổi Intent, URI, auth, permissions, WebView, secret | Tự động rà soát bề mặt tấn công, nguyên tắc quyền tối thiểu, che giấu credential trần. |
+| **3. Implementation & TDD** | `observability-instrumentation` | Thêm log, metric, trace, chẩn đoán lỗi thiếu dữ liệu | Tự động chuẩn hóa structured logging, phân cấp DEBUG/INFO/ERROR, mask 100% PII. |
+| **3. Implementation & TDD** | `writing-skills` | Tạo mới hoặc chuẩn hóa Skill / Rules cho Agent | Tự động tuân thủ cấu trúc YAML frontmatter, mô tả ngữ cảnh kích hoạt và quy chuẩn kebab-case. |
+| **4. Device & Visual QA** | `android-real-device-qa` | Kiểm thử Android trên thiết bị thật / máy ảo emulator | Tự động đo FPS SurfaceFlinger, dump view hierarchy XML, triage ANR logcat, quét DEX. |
+| **4. Device & Visual QA** | `qa-visual` | Kiểm tra giao diện, audit layout, chống vỡ màn hình | Tự động audit tràn khung, lệch align, touch target >= 48dp, upload screenshot lên R2. |
+| **4. Device & Visual QA** | `qa-review` | Chuẩn bị trước khi tạo PR / bàn giao Tech Lead | Tự động chất vấn diff, tạo acceptance criteria kiểm chứng được và dựng ma trận test scenario. |
+| **5. Acceptance & Delivery** | `merge-conflict-resolver` | Xung đột git khi merge, rebase, cherry-pick | Tự động phân tích AST và ngữ cảnh để giải quyết xung đột mà không làm mất mát logic. |
+| **5. Acceptance & Delivery** | `qc` | Chạy bộ kiểm thử tự động, lint check (ktlint), unit test | Tự động thực thi toàn bộ test runner, Translation gate, và Metalava API check. |
+| **5. Acceptance & Delivery** | `open-code-review` | Soát mã nguồn tự động trước khi bàn giao | Tự động chạy phân tích hunk tất định (Alibaba OCR), quét rò rỉ bộ nhớ và code lười biếng. |
+| **5. Acceptance & Delivery** | `verification-before-completion` | Trước khi tuyên bố Xong / Pass / Hoàn tất | Tự động chạy cổng kiểm toán `postfix-gate` 8 lớp, kiểm tra máy thật và SHA-256 visual proof. |
+| **5. Acceptance & Delivery** | `deploy` | Đóng gói APK/AAB, kiểm tra signing, xuất bản release | Tự động kiểm tra chứng chỉ ký (signing key), version bump và sẵn sàng phát hành. |
+
+
+### 8.3 The 10 Quality Audit Councils (50 Specialized Agents)
 The DevKit provides a multi-lens audit council organized in `agents/councils/`:
 - **Council 1 — Subsystem & Shared Flow Isolation (5 Agents):** Shared flow surgical isolation, legacy platform guards preservation, shared resource & session arbitration, hardware event & interrupt throttling, multi-window & responsive boundary.
 - **Council 2 — Architecture & Blast Radius (5 Agents):** AST inbound caller tracing, circular dependency detection, clean layered architecture, API contract breaking, dead code zombie scanning.
@@ -158,7 +185,7 @@ The DevKit provides a multi-lens audit council organized in `agents/councils/`:
 - **Council 9 — Solo Dev & Operational Process (5 Agents):** Anti-spam click & debounce verification, mandatory acceptance screenshot with PASS badge, audit trail logging, DEMO vs LIVE isolation, fail-closed receipt signing.
 - **Council 10 — Standards Compliance & Delivery (5 Agents):** Bidirectional requirement traceability, protocol & data stream integrity, accessibility & UX visual safety, offline resilience & fault tolerance, Tech Lead handover formatting.
 
-### 8.3 Engineering Excellence & Failure Prevention
+### 8.4 Engineering Excellence & Failure Prevention
 - **`DESIGN.md` Design System Baseline:** Every UI change adheres to the semantic color tokens, 8pt/4px typography grid, and accessibility touch target ($\ge 48\times 48\text{dp}$ / $\ge 44\times 44\text{px}$) defined in `DESIGN.md`.
 - **Instincts & Failure Memory (`.agents/instincts.md`):** Traps, anti-patterns, and past regressions are recorded so that the agent never falls into the same mistake twice.
 - **Triết lý Kỹ sư Già "Lười biếng" (Lazy Senior Dev Principle):** Always reuse internal utilities before creating new ones; avoid dependency bloat; celebrate negative net diff (deleting dead code).

@@ -26,6 +26,9 @@ Thứ tự: Làm & Chạy test cục bộ → Self Review (Diff + DEMO/LIVE) →
 4. **Commit & Bàn giao:**
    - Commit bằng ngôn ngữ rõ ràng, tiền tố conventional: `feat:`, `fix:`, `test:`, `chore:`, `docs:`.
    - Báo cáo kết quả kiểm thử kèm ảnh nghiệm thu thành công đầy đủ cho Tech Lead / Reviewer.
+5. **Hoàn tất tự động (Task Completion Card):**
+   - Sau mỗi cập nhật tiến độ, checkpoint, reviewer finding, hoặc hướng điều tra thất bại, tự động tiếp tục thực thi các bước tiếp theo cho đến khi toàn bộ phạm vi công việc đạt trạng thái kết thúc hợp lệ.
+   - Tiến độ công việc không phải là câu trả lời cuối cùng; tuyệt đối không bao giờ yêu cầu người dùng phải gõ `continue` hay `làm tiếp`.
 
 ## 3. Quy chuẩn Test Automation & Chống Spam Thao Tác (Anti-Spam / Debounce)
 - **Tương tác UI chặt chẽ:** Tương tác UI bằng các tiện ích an toàn (`safeClick`, `safeFill`) có cơ chế wait visible, scroll into view, kiểm tra disabled; không dùng click mù quáng hoặc sleep cố định.
@@ -103,5 +106,47 @@ Mọi dòng mã sinh ra hoặc sửa đổi BẮT BUỘC phải tuân thủ 5 ng
    - Tuyệt đối cấm sử dụng cơ chế xóa sạch bảng để tạo lại (`destructive migration / drop tables`) trên môi trường LIVE/Production làm bay màu dữ liệu người dùng.
 2. **Kiểm thử Tự động Di trú Dữ liệu (Automated Migration Tests):**
    - Mỗi bản di trú schema phải đi kèm một bài kiểm thử tự động giả lập: Nạp dữ liệu từ schema phiên bản $N-1$, thực thi script migration lên phiên bản $N$, và kiểm tra tính toàn vẹn 100% của dữ liệu sau khi nâng cấp.
+
+## 13. Kỷ luật Giao tiếp Ngắn gọn & Báo cáo B10 (Plain-Language B10 Discipline)
+1. **Quy tắc 3 dòng mở đầu:**
+   - Mọi báo cáo tiến độ/kết quả bàn giao BẮT BUỘC mở đầu bằng 3 dòng súc tích:
+     - **Dòng 1 — Trạng thái một từ:** `XONG` / `CHƯA XONG` / `CHỜ DUYỆT`.
+     - **Dòng 2 — Kết quả người dùng nhận được:** Mô tả giá trị thực tế bằng ngôn ngữ đời thường, ngắn gọn.
+     - **Dòng 3 — Bước tiếp theo:** Hành động kế tiếp cần thực hiện.
+2. **Giới hạn độ dài & Tránh rối mắt:**
+   - Báo cáo tóm tắt khống chế tối đa 12 dòng.
+   - Tuyệt đối KHÔNG xổ logcat thô, terminal trace dài dòng hay thuật ngữ nội bộ gây rối mắt người dùng trừ khi được yêu cầu phân tích sâu.
+
+## 14. Kỷ luật Chống Spam Thao Tác Nâng Cao (Debounce >= 1000ms & Instant Disable)
+1. **Khóa nút bấm ngay mili-giây đầu tiên:**
+   - Mọi nút bấm kích hoạt hành động quan trọng (gọi API, thanh toán, ký chứng từ, submit form, xử lý file nặng) bắt buộc phải Disable tức thì ngay cú click đầu tiên + hiển thị Loading spinner.
+   - Duy trì khoảng nghỉ (cooldown/debounce) tối thiểu $\ge 1000\text{ms}$ giữa các thao tác để ngăn chặn người dùng hoặc mạng lag kích đúp gây trùng lặp giao dịch.
+2. **Kỷ luật Runner & Test Automation:**
+   - Cấm spam tạo workflow hoặc bắn request dồn dập làm nghẽn job queue và tràn rác CSDL.
+   - Duy trì khoảng nghỉ tối thiểu giữa các lượt kiểm thử để hệ thống backend kịp đồng bộ trạng thái.
+
+## 15. Giao Thức Điều Phối Dual-Agent (Leader PM ↔ Worker Sandbox Protocol)
+1. **Phân tách trách nhiệm chuyên biệt:**
+   - **Leader (PM / Architect):** Chuyên trách tư duy cấp cao — lập Game Design Document (GDD), Architecture Decision Records (ADR), kiểm soát Blast Radius, phân tích rủi ro và sinh test specification chi tiết.
+   - **Worker (Coder / Implementer):** Nhận task độc lập, code trong môi trường sandbox với chính sách bất di bất dịch `commitPolicy: forbid`.
+2. **Vòng lặp nghiệm thu 2 lớp (Two-Tier Handover Loop):**
+   - Worker chỉ nộp kết quả thực thi kèm bằng chứng ảnh chụp (Visual Proof) và danh sách test đã pass.
+   - Leader soi git diff độc lập, chạy lại cổng kiểm toán chất lượng (`postfix-gate`), và chỉ khi 100% tiêu chí đạt chuẩn mới thực hiện bàn giao hoặc commit.
+
+## 16. Cơ Chế Tự Động Kích Hoạt Kỹ Năng (Autonomous Skill Execution — Zero Manual Effort)
+1. **Quy tắc Tự Giác Kỹ Nghệ (Zero Manual Overhead):**
+   - AI Agent BẮT BUỘC phải chủ động phân tích ngữ cảnh, yêu cầu và phạm vi ảnh hưởng của tác vụ để nạp và thực thi các Kỹ năng chuyên biệt (`skills/`) phù hợp.
+   - TUYỆT ĐỐI KHÔNG bắt người dùng phải gõ lệnh slash command (như `/fix`, `/qc`, `/ocr`, `/giao`) hay chạy thủ công bằng tay.
+2. **Tự Động Chuỗi Hóa Quy Trình (Autonomous Skill Chaining):**
+   - **Mọi yêu cầu đầu vào (Prompt ngắn đời thường):** Bắt buộc chạy `context-enricher` (`./scripts/enrich_context.py`) để mở rộng 5 chiều (dò AST/Graph, nạp active profile, tra cứu bẫy instincts, tiêm yêu cầu ngầm định debounce/a11y/mainthread) trước khi viết dòng code đầu tiên.
+   - **Khi sửa bug:** Tự động kết hợp `fixbugs` (Paired Executable Oracle RED ➔ GREEN) ➔ `observability-instrumentation` (log audit) ➔ `verification-before-completion`.
+   - **Khi thiết kế / refactor:** Tự động kết hợp `grill-plan` (stress-test) ➔ `deep-module-design` (interface seam) / `deprecation-migration` ➔ `documentation-and-adrs` (ghi ADR).
+   - **Khi làm việc với Android:** Tự động kích hoạt `android-real-device-qa` (đo FPS SurfaceFlinger, dump view hierarchy, ANR logcat triage, DEX scan).
+   - **Khi điều phối Leader PM ↔ Worker:** Tự động kích hoạt `giao` (giao thức 7 giai đoạn có cổng nghiệm thu cứng).
+   - **Trước khi hoàn tất:** Tự động chạy `open-code-review` và xuất báo cáo nghiệm thu 4 mục kèm ảnh chụp PASS.
+3. **Bao Phủ Toàn Bộ 26 Kỹ Năng (100% Zero-Touch Automation):**
+   - 100% kỹ năng trong bộ 26 skills (`skills/`) đã được quy định điều kiện kích hoạt tự động theo 6 giai đoạn vòng đời trong `AGENTS.md` Mục 8.2.
+   - Senior Developer không cần phải ghi nhớ cú pháp slash command (`/cmd`), không cần can thiệp thủ công bất kỳ bước nào. Mọi rào chắn chất lượng, kiểm toán TIA hồi quy, đo đạc thiết bị thật, chụp ảnh nghiệm thu và xuất báo cáo B10 đều được hệ thống tự giác thực thi 100%.
+
 
 

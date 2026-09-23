@@ -1,0 +1,26 @@
+{
+  "projectName": "Universal Agent DevKit",
+  "role": "leader_pm",
+  "commitPolicy": "forbid",
+  "workerPolicy": {
+    "commitPolicy": "forbid",
+    "sandbox": true
+  },
+  "testCommand": "python3 bin/post-fix-gate.py --dry-run",
+  "auditCommands": [
+    "python3 scripts/audit_production_lifecycle_50_agents.py",
+    "python3 scripts/audit_workflows_rules_skills_50_agents.py"
+  ],
+  "rulesFiles": [
+    "AGENTS.md",
+    "rules/core-rules.md"
+  ],
+  "proof": {
+    "require": 1,
+    "defaultProvider": "man",
+    "providers": {
+      "man": { "type": "macos" },
+      "mayao": { "type": "adb", "serial": "emulator-5554" }
+    }
+  }
+}

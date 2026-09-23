@@ -91,7 +91,7 @@ AGENTS_SPEC = [
     (37, "CommandAliasCompletenessAuditor", "Kiểm tra thư mục commands/ chứa symlink đầy đủ cho mọi skill và workflow", "commands/profile.md", r"agent-profile|agent-config"),
     (38, "DomainAutoDetectionAuditor", "Kiểm tra heuristic nhận diện dự án: Gradle (Android), Vite/Next (Web), Cargo (Backend)", "bin/install.sh", r"build\.gradle|AndroidManifest\.xml|package\.json"),
     (39, "ProfileEssentialMcpAuditor", "Kiểm tra metadata profile.json chỉ định rõ danh mục essential_mcps", "profiles/android/profile.json", r"essential_mcps"),
-    (40, "GracefulDegradationAuditor", "Kiểm tra cơ chế fallback về Read/Grep khi thiếu MCP server", "skills/graph-navigation/SKILL.md", r"Read/Grep|fallback"),
+    (40, "GracefulDegradationAuditor", "Kiểm tra cơ chế fallback về Read/Grep khi thiếu MCP server", "skills/codebase-memory/SKILL.md", r"Read/Grep|fallback"),
 
     # Council 9: MCP Configuration & Tool Contract Interoperability
     (41, "McpJsonSchemaAuditor", "Kiểm tra cấu hình .mcp.json và mcp_config.json đúng định dạng JSON", "mcp_config.json", r"mcpServers"),

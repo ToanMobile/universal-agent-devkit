@@ -7,8 +7,6 @@ ROOT_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
 SKILLS_DIR="$ROOT_DIR/skills"
 COMMANDS_DIR="$ROOT_DIR/commands"
 
-# Clean old commands directory
-rm -rf "$COMMANDS_DIR"
 mkdir -p "$COMMANDS_DIR"
 
 # 1. Link each canonical skill
@@ -16,7 +14,6 @@ for skill_dir in "$SKILLS_DIR"/*; do
   [ -d "$skill_dir" ] || continue
   skill_name="$(basename "$skill_dir")"
   if [ -f "$skill_dir/SKILL.md" ]; then
-    rm -rf "$COMMANDS_DIR/${skill_name}.md"
     ln -sfn "../skills/${skill_name}/SKILL.md" "$COMMANDS_DIR/${skill_name}.md"
   fi
 done
@@ -34,11 +31,15 @@ ALIASES=(
   "verify:verification-before-completion"
   "conflict:merge-conflict-resolver"
   "handoff:session-handoff"
-  "crashlytics:triage-crashlytics-bug"
-  "graph:graph-navigation"
+  "crashlytics:fixbugs"
+  "graph:codebase-memory"
   "review:qa-review"
   "visual:qa-visual"
+  "ocr:open-code-review"
 )
+
+# Clean broken symlinks in commands/
+find "$COMMANDS_DIR" -type l ! -exec test -e {} \; -delete
 
 for mapping in "${ALIASES[@]}"; do
   alias_name="${mapping%%:*}"

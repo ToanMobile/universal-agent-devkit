@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# setup_codex.sh — Configure OpenAI Codex / ChatGPT Canvas / OpenHands
+# setup_codex.sh — Configure OpenAI Codex / ChatGPT Canvas (Non-Destructive Smart Merge)
 set -euo pipefail
 
 TARGET_DIR="${1:-$PWD}"
@@ -9,20 +9,24 @@ LANGUAGE="${3:-en}"
 
 echo "Configuring OpenAI Codex / ChatGPT for: $TARGET_DIR (domain: $DOMAIN, lang: $LANGUAGE)"
 
-LANG_DIRECTIVE="Default communication language: English. Switch to Vietnamese when requested. Code identifiers/paths: always English."
-if [ "$LANGUAGE" = "vi" ]; then
-  LANG_DIRECTIVE="Default communication language: Vietnamese. Code identifiers/paths: always English."
+# 1. Non-Destructive Smart Merge for CODEX.md and AGENTS.md
+if [ -f "$TARGET_DIR/CODEX.md" ]; then
+  CODEX_INJECT="$DEVKIT_ROOT/templates/claude_injection_block.md"
+  python3 "$DEVKIT_ROOT/scripts/merge_markdown.py" "$CODEX_INJECT" "$TARGET_DIR/CODEX.md" "universal-agent-devkit"
 fi
-
-# 1. Setup AGENTS.md (Codex natively supports AGENTS.md at root)
-rm -f "$TARGET_DIR/CODEX.md"
 
 if [ "$TARGET_DIR" != "$DEVKIT_ROOT" ]; then
   if [ -f "$TARGET_DIR/AGENTS.md" ] && [ ! -L "$TARGET_DIR/AGENTS.md" ]; then
-    cp "$TARGET_DIR/AGENTS.md" "$TARGET_DIR/AGENTS.md.bak"
+    if [ ! -f "$TARGET_DIR/AGENTS.md.bak" ]; then
+      cp "$TARGET_DIR/AGENTS.md" "$TARGET_DIR/AGENTS.md.bak"
+    fi
+    AGENTS_INJECT="$DEVKIT_ROOT/templates/agents_injection_block.md"
+    python3 "$DEVKIT_ROOT/scripts/merge_markdown.py" "$AGENTS_INJECT" "$TARGET_DIR/AGENTS.md" "universal-agent-devkit"
+    echo "  - Injected DevKit standards into existing AGENTS.md (Preserved custom architecture)"
+  elif [ ! -f "$TARGET_DIR/AGENTS.md" ]; then
+    ln -sfn "$DEVKIT_ROOT/AGENTS.md" "$TARGET_DIR/AGENTS.md"
+    echo "  - Created AGENTS.md link to DevKit SSOT"
   fi
-  rm -f "$TARGET_DIR/AGENTS.md"
-  ln -sfn "$DEVKIT_ROOT/AGENTS.md" "$TARGET_DIR/AGENTS.md"
 fi
 
 echo "✓ OpenAI Codex / ChatGPT (AGENTS.md SSOT) ready."

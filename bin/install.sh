@@ -99,7 +99,12 @@ while [[ $# -gt 0 ]]; do
       LANGUAGE="${1#*=}"
       shift
       ;;
-    -y|--yes|--all)
+    -s|--skip-existing)
+      SKIP_EXISTING=1
+      shift
+      ;;
+    -y|--yes)
+      INTERACTIVE=0
       AGENTS="all"
       shift
       ;;
@@ -214,6 +219,7 @@ bash "$DEVKIT_ROOT/scripts/sync_commands.sh" > /dev/null 2>&1 || true
 
 # 2. Configure selected agents
 IFS=',' read -ra AGENT_LIST <<< "$AGENTS"
+export SKIP_EXISTING="${SKIP_EXISTING:-0}"
 
 configure_agent() {
   local ag="$1"

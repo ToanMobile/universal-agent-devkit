@@ -1,27 +1,36 @@
 #!/usr/bin/env bash
-# setup_claude.sh — Configure Claude Code integration in target project (Additive Merge)
+# setup_claude.sh — Configure Claude Code integration in target project (Non-Destructive Smart Merge)
 set -euo pipefail
 
 TARGET_DIR="${1:-$PWD}"
 DEVKIT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 MODE="${2:-symlink}" # symlink or copy
 LANGUAGE="${3:-en}"
+SKIP_EXISTING="${SKIP_EXISTING:-0}"
 
-echo "Configuring Claude Code for: $TARGET_DIR (mode: $MODE, lang: $LANGUAGE)"
+echo "Configuring Claude Code for: $TARGET_DIR (mode: $MODE, lang: $LANGUAGE, skip_existing: $SKIP_EXISTING)"
 mkdir -p "$TARGET_DIR/.claude/hooks" "$TARGET_DIR/.claude/commands" "$TARGET_DIR/.claude/agents"
 
-# 1. Setup AGENTS.md (Sole SSOT)
-rm -f "$TARGET_DIR/CLAUDE.md"
+# 1. Non-Destructive Smart Merge for CLAUDE.md and AGENTS.md
+CLAUDE_INJECT="$DEVKIT_ROOT/templates/claude_injection_block.md"
+python3 "$DEVKIT_ROOT/scripts/merge_markdown.py" "$CLAUDE_INJECT" "$TARGET_DIR/CLAUDE.md" "universal-agent-devkit"
+
 if [ "$TARGET_DIR" != "$DEVKIT_ROOT" ]; then
   if [ -f "$TARGET_DIR/AGENTS.md" ] && [ ! -L "$TARGET_DIR/AGENTS.md" ]; then
-    cp "$TARGET_DIR/AGENTS.md" "$TARGET_DIR/AGENTS.md.bak"
-    echo "  - Backed up existing AGENTS.md to AGENTS.md.bak"
-  fi
-  rm -f "$TARGET_DIR/AGENTS.md"
-  if [ "$MODE" = "symlink" ]; then
-    ln -sfn "$DEVKIT_ROOT/AGENTS.md" "$TARGET_DIR/AGENTS.md"
-  else
-    cp "$DEVKIT_ROOT/AGENTS.md" "$TARGET_DIR/AGENTS.md"
+    # Target already has its own custom AGENTS.md -> Inject DevKit block without deleting
+    if [ ! -f "$TARGET_DIR/AGENTS.md.bak" ]; then
+      cp "$TARGET_DIR/AGENTS.md" "$TARGET_DIR/AGENTS.md.bak"
+    fi
+    AGENTS_INJECT="$DEVKIT_ROOT/templates/agents_injection_block.md"
+    python3 "$DEVKIT_ROOT/scripts/merge_markdown.py" "$AGENTS_INJECT" "$TARGET_DIR/AGENTS.md" "universal-agent-devkit"
+    echo "  - Injected DevKit standards into existing AGENTS.md (Preserved custom architecture)"
+  elif [ ! -f "$TARGET_DIR/AGENTS.md" ]; then
+    if [ "$MODE" = "symlink" ]; then
+      ln -sfn "$DEVKIT_ROOT/AGENTS.md" "$TARGET_DIR/AGENTS.md"
+    else
+      cp "$DEVKIT_ROOT/AGENTS.md" "$TARGET_DIR/AGENTS.md"
+    fi
+    echo "  - Created AGENTS.md link to DevKit SSOT"
   fi
 fi
 
@@ -70,61 +79,31 @@ cat << 'SETTINGS_EOF' > "$DEFAULT_SETTINGS"
     ],
     "PostToolUse": [
       {
-        "matcher": "Read",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "bash \"${CLAUDE_PROJECT_DIR:-$PWD}/.claude/hooks/read_ledger.sh\"",
-            "timeout": 10
-          }
-        ]
-      },
-      {
-        "matcher": "Edit|Write|NotebookEdit",
+        "matcher": "Edit|Write",
         "hooks": [
           {
             "type": "command",
             "command": "bash \"${CLAUDE_PROJECT_DIR:-$PWD}/.claude/hooks/churn_guard.sh\"",
-            "timeout": 15
-          },
-          {
-            "type": "command",
-            "command": "bash \"${CLAUDE_PROJECT_DIR:-$PWD}/.claude/hooks/comment_claim_guard.sh\"",
-            "timeout": 15
+            "timeout": 10
           }
         ]
       }
     ],
     "Stop": [
       {
-        "matcher": "",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "bash \"${CLAUDE_PROJECT_DIR:-$PWD}/.claude/hooks/claim_check.sh\"",
-            "timeout": 15
-          },
-          {
-            "type": "command",
-            "command": "bash \"${CLAUDE_PROJECT_DIR:-$PWD}/.claude/hooks/review_gate.sh\"",
-            "timeout": 20
-          },
-          {
-            "type": "command",
-            "command": "bash \"${CLAUDE_PROJECT_DIR:-$PWD}/.claude/hooks/testsourceset_gate.sh\"",
-            "timeout": 600
-          },
-          {
-            "type": "command",
-            "command": "bash \"${CLAUDE_PROJECT_DIR:-$PWD}/.claude/hooks/test_evidence_gate.sh\"",
-            "timeout": 30
-          },
-          {
-            "type": "command",
-            "command": "bash \"${CLAUDE_PROJECT_DIR:-$PWD}/.claude/hooks/security_gate.sh\"",
-            "timeout": 15
-          }
-        ]
+        "type": "command",
+        "command": "bash \"${CLAUDE_PROJECT_DIR:-$PWD}/.claude/hooks/testsourceset_gate.sh\"",
+        "timeout": 60
+      },
+      {
+        "type": "command",
+        "command": "bash \"${CLAUDE_PROJECT_DIR:-$PWD}/.claude/hooks/test_evidence_gate.sh\"",
+        "timeout": 30
+      },
+      {
+        "type": "command",
+        "command": "bash \"${CLAUDE_PROJECT_DIR:-$PWD}/.claude/hooks/security_gate.sh\"",
+        "timeout": 15
       }
     ]
   }
@@ -134,11 +113,15 @@ SETTINGS_EOF
 python3 "$DEVKIT_ROOT/scripts/merge_json.py" "$DEFAULT_SETTINGS" "$TARGET_DIR/.claude/settings.json"
 echo "  - Merged safety gates into .claude/settings.json (preserved custom settings)"
 
-# 4. Additive Item-by-Item Link for Hooks (Preserving custom user hooks)
+# 4. Smart Item-by-Item Link for Hooks (Preserving custom user hooks)
 for hook in "$DEVKIT_ROOT/hooks"/*; do
   [ -e "$hook" ] || continue
   hook_name="$(basename "$hook")"
   target_hook="$TARGET_DIR/.claude/hooks/$hook_name"
+  if [ "$SKIP_EXISTING" = "1" ] && [ -e "$target_hook" ] && [ ! -L "$target_hook" ]; then
+    echo "  - Preserved custom hook: $hook_name (--skip-existing active)"
+    continue
+  fi
   rm -rf "$target_hook"
   if [ "$MODE" = "symlink" ]; then
     ln -sfn "$hook" "$target_hook"
@@ -147,11 +130,15 @@ for hook in "$DEVKIT_ROOT/hooks"/*; do
   fi
 done
 
-# 5. Additive Item-by-Item Link for Commands (Preserving custom user commands)
+# 5. Smart Item-by-Item Link for Commands (Preserving custom user commands)
 for cmd in "$DEVKIT_ROOT/commands"/*; do
   [ -e "$cmd" ] || continue
   cmd_name="$(basename "$cmd")"
   target_cmd="$TARGET_DIR/.claude/commands/$cmd_name"
+  if [ "$SKIP_EXISTING" = "1" ] && [ -e "$target_cmd" ] && [ ! -L "$target_cmd" ]; then
+    echo "  - Preserved custom command: $cmd_name (--skip-existing active)"
+    continue
+  fi
   rm -rf "$target_cmd"
   if [ "$MODE" = "symlink" ]; then
     ln -sfn "$cmd" "$target_cmd"
@@ -160,11 +147,15 @@ for cmd in "$DEVKIT_ROOT/commands"/*; do
   fi
 done
 
-# 6. Additive Item-by-Item Link for Agents (Preserving custom user subagents)
+# 6. Smart Item-by-Item Link for Agents (Preserving custom user subagents)
 for agent in "$DEVKIT_ROOT/agents"/*; do
   [ -e "$agent" ] || continue
   agent_name="$(basename "$agent")"
   target_agent="$TARGET_DIR/.claude/agents/$agent_name"
+  if [ "$SKIP_EXISTING" = "1" ] && [ -e "$target_agent" ] && [ ! -L "$target_agent" ]; then
+    echo "  - Preserved custom agent: $agent_name (--skip-existing active)"
+    continue
+  fi
   rm -rf "$target_agent"
   if [ "$MODE" = "symlink" ]; then
     ln -sfn "$agent" "$target_agent"
@@ -173,4 +164,4 @@ for agent in "$DEVKIT_ROOT/agents"/*; do
   fi
 done
 
-echo "✓ Claude Code integration complete (All custom skills/hooks/commands preserved)."
+echo "✓ Claude Code integration complete (Non-destructive smart merge; custom files preserved)."

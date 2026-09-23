@@ -21,17 +21,17 @@ Chạy kiểm tra nhanh cho module đang chỉnh sửa trước khi commit:
 # 3. Chạy unit tests của module (Kotest FunSpec / JUnit)
 ./gradlew :<module>:testDebugUnitTest --tests "*<TestClass>*"
 
-# 4. Kiểm tra tương thích API Metalava (với các thư viện :libs:*)
-./gradlew :libs:epub-reader:metalavaCheckCompatibilityRelease :libs:pdf-viewer:metalavaCheckCompatibilityRelease
+# 4. Kiểm tra tương thích API Metalava (với các thư viện public :libs:*)
+./gradlew :libs:<library_module>:metalavaCheckCompatibilityRelease
 ```
 
 ## 2. Translation & Localization Verification
 
-Đảm bảo mọi chuỗi giao diện mới có mặt đầy đủ ở toàn bộ 80 ngôn ngữ/locale, không bị thiếu hoặc fallback sai:
+Đảm bảo mọi chuỗi giao diện mới có mặt đầy đủ ở toàn bộ các ngôn ngữ/locale được dự án hỗ trợ, không bị thiếu hoặc fallback sai:
 
 ```bash
 # Kiểm tra thiếu bản dịch (Fail-closed build gate)
-./gradlew :core:common:checkMissingTranslations
+./gradlew :<localization_module>:checkMissingTranslations
 ```
 
 ## 3. Unit-Test Identity Contract Baseline

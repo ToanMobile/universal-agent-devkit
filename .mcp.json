@@ -43,6 +43,12 @@
       "env": {
         "GOOGLE_APPLICATION_CREDENTIALS": "${GOOGLE_APPLICATION_CREDENTIALS:-}"
       }
+    },
+    "antigravity-pm": {
+      "command": "node",
+      "args": [
+        "/Volumes/Data/Toan/Agent_MCP/antigravity-pm-mcp/bin/antigravity-pm-mcp.js"
+      ]
     }
   }
 }

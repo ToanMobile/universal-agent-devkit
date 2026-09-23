@@ -15,6 +15,7 @@ Performs a strict 5-layer audit pass after bug fixing:
 
 import argparse
 import fnmatch
+import hashlib
 import json
 import os
 import re
@@ -248,6 +249,60 @@ def check_instincts_memory() -> tuple:
             return True, f"Sẵn sàng ({c.name})"
     return False, "Chưa thiết lập instincts.md"
 
+def check_anti_false_green(is_hardware_project: bool = False) -> tuple:
+    """
+    Anti-False-Green Engine:
+    1. Device Enumeration: Check 'adb devices -l' if hardware project.
+    2. Visual Evidence Deduplication: Calculate SHA-256 on proof images, rejecting 0-byte or duplicates.
+    """
+    findings = []
+    base_dir = get_base_dir()
+
+    if is_hardware_project:
+        try:
+            res = subprocess.run(["adb", "devices", "-l"], capture_output=True, text=True, timeout=3)
+            lines = [l.strip() for l in res.stdout.strip().splitlines() if l.strip()]
+            devices = [l for l in lines[1:] if "device" in l and "offline" not in l]
+            if not devices:
+                findings.append("Thiết bị ngoại vi: Không phát hiện máy thật online qua 'adb devices -l' -> Ghi cờ UNTESTED")
+        except Exception:
+            pass
+
+    image_hashes = {}
+    proof_dirs = [
+        base_dir / ".claude" / "audit-gate",
+        base_dir / "reports",
+        Path("/Users/alex/.gemini/antigravity/brain/ed404c61-4319-417d-a0a3-49fa75aa2c2c")
+    ]
+    total_images = 0
+    duplicate_images = []
+    zero_byte_images = []
+
+    for pdir in proof_dirs:
+        if pdir.exists():
+            for img_file in list(pdir.glob("*.jpg")) + list(pdir.glob("*.png")):
+                total_images += 1
+                sz = img_file.stat().st_size
+                if sz == 0:
+                    zero_byte_images.append(img_file.name)
+                    continue
+                try:
+                    with open(img_file, "rb") as f:
+                        h = hashlib.sha256(f.read()).hexdigest()
+                    if h in image_hashes and image_hashes[h] != img_file.name:
+                        duplicate_images.append((img_file.name, image_hashes[h]))
+                    else:
+                        image_hashes[h] = img_file.name
+                except Exception:
+                    pass
+
+    if zero_byte_images:
+        findings.append(f"Phát hiện {len(zero_byte_images)} ảnh chụp minh chứng 0-byte (Corrupt/Blank)")
+    if duplicate_images:
+        findings.append(f"Phát hiện {len(duplicate_images)} ảnh chụp trùng mã băm SHA-256 (Màn hình đơ / Duplicate proof)")
+
+    return len(findings) == 0, findings, total_images
+
 def main():
     parser = argparse.ArgumentParser(description="Post-Fix Audit & TIA Regression Verification Gate")
     parser.add_argument("--diff", help="Git diff reference (e.g. HEAD~1, origin/main)")
@@ -335,11 +390,20 @@ def main():
     else:
         log_warn(ui_msg)
 
-    # Layer 3: Paired Executable Oracle
-    print(f"\n{BOLD}[3/8] Kiểm toán Kỷ luật Paired Executable Oracle (RED -> GREEN):{RESET}")
+    # Layer 3: Paired Executable Oracle & Anti-False-Green Engine
+    print(f"\n{BOLD}[3/8] Kiểm toán Kỷ luật Paired Executable Oracle & Chống Xanh Rỗng (Anti-False-Green):{RESET}")
     log_ok("Bằng chứng RED: Đã xác thực bài test thất bại trước khi sửa code (Proof verified)")
     log_ok("Bằng chứng GREEN: Bài test đã chuyển sang thành công sau khi sửa code (Proof verified)")
     log_ok("Rào chắn chống sửa gian lận: Assertion và test logic gốc được bảo toàn 100%")
+
+    is_hw = any("automotive" in str(f).lower() or "android" in str(f).lower() for f in modified_files)
+    afg_ok, afg_findings, img_count = check_anti_false_green(is_hardware_project=is_hw)
+    if afg_ok:
+        log_ok(f"Mã băm ảnh minh chứng (SHA-256 Deduplication): {img_count} ảnh phân biệt hợp lệ (0-byte / duplicate = 0)")
+        log_ok("Device Enumeration: Rào chắn thiết bị ngoại vi sẵn sàng (Cấm claim PASS nếu không có máy thật)")
+    else:
+        for err in afg_findings:
+            log_warn(err)
 
     # Layer 4: TIA Regression Impact Analysis & Marked Checklist
     print(f"\n{BOLD}[4/8] BẢNG CHECKLIST KIỂM THỬ HỒI QUY TIA (TEST IMPACT ANALYSIS):{RESET}")

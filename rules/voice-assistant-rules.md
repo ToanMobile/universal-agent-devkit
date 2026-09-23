@@ -1,0 +1,1 @@
+../profiles/voice-assistant/rules/voice-assistant-rules.md

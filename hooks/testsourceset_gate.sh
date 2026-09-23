@@ -30,14 +30,31 @@ REPO_ROOT="${CLAUDE_PROJECT_DIR:-$(git rev-parse --show-toplevel 2>/dev/null || 
 LOG_DIR="${REPO_ROOT}/.claude/audit-gate"
 mkdir -p "${LOG_DIR}"
 LOG="${LOG_DIR}/testsourceset_gate.log"
-ATTEMPTS_FILE="${LOG_DIR}/.testsourceset_attempts"
-MAX_ATTEMPTS="${TESTSOURCESET_GATE_MAX_ATTEMPTS:-2}"
 TS="$(date +%Y-%m-%dT%H:%M:%S)"
 
-# Drain stdin so the caller never blocks on a full pipe.
-cat >/dev/null 2>&1 || true
+# Read stdin to isolate session attempt tracking
+INPUT="$(cat)"
+SID_RAW=""
+if [ -n "${INPUT}" ]; then
+  SID_RAW="$(printf '%s' "${INPUT}" | python3 -c '
+import sys, json, re
+try:
+    d = json.load(sys.stdin)
+    sid = d.get("session_id") or d.get("sessionId") or ""
+    print(re.sub(r"[^a-zA-Z0-9_-]", "_", str(sid)))
+except Exception:
+    pass
+' 2>/dev/null || true)"
+fi
 
-log() { printf '%s %s\n' "${TS}" "$*" >>"${LOG}" 2>/dev/null || true; }
+if [ -n "${SID_RAW}" ]; then
+  ATTEMPTS_FILE="${LOG_DIR}/.testsourceset_attempts_${SID_RAW}"
+else
+  ATTEMPTS_FILE="${LOG_DIR}/.testsourceset_attempts"
+fi
+MAX_ATTEMPTS="${TESTSOURCESET_GATE_MAX_ATTEMPTS:-2}"
+
+log() { printf '%s [SID=%s] %s\n' "${TS}" "${SID_RAW:-default}" "$*" >>"${LOG}" 2>/dev/null || true; }
 
 if [ "${TESTSOURCESET_GATE:-1}" = "0" ]; then
   log "SKIP — disabled via TESTSOURCESET_GATE=0"

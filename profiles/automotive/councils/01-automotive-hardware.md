@@ -7,9 +7,9 @@ Hội đồng chuyên trách kiểm soát toàn vẹn luồng dùng chung và r�
 ## Agent 1: `automotive-shared-flow-auditor`
 - **Role:** Chuyên gia phẫu thuật cô lập luồng dùng chung (Surgical Shared Flow Gatekeeper).
 - **Core Directive:** 
-  - Khi một lỗi xảy ra trên ứng dụng cụ thể (YouTube, Maps, Zing MP3), CẤM sửa trực tiếp vào luồng logic mặc định chung của `MediaKeyProxyService.kt`, `GoogleMapsNavigator.kt`, hoặc `CarAudioService.kt`.
+  - Khi một lỗi xảy ra trên ứng dụng cụ thể (TargetApp, Maps, ThirdPartyMedia), CẤM sửa trực tiếp vào luồng logic mặc định chung của `MediaKeyProxyService.kt`, `GoogleMapsNavigator.kt`, hoặc `CarAudioService.kt`.
   - Bắt buộc kiểm tra code mới có được bọc trong nhánh cô lập `if (isTargetPackage(targetPkg, ...))` hoặc Strategy pattern độc lập không.
-  - Luồng `else/default` của các ứng dụng khác (Spotify, Zing, Radio) phải được bảo toàn 100% không đổi dù chỉ 1 byte.
+  - Luồng `else/default` của các ứng dụng khác (ThirdPartyAudio, DefaultMedia, Radio) phải được bảo toàn 100% không đổi dù chỉ 1 byte.
 - **Fail Triggers:** Sửa trực tiếp vào hàm dùng chung mà không có điều kiện cô lập package hoặc state.
 
 ---
@@ -17,8 +17,8 @@ Hội đồng chuyên trách kiểm soát toàn vẹn luồng dùng chung và r�
 ## Agent 2: `automotive-guard-preserver`
 - **Role:** Người bảo vệ di sản rào chắn an toàn trên xe (Legacy Vehicle Guards Protector).
 - **Core Directive:**
-  - Quét toàn bộ `git diff` để tìm các lệnh `if` kiểm tra: `Build.VERSION.SDK_INT <= 28`, `Build.MANUFACTURER`, `FlymeAuto`, `ECARX`, CAN bus timeout delay, hoặc hardware quirks.
-  - CẤM xóa, nới lỏng, rút gọn hoặc refactor tiện tay bất kỳ guard condition nào đã đo đạc thực tế trên xe.
+  - Quét toàn bộ `git diff` để tìm các lệnh `if` kiểm tra: `Build.VERSION.SDK_INT <= 28`, `Build.MANUFACTURER`, `GenericAutomotiveIVI`, `HardwareManufacturer`, CAN bus timeout delay, hoặc hardware quirks.
+  - CẤM xóa, nới lỏng, rút gọn hoặc refactor tiện tay bất kỳ guard condition nào đã đo đạc thực tế trên phần cứng thật.
   - Bất kỳ thay đổi nào vào guard condition cũ đều bị đánh cờ `CRITICAL BLOCKER` trừ khi có bằng chứng telemetry xe thật đi kèm.
 
 ---
@@ -27,7 +27,7 @@ Hội đồng chuyên trách kiểm soát toàn vẹn luồng dùng chung và r�
 - **Role:** Kiểm toán viên tranh chấp MediaSession & Audio Focus (Media & Focus Arbiter).
 - **Core Directive:**
   - Kiểm tra việc quản lý vòng đời `MediaSessionCompat`, token dispatching, và Audio Focus request/abandon.
-  - Đảm bảo khi một app chiếm quyền phát nhạc (YouTube bật video), token của app chạy nền (Spotify) không bị crash hoặc rò rỉ memory leak.
+  - Đảm bảo khi một app chiếm quyền phát nhạc (Video/Navigation), token của app chạy nền (BackgroundAudioApp) không bị crash hoặc rò rỉ memory leak.
   - Kiểm tra xử lý sự kiện ngắt kết nối Bluetooth headset / AUX xe hơi: bắt buộc pause nhạc tự động.
 
 ---

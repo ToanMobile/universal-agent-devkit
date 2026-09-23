@@ -1,1 +1,1 @@
-../skills/triage-crashlytics-bug/SKILL.md
+../skills/fixbugs/SKILL.md

@@ -1,0 +1,33 @@
+{
+  "project": "Voice & Audio AI Assistant",
+  "version": "1.0.0",
+  "rules": [
+    {
+      "component": "AudioIntentAndSafety",
+      "watch_files": [
+        "**/voice/**",
+        "**/speech/**",
+        "**/audio/**",
+        "**/asr/**",
+        "**/intent/**"
+      ],
+      "immutable_guards": [
+        "ConfidenceThreshold >= 0.85",
+        "GracefulSilenceOverWrongExecution",
+        "MicrophoneAudioFocusRelease"
+      ],
+      "mandatory_regression_tests": [
+        {
+          "id": "REG-VOICE-01",
+          "name": "Graceful Silence & Low-Confidence Disambiguation Verification",
+          "command": "python3 -m unittest discover -s tests -p '*VoiceIntentTest.py'"
+        },
+        {
+          "id": "REG-VOICE-02",
+          "name": "Acoustic Noise Robustness & End-of-Speech Latency Audit",
+          "command": "python3 -m unittest discover -s tests -p '*AcousticLatencyTest.py'"
+        }
+      ]
+    }
+  ]
+}

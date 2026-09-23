@@ -1,1 +1,0 @@
-../skills/android-cli/SKILL.md

@@ -1,0 +1,1 @@
+../../templates/instincts.template.md

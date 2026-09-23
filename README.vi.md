@@ -365,65 +365,79 @@ Kho 16 kỹ năng chuẩn hóa theo định dạng `SKILL.md` (YAML frontmatter 
 | Skill | Slash Command | Chức Năng & Mục Đích Sử Dụng |
 |---|---|---|
 | **`qc`** | `/qc`, `/test`, `/qa` | Chạy kiểm thử tự động, lint check (ktlint), unit tests, Metalava API check, Translation gate và QA release gates. |
-| **`fixbugs`** | `/fixbugs`, `/fix`, `/bugs` | Quy trình chẩn đoán và sửa lỗi tuân thủ nghiêm ngặt **Paired Executable Oracle (RED → GREEN)**. |
+| **`fixbugs`** | `/fixbugs`, `/fix`, `/bugs`, `/crashlytics` | Quy trình chẩn đoán, triage sự cố Crashlytics/ANR và sửa lỗi tuân thủ nghiêm ngặt **Paired Executable Oracle (RED → GREEN)**. |
 | **`tdd-workflow`** | `/tdd` | TDD Workflow: viết RED test kiểm chứng lỗi trước khi viết bất kỳ dòng code logic nào. |
-| **`verification-before-completion`** | `/verify` | Verification gate cuối cùng trước khi tuyên bố hoàn thành task hoặc tạo PR. |
-| **`triage-crashlytics-bug`** | `/crashlytics` | Phân tích Crashlytics stack trace, native crash, OOM leak và đề xuất phương án xử lý gốc rễ. |
+| **`verification-before-completion`** | `/verify` | Verification gate cuối cùng (8 lớp) trước khi tuyên bố hoàn thành task hoặc tạo PR. |
 | **`deploy`** | `/deploy`, `/build` | Quy trình đóng gói APK/AAB, kiểm tra signing, ProGuard/R8 mappings và release readiness. |
 
 ---
 
-### 2. 🔍 Code Review & Visual QA (3 Skills)
+### 2. 🔍 Code Review & Visual QA (4 Skills)
 | Skill | Slash Command | Chức Năng & Mục Đích Sử Dụng |
 |---|---|---|
 | **`qa-review`** | `/qa-review`, `/review` | Chất vấn và audit code diff trước PR, sinh acceptance criteria và ma trận kịch bản test (Vai trò × Dữ liệu × Luồng lỗi). |
 | **`open-code-review`** | `/ocr`, `/open-code-review` | Tích hợp trực tiếp **Alibaba OpenCodeReview v1.12.9**: định vị dòng chính xác qua AST Go tĩnh (`resolver.go`), gom nhóm tệp thông minh ($\le 10$ files), audit diff độ chính xác cao và chỉ tiêu tốn 1/9 token. |
 | **`qa-visual`** | `/qa-visual`, `/visual` | Tự động chụp màn hình và audit lỗi bố cục layout DOM (tràn khung, lệch align, chồng lấp) kèm upload cloud. |
+| **`android-real-device-qa`** | `/android-qa` | Kiểm thử thiết bị thật/emulator qua ADB/Replicant: đo FPS SurfaceFlinger, dump view hierarchy, triage ANR logcat. |
 
 ---
 
-### 3. 📐 Kiến Trúc, Git & Lập Kế Hoạch (4 Skills)
+### 3. 📐 Kiến Trúc, Git & Lập Kế Hoạch (6 Skills)
 | Skill | Slash Command | Chức Năng & Mục Đích Sử Dụng |
 |---|---|---|
 | **`spec-driven-development`** | `/plan` | Lập kế hoạch theo mô hình Spec-Kit Lite cho mọi thay đổi chạm $\ge 3$ files hoặc $\ge 2$ modules. |
+| **`grill-plan`** | `/grill` | Phản biện đối lập, stress-test kế hoạch kỹ thuật, lật tẩy các giả định ngầm trước khi code. |
+| **`documentation-and-adrs`** | `/adr` | Ghi nhận quyết định kiến trúc quan trọng (ADRs) và lưu trữ trade-offs lâu dài. |
+| **`deep-module-design`** | `/module-design` | Thiết kế interface sâu, seam kiểm thử độc lập và kiến trúc module testable. |
 | **`merge-conflict-resolver`** | `/conflict` | Giải quyết Git merge / rebase / stash conflict an toàn dựa trên phân tích ngữ nghĩa 3-way merge. |
 | **`session-handoff`** | `/handoff` | Đóng gói toàn bộ ngữ cảnh, công việc dở dang và bằng chứng để chuyển giao sang session mới. |
-| **`security-checklist`** | `/scan` | Audit an ninh: Intent filter, URI traversal, Storage Access Framework, exported components, permissions. |
 
 ---
 
-### 4. 🛠️ Công Cụ Codebase & Nền Tảng (3 Skills)
+### 4. 🚀 Tinh Chỉnh Thực Thi & Quản Trị Hệ Thống (8 Skills)
 | Skill | Slash Command | Chức Năng & Mục Đích Sử Dụng |
 |---|---|---|
-| **`graph-navigation`** | `/graph` | Khám phá codebase, trace call/data flow, phân tích blast radius bằng AST Knowledge Graph. |
-| **`codebase-memory`** | `/codebase-memory` | Quản trị và đồng bộ AST Knowledge Graph Database cho dự án lớn. |
-| **`android-cli`** | `/android-cli` | Quản lý Android SDK, điều khiển emulator/AVD và chụp UI hierarchy từ CLI. |
+| **`context-enricher`** | `/enrich` | Gateway tự động làm giàu ngữ cảnh 5 chiều (5D Dossier) cho mọi prompt ngắn gọn của User. |
+| **`giao`** | `/giao` | Điều phối Dual-Agent: Leader PM (Claude) ↔ Worker (Antigravity), giao việc và nghiệm thu task packet. |
+| **`codebase-memory`** | `/graph`, `/codebase-memory` | **SSOT Đồ Thị Tri Thức:** Khám phá cấu trúc code, trace inbound/outbound callers, Cypher query, fallback Read/Grep. |
+| **`incremental-implementation`** | `/step` | Chia nhỏ feature lớn thành các bước phẫu thuật tăng dần, kiểm chứng liên tục từng bước. |
+| **`deprecation-migration`** | `/deprecate` | Sunset API cũ, di chuyển callers và dọn dẹp mã nguồn lỗi thời an toàn. |
+| **`security-checklist`** | `/scan` | Audit an ninh OWASP Mobile: Intent filter, URI traversal, Storage Access Framework, exported components, permissions. |
+| **`observability-instrumentation`** | `/logging` | Chuẩn hóa structured logging, phân cấp DEBUG/INFO/ERROR, telemetry Crashlytics, mask 100% PII. |
+| **`writing-skills`** | `/skill-author` | Quy chuẩn tạo mới, chỉnh sửa và kiểm toán các skill/rules cho Agent. |
 
 ---
 
 ## ⌨️ Danh Mục Đầy Đủ Slash Commands
 
-Toàn bộ 16 skills, domain profiles và các cổng kiểm toán an toàn đều được ánh xạ thành các lệnh gõ tắt tiện lợi:
+Toàn bộ 23 skills, domain profiles và các cổng kiểm toán an toàn đều được ánh xạ thành các lệnh gõ tắt tiện lợi:
 
 | Lệnh Slash Command | Tên Viết Tắt (Aliases) | Kỹ Năng / Đích Ánh Xạ | Chức Năng Cốt Lõi |
 |---|---|---|---|
 | `/qc` | `/test`, `/qa` | `skills/qc` | Chạy unit tests, lint checks, Metalava API checks và release gates. |
-| `/fixbugs` | `/fix`, `/bugs` | `skills/fixbugs` | Sửa lỗi chuẩn mực theo chu trình RED → GREEN có bằng chứng đối ứng. |
+| `/fixbugs` | `/fix`, `/bugs`, `/crashlytics` | `skills/fixbugs` | Sửa lỗi chuẩn mực theo chu trình RED → GREEN có bằng chứng đối ứng & triage Crashlytics. |
 | `/tdd-workflow` | `/tdd` | `skills/tdd-workflow` | Quy trình TDD: viết test lỗi trước, viết code tối giản, refactor an toàn. |
-| `/verification-before-completion` | `/verify` | `skills/verification-before-completion` | Kiểm tra toàn diện trước khi tuyên bố hoàn tất nhiệm vụ hoặc tạo PR. |
-| `/triage-crashlytics-bug` | `/crashlytics` | `skills/triage-crashlytics-bug` | Chẩn đoán nguyên nhân gốc rễ của crash log, ANR và rò rỉ bộ nhớ. |
+| `/verification-before-completion` | `/verify` | `skills/verification-before-completion` | Kiểm tra toàn diện 8 lớp trước khi tuyên bố hoàn tất nhiệm vụ hoặc tạo PR. |
 | `/deploy` | `/build` | `skills/deploy` | Đóng gói và thẩm định artifact phát hành APK/AAB. |
 | `/qa-review` | `/review` | `skills/qa-review` | Rà soát diff mã nguồn trước khi tạo PR và tạo ma trận kịch bản test. |
 | `/open-code-review` | `/ocr` | `skills/open-code-review` | Review diff tự động bằng engine Alibaba OpenCodeReview. |
 | `/qa-visual` | `/visual` | `skills/qa-visual` | Chụp ảnh màn hình tự động và phát hiện lỗi bố cục layout. |
+| `/android-real-device-qa` | `/android-qa` | `skills/android-real-device-qa` | Kiểm thử thiết bị Android thật, đo FPS, triage logcat ANR. |
 | `/spec-driven-development` | `/plan` | `skills/spec-driven-development` | Lập kế hoạch chi tiết Spec-Kit Lite cho tính năng chạm nhiều file/module. |
+| `/grill-plan` | `/grill` | `skills/grill-plan` | Phản biện đối lập và stress-test kế hoạch kỹ thuật. |
+| `/documentation-and-adrs` | `/adr` | `skills/documentation-and-adrs` | Ghi nhận Architecture Decision Records và trade-offs. |
+| `/deep-module-design` | `/module-design` | `skills/deep-module-design` | Thiết kế interface sâu và kiến trúc module testable. |
 | `/merge-conflict-resolver` | `/conflict` | `skills/merge-conflict-resolver` | Xử lý xung đột Git merge/rebase dựa trên phân tích ngữ nghĩa 3 chiều. |
 | `/session-handoff` | `/handoff` | `skills/session-handoff` | Đóng gói ngữ cảnh và bằng chứng để chuyển giao sang phiên làm việc mới. |
+| `/context-enricher` | `/enrich` | `skills/context-enricher` | Tự động làm giàu ngữ cảnh 5 chiều (5D Dossier). |
+| `/giao` | `/giao` | `skills/giao` | Phân công và nghiệm thu task giữa Leader PM ↔ Worker Agent. |
+| `/codebase-memory` | `/graph` | `skills/codebase-memory` | SSOT điều hướng Knowledge Graph AST và truy vết blast radius. |
+| `/incremental-implementation` | `/step` | `skills/incremental-implementation` | Thực thi thay đổi theo từng bước phẫu thuật tăng dần. |
+| `/deprecation-migration` | `/deprecate` | `skills/deprecation-migration` | Sunset API và di chuyển caller an toàn. |
 | `/security-checklist` | `/scan` | `skills/security-checklist` | Kiểm tra checklist bảo mật ứng dụng di động và nền tảng. |
-| `/graph-navigation` | `/graph` | `skills/graph-navigation` | Điều hướng Knowledge Graph AST và truy vết luồng gọi hàm. |
-| `/codebase-memory` | — | `skills/codebase-memory` | Đồng bộ hóa cơ sở dữ liệu Knowledge Graph của codebase. |
-| `/android-cli` | — | `skills/android-cli` | Quản trị Android SDK, thiết bị giả lập và cây giao diện UI. |
-| `/audit-gate` | `/postfix-gate` | `commands/audit-gate.md` | Chạy cổng kiểm toán chất lượng hậu sửa lỗi 5 tầng và kiểm tra TIA. |
+| `/observability-instrumentation` | `/logging` | `skills/observability-instrumentation` | Chuẩn hóa structured logging, telemetry và mask PII. |
+| `/writing-skills` | `/skill-author` | `skills/writing-skills` | Chuẩn hóa và sáng tạo skills mới cho DevKit. |
+| `/audit-gate` | `/postfix-gate` | `commands/audit-gate.md` | Chạy cổng kiểm toán chất lượng hậu sửa lỗi 8 tầng và kiểm tra TIA. |
 | `/profile` | — | `commands/profile.md` | Xem hoặc chuyển đổi profile chuyên ngành đang kích hoạt. |
 
 ---

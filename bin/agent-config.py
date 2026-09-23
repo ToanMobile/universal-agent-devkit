@@ -48,7 +48,12 @@ PROFILES = {
     "universal": "universal",
     "general": "universal",
     "all": "universal",
-    "default": "universal"
+    "default": "universal",
+
+    "5": "voice-assistant",
+    "voice": "voice-assistant",
+    "voice-assistant": "voice-assistant",
+    "audio": "voice-assistant"
 }
 
 def log_ok(msg):
@@ -201,8 +206,8 @@ def show_interactive_menu():
 
 def main():
     parser = argparse.ArgumentParser(description="Universal Agent DevKit Profile Configurator")
-    parser.add_argument("-p", "--profile", choices=["automotive", "android", "game", "universal", "1", "2", "3", "4", "car", "mobile", "unity", "general"],
-                        help="Tên hoặc mã số profile cần kích hoạt (1=automotive, 2=android, 3=game, 4=universal)")
+    parser.add_argument("-p", "--profile", choices=["automotive", "android", "game", "universal", "voice-assistant", "voice", "audio", "1", "2", "3", "4", "5", "car", "mobile", "unity", "general"],
+                        help="Tên hoặc mã số profile cần kích hoạt (1=automotive, 2=android, 3=game, 4=universal, 5=voice-assistant)")
     parser.add_argument("-s", "--status", action="store_true", help="Hiển thị profile đang kích hoạt")
     args = parser.parse_args()
 

@@ -1,0 +1,1 @@
+../skills/android-real-device-qa/SKILL.md

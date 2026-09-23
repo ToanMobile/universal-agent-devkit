@@ -1,1 +1,1 @@
-../skills/graph-navigation/SKILL.md
+../skills/codebase-memory/SKILL.md

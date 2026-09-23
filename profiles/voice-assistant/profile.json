@@ -1,0 +1,20 @@
+{
+  "id": "voice-assistant",
+  "name": "🎙️ Voice Assistant (Edge AI / Speech-to-Text / Audio Processing)",
+  "description": "Cấu hình chuẩn hóa cho Trợ lý Giọng nói & AI Âm thanh thiết bị biên: Triết lý 'Graceful Silence over Wrong Execution', kiểm thử âm thanh 2 tầng (cú pháp văn bản + đối chứng WAV thực tế), triệt tiêu tiếng vọng/nhiễu (AEC/VAD) và kiểm soát độ trễ streaming dưới 300ms.",
+  "essential_mcps": [
+    "codebase-memory-mcp",
+    "context7"
+  ],
+  "active_councils": [
+    "01-subsystem-shared-flow.md",
+    "02-architecture-blast-radius.md",
+    "03-zero-defect-tdd.md",
+    "05-security-vulnerability.md",
+    "07-performance-anr.md",
+    "09-solo-dev-workflow.md",
+    "10-standards-compliance-delivery.md"
+  ],
+  "regression_matrix": "profiles/voice-assistant/regression_matrix.json",
+  "rules_file": "profiles/voice-assistant/rules/voice-assistant-rules.md"
+}

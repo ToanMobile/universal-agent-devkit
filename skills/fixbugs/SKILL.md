@@ -1,11 +1,13 @@
 ---
 name: fixbugs
-description: Quy trình chuẩn đoán và sửa lỗi (bug fixing) tuân thủ Paired Executable Oracle (RED -> GREEN).
+description: Quy trình chuẩn đoán, triage sự cố Crashlytics/ANR và sửa lỗi tuân thủ Paired Executable Oracle (RED -> GREEN). Kích hoạt khi gặp bug, crash log, production stack trace, ANR traces.txt, native crash, memory leak OOM, hoặc cần sửa lỗi phẫu thuật (surgical fix) không gây hồi quy.
 ---
 
-# Quy trình Sửa Lỗi Chuẩn (Standard Bug Fixing Protocol)
+# Quy trình Sửa Lỗi & Triage Sự Cố Chuẩn (Bug Fixing & Incident Protocol)
 
-Skill hướng dẫn quy trình điều tra, tái hiện và sửa lỗi theo nguyên tắc **Paired Executable Oracle (RED → GREEN)** và **Surgical Edits** trong Target Project / Codebase.
+Skill hướng dẫn quy trình điều tra, triage sự cố production/Crashlytics, tái hiện và sửa lỗi theo nguyên tắc **Paired Executable Oracle (RED → GREEN)** và **Surgical Edits** trong Target Project / Codebase.
+
+---
 
 ## 1. Nguyên Tắc Cốt Lõi (Non-Negotiable)
 
@@ -15,11 +17,41 @@ Skill hướng dẫn quy trình điều tra, tái hiện và sửa lỗi theo ng
 - **Surgical Edits:** Chỉ sửa tối thiểu tại đúng điểm lỗi. Không drive-by refactor, không xóa code không liên quan.
 - **Anti-Loop:** Nếu 2 lần sửa liên tiếp thất bại trên cùng một giả thuyết nguyên nhân, DỪNG LẠI và từ bỏ giả thuyết đó để đổi hướng điều tra khác (abandon failing hypothesis).
 
-## 2. Các Bước Thực Hiện
+---
+
+## 2. Quy Trình Chuyên Sâu: Triage Crashlytics, Production Stacktrace & ANR
+
+Khi đầu vào là Crashlytics stack trace, log lỗi production hoặc file ANR `traces.txt`:
+
+### Bước A: Phân giải Định danh & Bóc tách Frame (Identify & Deobfuscate)
+1. Bóc tách chính xác exception class, method name, file name và số dòng (`File.kt:Line`).
+2. Ghi nhận các thông số môi trường: App Version, Build Variant, Fatal/Non-fatal/ANR, Device Model, OS Version, Breadcrumbs và Tần suất.
+   - Nếu dữ liệu đầu vào thiếu thông số nào, ghi rõ `unavailable from input`; **tuyệt đối không bịa đặt số liệu dashboard**.
+3. Deobfuscate (giải mã stack trace rút gọn R8/ProGuard) chỉ khi có tệp `mapping.txt` thật tương ứng với build đó.
+4. Tra cứu mã nguồn bằng Knowledge Graph AST (`codebase-memory`): `search_graph` $\rightarrow$ `trace_path` $\rightarrow$ `get_code_snippet`. Fallback `Read`/`Grep` cho file config/generated.
+
+### Bước B: Lập Giả Thuyết Cơ Chế Hỏng Hóc (Hypothesize Failure Mechanism)
+Phân loại lỗi vào đúng 1 trong 5 cơ chế hỏng hóc thực chiến:
+1. **Lifecycle & Concurrency:** Race condition, background thread cập nhật UI, Coroutine Job leak, ViewModel state mất sau process death.
+2. **Null Safety & Type Cast:** Dữ liệu API backend trả về null ngoài dự kiến, JSON deserialization mismatch, ép kiểu không an toàn.
+3. **Network & I/O Integrity:** Request treo do thiếu timeout, corrupt local database/cache file, out of disk space.
+4. **Permissions & Intent Boundary:** Gọi API hệ thống thiếu runtime permission, Intent payload quá 1MB (`TransactionTooLargeException`), URI không có cờ cấp quyền `FLAG_GRANT_READ_URI_PERMISSION`.
+5. **Memory & Native Stability:** Rò rỉ Context/Bitmap dẫn tới OOM, JNI reference leak, SIGSEGV trên thư viện C++.
+
+> **Rào chắn:** Mọi giả định phải được kiểm chứng bằng code thật hoặc tài liệu chính thức. Không dùng giả định chưa có bằng chứng làm fix rationale.
+
+### Bước C: Thiết lập Oracle Mô Phỏng Crash (Safe RED Pre-Run)
+- Tạo kịch bản tái hiện (Unit Test, Mock Coroutine Dispatcher, hoặc Instrumented Device Test) mô phỏng chính xác cơ chế hỏng hóc đã xác định ở Bước B.
+- Chạy test để quan sát crash/failure giống hệt log production (**RED**).
+- Không có bằng chứng RED thực tế $\rightarrow$ Trạng thái là `BLOCKED`, chưa được phép sửa code production.
+
+---
+
+## 3. Các Bước Thực Hiện Sửa Lỗi Chi Tiết
 
 ### Bước 1: Khám phá & Tái hiện (Discovery & Reproduction)
 1. Xác định phạm vi và điều kiện gây lỗi (crash log, stack trace, corrupt document, lifecycle issue).
-2. Dùng `codebase-memory-mcp` (`trace_path`) hoặc grep để rà soát 100% điểm gọi ngược (Inbound Callers Blast Radius) trước khi sửa đổi, đảm bảo tuyệt đối không sinh bug mới sang các module khác.
+2. Dùng `codebase-memory` (`trace_path`) để rà soát 100% điểm gọi ngược (Inbound Callers Blast Radius) trước khi sửa đổi, đảm bảo tuyệt đối không sinh bug mới sang các module khác.
 3. Rà soát danh mục rào chắn bất biến (`immutable_guards`) trong ma trận hồi quy để bảo vệ 100% các bản sửa lỗi lịch sử.
 
 ### Bước 2: Thiết lập Oracle Thất bại (RED Phase)

@@ -365,65 +365,79 @@ Standardized under the `SKILL.md` format (YAML frontmatter + Progressive Disclos
 | Skill | Slash Command | Description & Purpose |
 |---|---|---|
 | **`qc`** | `/qc`, `/test`, `/qa` | Automated quality control: unit tests, lint checks (ktlint), Metalava API checks, and release QA gates. |
-| **`fixbugs`** | `/fixbugs`, `/fix`, `/bugs` | Systematic bug diagnostic and repair workflow enforcing **Paired Executable Oracle (RED → GREEN)**. |
+| **`fixbugs`** | `/fixbugs`, `/fix`, `/bugs`, `/crashlytics` | Systematic bug diagnostic, Crashlytics/ANR triage, and repair enforcing **Paired Executable Oracle (RED → GREEN)**. |
 | **`tdd-workflow`** | `/tdd` | Test-Driven Development workflow: write failing unit tests before implementing production code. |
-| **`verification-before-completion`** | `/verify` | Final verification gate before declaring task completion or opening pull requests. |
-| **`triage-crashlytics-bug`** | `/crashlytics` | Triage Crashlytics stack traces, native crashes, OOM leaks, and memory regressions. |
+| **`verification-before-completion`** | `/verify` | Final 8-layer verification gate before declaring task completion or opening pull requests. |
 | **`deploy`** | `/deploy`, `/build` | Artifact building (APK/AAB), signing verification, ProGuard/R8 mapping checks, and release gates. |
 
 ---
 
-### 2. 🔍 Code Review & Visual QA (3 Skills)
+### 2. 🔍 Code Review & Visual QA (4 Skills)
 | Skill | Slash Command | Description & Purpose |
 |---|---|---|
 | **`qa-review`** | `/qa-review`, `/review` | Deep code diff audit before PR, acceptance criteria generation, and test scenario matrix (Role × Data × Error). |
 | **`open-code-review`** | `/ocr`, `/open-code-review` | Direct integration with **Alibaba OpenCodeReview v1.12.9**: deterministic line resolution (`resolver.go`), semantic file bundling ($\le 10$ files), and high-precision diff auditing with 1/9 token consumption. |
 | **`qa-visual`** | `/qa-visual`, `/visual` | Automated screenshot capture and DOM layout auditing (overflow, alignment, overlaps) with cloud upload. |
+| **`android-real-device-qa`** | `/android-qa` | Real-device & emulator QA via ADB/Replicant: SurfaceFlinger FPS profiling, view hierarchy dumps, and ANR logcat triage. |
 
 ---
 
-### 3. 📐 Architecture, Git & Planning (4 Skills)
+### 3. 📐 Architecture, Git & Planning (6 Skills)
 | Skill | Slash Command | Description & Purpose |
 |---|---|---|
 | **`spec-driven-development`** | `/plan` | Spec-Kit Lite planning for all changes touching $\ge 3$ files or $\ge 2$ modules. |
+| **`grill-plan`** | `/grill` | Adversarial plan stress-testing, unearthing hidden assumptions before coding. |
+| **`documentation-and-adrs`** | `/adr` | Records Architecture Decision Records and long-term technical trade-offs. |
+| **`deep-module-design`** | `/module-design` | Deep interface design, independent test seams, and modular testability. |
 | **`merge-conflict-resolver`** | `/conflict` | Resolves complex Git merge, rebase, and stash conflicts with semantic 3-way analysis. |
 | **`session-handoff`** | `/handoff` | Packages active session context, uncommitted changes, and test proofs for seamless handoff. |
-| **`security-checklist`** | `/scan` | Security audit: Intent filters, URI traversal, Storage Access Framework, exported components, permissions. |
 
 ---
 
-### 4. 🛠️ Codebase & Platform Tools (3 Skills)
+### 4. 🚀 Execution Refinement & System Governance (8 Skills)
 | Skill | Slash Command | Description & Purpose |
 |---|---|---|
-| **`graph-navigation`** | `/graph` | Codebase discovery, call-path tracing, and blast radius analysis via AST Knowledge Graph. |
-| **`codebase-memory`** | `/codebase-memory` | Manages and synchronizes AST Knowledge Graph databases for large codebases. |
-| **`android-cli`** | `/android-cli` | Manages Android SDK components, controls emulators/AVDs, and captures UI hierarchy from CLI. |
+| **`context-enricher`** | `/enrich` | Gateway 5-dimensional context enrichment (5D Dossier) for all terse user prompts. |
+| **`giao`** | `/giao` | Dual-Agent Orchestration: Leader PM (Claude) ↔ Worker (Antigravity), task packet allocation and receipt audit. |
+| **`codebase-memory`** | `/graph`, `/codebase-memory` | **SSOT Knowledge Graph:** AST structural navigation, inbound/outbound call-chain tracing, Cypher queries, and Read/Grep fallback. |
+| **`incremental-implementation`** | `/step` | Breaks complex features into incremental surgical steps with continuous verification. |
+| **`deprecation-migration`** | `/deprecate` | Safe 3-phase API deprecation, consumer caller migration, and legacy code retirement. |
+| **`security-checklist`** | `/scan` | Mobile & platform OWASP security checklist: Intent filters, URI traversal, Storage Access Framework, exported components, permissions. |
+| **`observability-instrumentation`** | `/logging` | Structured logging standardization, metric/trace instrumentation, Crashlytics telemetry, and 100% PII masking. |
+| **`writing-skills`** | `/skill-author` | Authoring, editing, and auditing standardized skills and rules for Agents. |
 
 ---
 
 ## ⌨️ Complete Slash Commands Catalog
 
-All 16 skills, domain profiles, and safety gates are bound to auto-discovered slash commands with convenient shorthand aliases:
+All 23 skills, domain profiles, and safety gates are bound to auto-discovered slash commands with convenient shorthand aliases:
 
 | Slash Command | Shorthand Aliases | Backing Skill / Target | Key Functionality |
 |---|---|---|---|
 | `/qc` | `/test`, `/qa` | `skills/qc` | Runs unit tests, linting, Metalava API check, and QA gate suites. |
-| `/fixbugs` | `/fix`, `/bugs` | `skills/fixbugs` | Executes RED→GREEN bug fixing workflow with paired test oracle. |
+| `/fixbugs` | `/fix`, `/bugs`, `/crashlytics` | `skills/fixbugs` | Executes RED→GREEN bug fixing workflow with paired test oracle & Crashlytics triage. |
 | `/tdd-workflow` | `/tdd` | `skills/tdd-workflow` | Author failing test first, then minimal implementation, then refactor. |
-| `/verification-before-completion` | `/verify` | `skills/verification-before-completion` | Pre-completion checklist and verification gate. |
-| `/triage-crashlytics-bug` | `/crashlytics` | `skills/triage-crashlytics-bug` | Analyzes Crashlytics logs, ANRs, and memory regressions. |
+| `/verification-before-completion` | `/verify` | `skills/verification-before-completion` | Pre-completion 8-layer checklist and verification gate. |
 | `/deploy` | `/build` | `skills/deploy` | Builds and verifies APK/AAB release packages. |
 | `/qa-review` | `/review` | `skills/qa-review` | Pre-PR code review and test scenario generation. |
 | `/open-code-review` | `/ocr` | `skills/open-code-review` | Alibaba OpenCodeReview deterministic AST diff audit. |
 | `/qa-visual` | `/visual` | `skills/qa-visual` | Visual screenshot capture and layout defect auditing. |
+| `/android-real-device-qa` | `/android-qa` | `skills/android-real-device-qa` | Real Android device QA, FPS measurement, and ANR logcat triage. |
 | `/spec-driven-development` | `/plan` | `skills/spec-driven-development` | Spec-Kit Lite planning for multi-file/multi-module features. |
+| `/grill-plan` | `/grill` | `skills/grill-plan` | Adversarial critique and technical stress-testing. |
+| `/documentation-and-adrs` | `/adr` | `skills/documentation-and-adrs` | Documents Architecture Decision Records and architectural trade-offs. |
+| `/deep-module-design` | `/module-design` | `skills/deep-module-design` | Designs deep interfaces and testable module boundaries. |
 | `/merge-conflict-resolver` | `/conflict` | `skills/merge-conflict-resolver` | Semantic Git 3-way conflict resolver. |
 | `/session-handoff` | `/handoff` | `skills/session-handoff` | Session context packaging and continuity export. |
+| `/context-enricher` | `/enrich` | `skills/context-enricher` | Automatically enriches terse user prompts into 5D dossiers. |
+| `/giao` | `/giao` | `skills/giao` | Task allocation and receipt verification between Leader PM and Worker. |
+| `/codebase-memory` | `/graph` | `skills/codebase-memory` | SSOT Knowledge Graph navigation and blast radius tracing. |
+| `/incremental-implementation` | `/step` | `skills/incremental-implementation` | Executes incremental changes with test gates. |
+| `/deprecation-migration` | `/deprecate` | `skills/deprecation-migration` | Sunsets APIs and migrates callers safely. |
 | `/security-checklist` | `/scan` | `skills/security-checklist` | Mobile & platform security checklist inspection. |
-| `/graph-navigation` | `/graph` | `skills/graph-navigation` | AST Knowledge Graph navigation and call-chain tracing. |
-| `/codebase-memory` | — | `skills/codebase-memory` | Codebase Knowledge Graph synchronization. |
-| `/android-cli` | — | `skills/android-cli` | Android SDK, emulator, and AVD management. |
-| `/audit-gate` | `/postfix-gate` | `commands/audit-gate.md` | Executes 5-layer post-fix quality gate and TIA regression check. |
+| `/observability-instrumentation` | `/logging` | `skills/observability-instrumentation` | Structured logging, telemetry, and PII masking. |
+| `/writing-skills` | `/skill-author` | `skills/writing-skills` | Authors and audits DevKit skills and rules. |
+| `/audit-gate` | `/postfix-gate` | `commands/audit-gate.md` | Executes 8-layer post-fix quality gate and TIA regression check. |
 | `/profile` | — | `commands/profile.md` | Inspects or switches active domain profile. |
 
 ---
